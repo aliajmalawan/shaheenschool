@@ -345,12 +345,12 @@ header.is-scrolled {
 }
 
 /* Tier 2: Main navigation (dark bar) */
-nav {
+header > nav {
     background: var(--ink);
     padding: 0;
 }
 
-nav .container {
+header > nav .container {
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -1061,7 +1061,7 @@ footer {
         display: flex;
     }
 
-    nav {
+    header > nav {
         background: transparent;
     }
 
