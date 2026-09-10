@@ -1,0 +1,795 @@
+[27-Dec-2025 04:45:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/shaheen4/public_html/includes/config.php:9
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/config.php(9): mysqli_connect()
+#1 /home2/shaheen4/public_html/index.php(2): require_once('/home2/shaheen4...')
+#2 {main}
+  thrown in /home2/shaheen4/public_html/includes/config.php on line 9
+[27-Dec-2025 05:23:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home2/shaheen4/public_html/includes/config.php:9
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/config.php(9): mysqli_connect()
+#1 /home2/shaheen4/public_html/index.php(2): require_once('/home2/shaheen4...')
+#2 {main}
+  thrown in /home2/shaheen4/public_html/includes/config.php on line 9
+[27-Dec-2025 05:23:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'shaheen4_school_db.settings' doesn't exist in /home2/shaheen4/public_html/includes/settings_helper.php:21
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/settings_helper.php(21): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/settings_helper.php(42): loadSettings()
+#2 /home2/shaheen4/public_html/includes/settings_helper.php(52): getSetting()
+#3 /home2/shaheen4/public_html/includes/header.php(9): getSiteName()
+#4 /home2/shaheen4/public_html/index.php(5): include('/home2/shaheen4...')
+#5 {main}
+  thrown in /home2/shaheen4/public_html/includes/settings_helper.php on line 21
+[27-Dec-2025 05:24:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'shaheen4_school_db.settings' doesn't exist in /home2/shaheen4/public_html/includes/settings_helper.php:21
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/settings_helper.php(21): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/settings_helper.php(42): loadSettings()
+#2 /home2/shaheen4/public_html/includes/settings_helper.php(52): getSetting()
+#3 /home2/shaheen4/public_html/includes/header.php(9): getSiteName()
+#4 /home2/shaheen4/public_html/index.php(5): include('/home2/shaheen4...')
+#5 {main}
+  thrown in /home2/shaheen4/public_html/includes/settings_helper.php on line 21
+[27-Dec-2025 05:26:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getSiteName() in /home2/shaheen4/public_html/includes/header.php:9
+Stack trace:
+#0 /home2/shaheen4/public_html/index.php(5): include()
+#1 {main}
+  thrown in /home2/shaheen4/public_html/includes/header.php on line 9
+[27-Dec-2025 08:29:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[27-Dec-2025 09:50:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'c5jr9b1m6hl2baam1vh1udfak9' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[28-Dec-2025 00:02:54 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[28-Dec-2025 08:45:55 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[29-Dec-2025 00:06:44 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[31-Dec-2025 00:03:59 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[01-Jan-2026 00:13:31 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[02-Jan-2026 14:11:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[02-Jan-2026 14:13:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[03-Jan-2026 00:04:32 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[03-Jan-2026 20:41:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0t2ag27gj64iank0mefjv4jep5' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 00:02:20 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[05-Jan-2026 08:26:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 08:48:53 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '09upu04o8au02ffdagl4q45ean' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(452): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:12:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '09upu04o8au02ffdagl4q45ean' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:21:13 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:21:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:22:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:22:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 09:23:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 09:23:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 09:23:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 09:30:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:32:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 09:33:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:14:15 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:14:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:14:30 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/faculty.php(188): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:14:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/downloads.php(83): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:15:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/gallery.php(82): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:15:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:15:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 10:18:12 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9i71rmnnckpc0j85faikkou1gq' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:144
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(144): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 144
+[05-Jan-2026 20:00:52 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'svcredjqg1i7fn6clteh8mkmba' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 20:01:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'svcredjqg1i7fn6clteh8mkmba' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 20:01:11 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'svcredjqg1i7fn6clteh8mkmba' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[05-Jan-2026 20:01:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'svcredjqg1i7fn6clteh8mkmba' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[17-Jan-2026 10:29:22 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[19-Jan-2026 00:02:18 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[20-Jan-2026 00:07:49 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[22-Jan-2026 09:38:11 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[26-Jan-2026 00:06:00 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[27-Jan-2026 00:07:01 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[30-Jan-2026 00:04:31 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[02-Feb-2026 00:04:01 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[05-Feb-2026 00:05:00 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[05-Feb-2026 12:03:02 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[10-Feb-2026 09:48:50 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '2cjb4slp910eop5kh20fj81sfp' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[10-Feb-2026 15:32:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1f6kdt59lvsrcf4jcdcptgfek4' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[10-Feb-2026 15:33:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1f6kdt59lvsrcf4jcdcptgfek4' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[10-Feb-2026 15:34:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1f6kdt59lvsrcf4jcdcptgfek4' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[21-Feb-2026 08:08:56 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[24-Feb-2026 00:02:41 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[24-Feb-2026 20:33:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rrgmkvqilfa2u5v9i7v5lvvnul' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/faculty.php(188): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[24-Feb-2026 20:33:02 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rrgmkvqilfa2u5v9i7v5lvvnul' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/gallery.php(82): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[24-Feb-2026 20:33:03 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rrgmkvqilfa2u5v9i7v5lvvnul' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[24-Feb-2026 20:33:05 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rrgmkvqilfa2u5v9i7v5lvvnul' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[24-Feb-2026 20:38:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rrgmkvqilfa2u5v9i7v5lvvnul' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/downloads.php(83): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[25-Feb-2026 00:07:33 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[27-Feb-2026 00:04:59 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[13-Mar-2026 07:08:45 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[14-Mar-2026 08:19:47 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[16-Mar-2026 00:03:07 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[20-Mar-2026 23:53:49 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[20-Mar-2026 23:55:41 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'auvseal272vf0v5f9er8ijksmp' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'piqm1uq7aah7dte1tuo5m1gbgn' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'b074aipdj0a4tfc2j3v65erdsd' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'q97ilaumb0f661k3md80lejaur' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '6k0999hmcpfi4jorm5gev8jqm9' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'bgilrurpoif531g9s275dh87fb' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'd3sbfhq5783jgan1jg9u8klmsd' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[10-Apr-2026 04:44:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '4t6ifmi80f1tra9eu4j70210lp' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[27-Apr-2026 06:51:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'n7si3pctv5kbgqskdcsvrcgnps' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[09-May-2026 09:02:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Encrypt validation server; +https://www.letsencrypt.org)', 'Desktop', 'Unknown' at line 4 in /home2/shaheen4/public_html/includes/analytics_helper.php:136
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(136): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 136
+[10-May-2026 19:11:46 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[10-May-2026 23:33:58 UTC] PHP Warning:  Undefined array key "HTTP_USER_AGENT" in /home2/shaheen4/public_html/includes/analytics_helper.php on line 110
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '2q40lnuobms3h0nnfcd3kql536' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'qutdl3opq1aj80fmr2frroqhbf' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'oalu9sr875p6kugsr62lhusas6' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'o13nshi9553k7joubiihda2fjk' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '82meio0pcav2ll3jbp9ng161jc' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'bp7s4tud0e6j8q1kjijf7tn1na' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9p3tskln011ipkeod8mds4s57k' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/courses.php(198): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '7qmct8643g1ljmvhsv3rj8ois6' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:26 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '3em6802qvb7p1pho8l91318r5h' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0tmh41mns7unahai53uca9n4o0' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/courses.php(198): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'd9g04pnd8rsj7rdu8jlvnjiq1g' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1f6hn01e45rqg2nksg20or5n0o' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/courses.php(198): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '5vv6t6rreneoc8leoelt2uniov' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[20-May-2026 21:44:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '5c5r8qf21ns3gkovljjaj2cial' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[25-May-2026 19:35:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'doirk8om1f0blufsakrmrndf3n' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[25-May-2026 19:35:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'doirk8om1f0blufsakrmrndf3n' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[03-Jun-2026 17:24:22 UTC] PHP Warning:  Undefined array key "subject" in /home2/shaheen4/public_html/contact.php on line 13
+[09-Jun-2026 16:41:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'au9en2rp5e6v6i5livp6fnluev' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[12-Jun-2026 17:54:49 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'n1mqfpp4auhu6vvgjjnismsh6c' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[15-Jun-2026 23:33:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '6r7dvd7fp9eu1vd71b3lhuhqap' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[18-Jun-2026 06:05:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '8cb7vsrm7sgnbhdljfd2fih6o3' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[18-Jun-2026 06:05:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '8cb7vsrm7sgnbhdljfd2fih6o3' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[25-Jun-2026 15:29:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '9f4rs0vclsrve562m0misgj373' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[25-Jun-2026 17:54:09 UTC] PHP Warning:  Undefined array key "subject" in /home2/shaheen4/public_html/contact.php on line 13
+[26-Jun-2026 11:47:09 UTC] PHP Warning:  Undefined array key "subject" in /home2/shaheen4/public_html/contact.php on line 13
+[28-Jun-2026 07:10:25 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'b11kiippde0rajtvvgqqvmu5mi' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[03-Jul-2026 08:12:47 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'tsnmf95b7tv4cmdemcf70bssss' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[12-Jul-2026 06:39:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'e93pbhd3jdlr7kfg67a70pge6c' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[12-Jul-2026 06:39:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '3fhifhgbjvc0gn6o1ndemj9v9f' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[12-Jul-2026 06:39:58 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '84pobi59mitkms3lvci1s8lror' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/alumni.php(278): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[12-Jul-2026 06:40:01 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'e6r5jflhnnuoe925v8lkr4b7bh' for key 'active_users.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:156
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(156): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/faculty.php(188): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 156
+[23-Jul-2026 02:04:44 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/examination.php(151): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/courses.php(198): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/faculty.php(188): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/admission.php(418): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/alumni.php(278): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/about.php(157): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/downloads.php(83): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:45 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/gallery.php(82): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[23-Jul-2026 02:04:46 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'h0jpmeu8lt63pklult2vbogpop' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/contact.php(330): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[01-Aug-2026 09:14:33 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'qgnhgs9eas78rt6regp3aukhe5' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[09-Aug-2026 05:38:23 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '1h5jhe4g77se0p0a6q20c9fdi3' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147
+[10-Aug-2026 15:09:14 UTC] PHP Warning:  Undefined array key "subject" in /home2/shaheen4/public_html/contact.php on line 13
+[17-Aug-2026 14:08:41 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'rp7lrkca4f1nhc9pn8bcoj63be' for key 'unique_visitors.unique_session' in /home2/shaheen4/public_html/includes/analytics_helper.php:147
+Stack trace:
+#0 /home2/shaheen4/public_html/includes/analytics_helper.php(147): mysqli_query()
+#1 /home2/shaheen4/public_html/includes/analytics_tracker.php(29): trackPageView()
+#2 /home2/shaheen4/public_html/includes/footer.php(74): include('/home2/shaheen4...')
+#3 /home2/shaheen4/public_html/index.php(648): include('/home2/shaheen4...')
+#4 {main}
+  thrown in /home2/shaheen4/public_html/includes/analytics_helper.php on line 147

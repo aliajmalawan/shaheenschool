@@ -1,0 +1,188 @@
+<?php
+session_start();
+require_once '../includes/config.php';
+
+if (!isset($_SESSION['admin_logged_in'])) {
+    header('Location: login.php');
+    exit;
+}
+
+$message = '';
+$error = '';
+
+// Handle file upload and add download
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_download'])) {
+    $date = mysqli_real_escape_string($conn, $_POST['date']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $display_order = intval($_POST['display_order']);
+
+    // File upload
+    if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+        $file_name = $_FILES['file']['name'];
+        $file_tmp = $_FILES['file']['tmp_name'];
+        $file_type = $_FILES['file']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $allowed = array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'zip');
+
+        if (in_array($file_ext, $allowed)) {
+            $new_file_name = time() . '_' . $file_name;
+            $upload_path = '../uploads/downloads/' . $new_file_name;
+            $db_path = 'uploads/downloads/' . $new_file_name; // Path for database (frontend use)
+
+            if (move_uploaded_file($file_tmp, $upload_path)) {
+                $sql = "INSERT INTO downloads (date, description, file_path, file_name, file_type, display_order)
+                        VALUES ('$date', '$description', '$db_path', '$file_name', '$file_type', $display_order)";
+
+                if (mysqli_query($conn, $sql)) {
+                    $message = 'Download added successfully!';
+                } else {
+                    $error = 'Database error: ' . mysqli_error($conn);
+                }
+            } else {
+                $error = 'Failed to upload file';
+            }
+        } else {
+            $error = 'Invalid file type. Allowed: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP';
+        }
+    } else {
+        $error = 'Please select a file';
+    }
+}
+
+// Delete download
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']);
+
+    // Get file path
+    $result = mysqli_query($conn, "SELECT file_path FROM downloads WHERE id = $id");
+    if ($row = mysqli_fetch_assoc($result)) {
+        $file_path = $row['file_path'];
+        // Adjust path for file deletion from admin panel
+        if (strpos($file_path, '../') !== 0) {
+            $file_path = '../' . $file_path;
+        }
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+    }
+
+    mysqli_query($conn, "DELETE FROM downloads WHERE id = $id");
+    $message = 'Download deleted successfully!';
+}
+
+// Toggle status
+if (isset($_GET['toggle_status'])) {
+    $id = intval($_GET['toggle_status']);
+    mysqli_query($conn, "UPDATE downloads SET status = IF(status='active','inactive','active') WHERE id = $id");
+    $message = 'Status updated!';
+}
+
+// Fetch all downloads
+$downloads = mysqli_query($conn, "SELECT * FROM downloads ORDER BY display_order ASC, date DESC");
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Downloads - Admin Panel</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="background: var(--bg-light);">
+    <div class="container" style="padding: 30px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="color: var(--primary-color);">Manage Downloads</h1>
+            <a href="dashboard.php" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+
+        <?php if ($message): ?>
+            <div style="background: #28a745; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <?php echo $message; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($error): ?>
+            <div style="background: #dc3545; color: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <?php echo $error; ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Add Download Form -->
+        <div class="card" style="margin-bottom: 30px;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Add New Download</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Date:</label>
+                        <input type="date" name="date" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Display Order:</label>
+                        <input type="number" name="display_order" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Description:</label>
+                    <input type="text" name="description" required placeholder="e.g., Homework for winter vacations" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">File (PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP):</label>
+                    <input type="file" name="file" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <button type="submit" name="add_download" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Download
+                </button>
+            </form>
+        </div>
+
+        <!-- Downloads List -->
+        <div class="card" style="overflow-x: auto;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">All Downloads</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: var(--primary-color); color: white;">
+                        <th style="padding: 15px; text-align: left;">Date</th>
+                        <th style="padding: 15px; text-align: left;">Description</th>
+                        <th style="padding: 15px; text-align: left;">File</th>
+                        <th style="padding: 15px; text-align: left;">Order</th>
+                        <th style="padding: 15px; text-align: left;">Status</th>
+                        <th style="padding: 15px; text-align: left;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($downloads && mysqli_num_rows($downloads) > 0) {
+                        while ($download = mysqli_fetch_assoc($downloads)) {
+                            $status_color = $download['status'] == 'active' ? '#28a745' : '#dc3545';
+                            // Adjust path for admin panel (add ../ if not present)
+                            $display_path = $download['file_path'];
+                            if (strpos($display_path, '../') !== 0) {
+                                $display_path = '../' . $display_path;
+                            }
+                            echo '<tr style="border-bottom: 1px solid #e0e0e0;">';
+                            echo '<td style="padding: 15px;">' . date('d M Y', strtotime($download['date'])) . '</td>';
+                            echo '<td style="padding: 15px;">' . htmlspecialchars($download['description']) . '</td>';
+                            echo '<td style="padding: 15px;"><a href="' . $display_path . '" target="_blank">' . htmlspecialchars($download['file_name']) . '</a></td>';
+                            echo '<td style="padding: 15px;">' . $download['display_order'] . '</td>';
+                            echo '<td style="padding: 15px;"><span style="background: ' . $status_color . '; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px;">' . ucfirst($download['status']) . '</span></td>';
+                            echo '<td style="padding: 15px;">';
+                            echo '<a href="?toggle_status=' . $download['id'] . '" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px; margin-right: 5px;" title="Toggle Status"><i class="fas fa-toggle-on"></i></a>';
+                            echo '<a href="?delete=' . $download['id'] . '" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px; background: #dc3545;" onclick="return confirm(\'Are you sure?\')" title="Delete"><i class="fas fa-trash"></i></a>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--text-light);">No downloads yet</td></tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
