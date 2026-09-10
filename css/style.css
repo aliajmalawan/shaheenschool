@@ -142,8 +142,10 @@ header.is-scrolled {
 }
 
 .brand-logo {
-    height: 52px;
-    width: auto;
+    height: 56px;
+    width: 56px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .brand-text {
@@ -1142,6 +1144,7 @@ footer {
 
     .brand-logo {
         height: 42px;
+        width: 42px;
     }
 
     /* Hero Section */
