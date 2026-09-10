@@ -1,5 +1,17 @@
 // SHAHEEN PUBLIC HIGH SCHOOL - Main JavaScript
 
+// Sticky header shadow on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const siteHeader = document.querySelector('header');
+    if (siteHeader) {
+        const toggleHeaderShadow = () => {
+            siteHeader.classList.toggle('is-scrolled', window.scrollY > 10);
+        };
+        toggleHeaderShadow();
+        window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
+    }
+});
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -116,6 +128,23 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+});
+
+// Generic scroll-reveal (elements with .reveal class)
+document.addEventListener('DOMContentLoaded', function() {
+    const revealElements = document.querySelectorAll('.reveal');
+    if (revealElements.length === 0) return;
+
+    const revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
 });
 
 // Form Validation

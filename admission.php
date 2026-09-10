@@ -202,10 +202,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">Admission Application</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Start your educational journey with SHAHEEN PUBLIC HIGH SCHOOL</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">Join Us</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">Admission Application</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Start your educational journey with <?php echo getSiteName(); ?></p>
     </div>
 </section>
 
@@ -228,7 +229,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div style="max-width: 800px; margin: 0 auto;">
             <div class="card" style="padding: 40px;">
-                <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 30px;">Admission Form</h2>
+                <div class="text-center mb-30">
+                    <span class="eyebrow">Apply Online</span>
+                    <h2 style="color: var(--ink);">Admission Form</h2>
+                </div>
 
                 <form method="POST" enctype="multipart/form-data" id="admissionForm" onsubmit="return validateForm('admissionForm')">
                     <div class="form-group">
@@ -327,33 +331,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Admission Process -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">How It Works</span>
             <h2>Admission Process</h2>
-            <p>Simple steps to join SHAHEEN PUBLIC HIGH SCHOOL</p>
+            <p>Simple steps to join <?php echo getSiteName(); ?></p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-            <div style="text-align: center;">
-                <div style="width: 80px; height: 80px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px; font-weight: bold;">1</div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Fill Application</h3>
+            <div class="card reveal" style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">1</div>
+                <h3 style="margin-bottom: 12px;">Fill Application</h3>
                 <p>Complete the online admission form with accurate information</p>
             </div>
 
-            <div style="text-align: center;">
-                <div style="width: 80px; height: 80px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px; font-weight: bold;">2</div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Submit Documents</h3>
+            <div class="card reveal" style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">2</div>
+                <h3 style="margin-bottom: 12px;">Submit Documents</h3>
                 <p>Upload or submit required documents at our office</p>
             </div>
 
-            <div style="text-align: center;">
-                <div style="width: 80px; height: 80px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px; font-weight: bold;">3</div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Verification</h3>
+            <div class="card reveal" style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">3</div>
+                <h3 style="margin-bottom: 12px;">Verification</h3>
                 <p>Our team will review and verify your application</p>
             </div>
 
-            <div style="text-align: center;">
-                <div style="width: 80px; height: 80px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px; font-weight: bold;">4</div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Confirmation</h3>
+            <div class="card reveal" style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">4</div>
+                <h3 style="margin-bottom: 12px;">Confirmation</h3>
                 <p>Receive confirmation and start your classes</p>
             </div>
         </div>
@@ -363,7 +368,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Fee Information -->
 <section class="bg-light">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Fee Structure</span>
             <h2>Fee Information</h2>
             <p>Transparent and affordable fee structure</p>
         </div>
@@ -374,19 +380,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <ul style="list-style: none; padding: 0;">
-                <li style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                     <strong>Admission Fee (One Time)</strong>
                     <span>Rs. 2,000</span>
                 </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                     <strong>Matric Programs (Monthly)</strong>
                     <span>Rs. 5,000</span>
                 </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                     <strong>Intermediate Programs (Monthly)</strong>
                     <span>Rs. 6,000</span>
                 </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                     <strong>Entry Test Preparation (Monthly)</strong>
                     <span>Rs. 8,000</span>
                 </li>
@@ -404,13 +410,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </section>
 
 <!-- Contact Info -->
-<section style="background: linear-gradient(135deg, var(--primary-color) 0%, #0a3a7a 100%); color: white; padding: 60px 0;">
-    <div class="container text-center">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">Need Help with Admission?</h2>
-        <p style="font-size: 18px; margin-bottom: 30px;">Our admission team is here to assist you</p>
-        <div class="btn-group" style="justify-content: center;">
-            <a href="contact.php" class="btn btn-primary">Contact Us</a>
-            <a href="tel:+923061345242" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
+<section>
+    <div class="container">
+        <div class="cta-banner reveal">
+            <h2>Need Help with Admission?</h2>
+            <p>Our admission team is here to assist you</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="contact.php" class="btn btn-primary">Contact Us</a>
+                <a href="tel:+923061345242" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
+            </div>
         </div>
     </div>
 </section>

@@ -5,10 +5,11 @@ $page_title = 'Our Faculty';
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">Our Expert Faculty</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Meet our dedicated and experienced teachers committed to your success</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">Our Team</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">Our Expert Faculty</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Meet our dedicated and experienced teachers committed to your success</p>
     </div>
 </section>
 
@@ -27,7 +28,7 @@ $page_title = 'Our Faculty';
                     if (!empty($teacher['photo'])) {
                         echo '<img src="' . htmlspecialchars($teacher['photo']) . '" alt="' . htmlspecialchars($teacher['name']) . '" style="width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 20px; object-fit: cover;">';
                     } else {
-                        echo '<div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), #0a3a7a); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 50px;"><i class="fas fa-user"></i></div>';
+                        echo '<div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 50px;"><i class="fas fa-user"></i></div>';
                     }
                     echo '<h3>' . htmlspecialchars($teacher['name']) . '</h3>';
                     echo '<p style="color: var(--accent-color); font-weight: 600; margin-bottom: 15px;">' . htmlspecialchars($teacher['designation']) . '</p>';
@@ -105,7 +106,7 @@ $page_title = 'Our Faculty';
 
                 foreach ($default_faculty as $teacher) {
                     echo '<div class="card" style="text-align: center;">';
-                    echo '<div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), #0a3a7a); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 50px;"><i class="fas fa-chalkboard-teacher"></i></div>';
+                    echo '<div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 50px;"><i class="fas fa-chalkboard-teacher"></i></div>';
                     echo '<h3>' . $teacher['name'] . '</h3>';
                     echo '<p style="color: var(--accent-color); font-weight: 600; margin-bottom: 15px;">' . $teacher['designation'] . '</p>';
                     echo '<p style="margin-bottom: 10px;"><strong>Subjects:</strong> ' . $teacher['subjects'] . '</p>';
@@ -122,7 +123,8 @@ $page_title = 'Our Faculty';
 <!-- Why Our Faculty is Best -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">What Sets Us Apart</span>
             <h2>Why Our Faculty Stands Out</h2>
             <p>Qualities that make our teachers exceptional</p>
         </div>
@@ -174,13 +176,15 @@ $page_title = 'Our Faculty';
 </section>
 
 <!-- CTA Section -->
-<section style="background: linear-gradient(135deg, var(--primary-color) 0%, #0a3a7a 100%); color: white; padding: 60px 0;">
-    <div class="container text-center">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">Learn from the Best!</h2>
-        <p style="font-size: 18px; margin-bottom: 30px;">Join SHAHEEN PUBLIC HIGH SCHOOL and experience quality teaching</p>
-        <div class="btn-group" style="justify-content: center;">
-            <a href="admission.php" class="btn btn-primary">Apply for Admission</a>
-            <a href="courses.php" class="btn btn-outline">View Courses</a>
+<section>
+    <div class="container">
+        <div class="cta-banner reveal">
+            <h2>Learn from the Best!</h2>
+            <p>Join <?php echo getSiteName(); ?> and experience quality teaching</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="admission.php" class="btn btn-primary">Apply for Admission</a>
+                <a href="courses.php" class="btn btn-outline">View Courses</a>
+            </div>
         </div>
     </div>
 </section>

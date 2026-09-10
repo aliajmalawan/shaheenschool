@@ -8,35 +8,27 @@ $datesheets = mysqli_query($conn, "SELECT * FROM exam_datesheets WHERE status = 
 // Fetch active board results
 $matric_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status = 'active' AND board_type = 'Matric' ORDER BY year DESC, display_order ASC");
 $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status = 'active' AND board_type = 'Intermediate' ORDER BY year DESC, display_order ASC");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examination - <?php echo getSiteName(); ?></title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <?php include 'includes/header.php'; ?>
 
-    <!-- Page Header with Background Image -->
-    <section class="page-header" style="background-image: linear-gradient(rgba(11, 77, 162, 0.85), rgba(10, 58, 122, 0.85)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 50px 0 60px; text-align: center; color: white; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 15px 35px; border-radius: 10px; backdrop-filter: blur(10px);">
-                <i class="fas fa-file-alt" style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.9;"></i>
-                <h1 style="font-size: 2.2rem; margin-bottom: 8px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Examination</h1>
-                <p style="font-size: 1rem; opacity: 0.95;">Datesheets & Board Results</p>
-            </div>
+$page_title = 'Examination';
+?>
+<?php include 'includes/header.php'; ?>
+
+    <!-- Page Header -->
+    <section class="hero-cover" style="min-height: 320px; background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200');">
+        <div class="container text-center">
+            <span class="eyebrow on-dark"><i class="fas fa-file-alt"></i> Academics</span>
+            <h1 style="color: #fff; font-size: clamp(30px, 4vw, 44px); font-weight: 800;">Examination</h1>
+            <p style="font-size: 17px; max-width: 650px; margin: 14px auto 0; color: rgba(255,255,255,0.88);">Datesheets & Board Results</p>
         </div>
-        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, var(--bg-light));"></div>
     </section>
 
     <!-- Datesheets Section -->
-    <section style="padding: 60px 0;">
+    <section>
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;"><i class="fas fa-calendar-alt"></i> Exam Datesheets</h2>
+            <div class="section-header reveal">
+                <span class="eyebrow">Schedule</span>
+                <h2><i class="fas fa-calendar-alt"></i> Exam Datesheets</h2>
+            </div>
 
             <?php
             if ($datesheets && mysqli_num_rows($datesheets) > 0) {
@@ -77,8 +69,8 @@ $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status =
                         }
 
                         foreach ($classes as $class => $subjects_by_date) {
-                            echo '<tr style="border-bottom: 1px solid #e0e0e0;">';
-                            echo '<td style="padding: 15px; font-weight: bold; background: #f8f9fa;">' . htmlspecialchars($class) . '</td>';
+                            echo '<tr style="border-bottom: 1px solid var(--border-color);">';
+                            echo '<td style="padding: 15px; font-weight: bold; background: var(--bg-light);">' . htmlspecialchars($class) . '</td>';
                             foreach ($date_keys as $date) {
                                 echo '<td style="padding: 15px; text-align: center;">';
                                 echo isset($subjects_by_date[$date]) ? htmlspecialchars($subjects_by_date[$date]) : '-';
@@ -102,9 +94,12 @@ $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status =
     </section>
 
     <!-- Board Results Section -->
-    <section style="padding: 60px 0; background: var(--bg-light);">
+    <section class="bg-light">
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;"><i class="fas fa-trophy"></i> Board Results</h2>
+            <div class="section-header reveal">
+                <span class="eyebrow">Results</span>
+                <h2><i class="fas fa-trophy"></i> Board Results</h2>
+            </div>
 
             <!-- Intermediate Results -->
             <div style="margin-bottom: 50px;">
@@ -114,7 +109,7 @@ $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status =
                     if ($inter_results && mysqli_num_rows($inter_results) > 0) {
                         while ($result = mysqli_fetch_assoc($inter_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; cursor: pointer;" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';
@@ -134,7 +129,7 @@ $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status =
                     if ($matric_results && mysqli_num_rows($matric_results) > 0) {
                         while ($result = mysqli_fetch_assoc($matric_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: 5px; margin-bottom: 15px; cursor: pointer;" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';
@@ -149,5 +144,3 @@ $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status =
     </section>
 
     <?php include 'includes/footer.php'; ?>
-</body>
-</html>

@@ -62,51 +62,43 @@ $alumni = mysqli_query($conn, "SELECT * FROM alumni WHERE status = 'approved' OR
 
 // Fetch approved reviews
 $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'approved' ORDER BY created_at DESC LIMIT 6");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumni - <?php echo getSiteName(); ?></title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <?php include 'includes/header.php'; ?>
 
-    <!-- Page Header with Background Image -->
-    <section class="page-header" style="background-image: linear-gradient(rgba(11, 77, 162, 0.85), rgba(10, 58, 122, 0.85)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 50px 0 60px; text-align: center; color: white; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 15px 35px; border-radius: 10px; backdrop-filter: blur(10px);">
-                <i class="fas fa-user-graduate" style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.9;"></i>
-                <h1 style="font-size: 2.2rem; margin-bottom: 8px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Alumni</h1>
-                <p style="font-size: 1rem; opacity: 0.95;">Join our alumni community and share your success story</p>
-            </div>
+$page_title = 'Alumni';
+?>
+<?php include 'includes/header.php'; ?>
+
+    <!-- Page Header -->
+    <section class="hero-cover" style="min-height: 320px; background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200');">
+        <div class="container text-center">
+            <span class="eyebrow on-dark"><i class="fas fa-user-graduate"></i> Alumni Network</span>
+            <h1 style="color: #fff; font-size: clamp(30px, 4vw, 44px); font-weight: 800;">Our Alumni</h1>
+            <p style="font-size: 17px; max-width: 650px; margin: 14px auto 0; color: rgba(255,255,255,0.88);">Join our alumni community and share your success story</p>
         </div>
-        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, white);"></div>
     </section>
 
     <?php if ($message): ?>
         <div class="container" style="margin-top: 30px;">
-            <div style="background: #28a745; color: white; padding: 15px; border-radius: 5px; text-align: center;">
-                <?php echo $message; ?>
+            <div style="background: #d4edda; color: #155724; padding: 16px 20px; border-radius: var(--radius-sm); text-align: center; font-weight: 600;">
+                <i class="fas fa-check-circle"></i> <?php echo $message; ?>
             </div>
         </div>
     <?php endif; ?>
 
     <?php if ($error): ?>
         <div class="container" style="margin-top: 30px;">
-            <div style="background: #dc3545; color: white; padding: 15px; border-radius: 5px; text-align: center;">
-                <?php echo $error; ?>
+            <div style="background: #f8d7da; color: #721c24; padding: 16px 20px; border-radius: var(--radius-sm); text-align: center; font-weight: 600;">
+                <i class="fas fa-exclamation-triangle"></i> <?php echo $error; ?>
             </div>
         </div>
     <?php endif; ?>
 
     <!-- Alumni Grid -->
-    <section style="padding: 60px 0;">
+    <section>
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;">Our Alumni</h2>
+            <div class="section-header reveal">
+                <span class="eyebrow">Success Stories</span>
+                <h2>Our Alumni</h2>
+            </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
                 <?php
                 if ($alumni && mysqli_num_rows($alumni) > 0) {
@@ -136,9 +128,12 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
     </section>
 
     <!-- Alumni Reviews -->
-    <section style="padding: 60px 0; background: var(--bg-light);">
+    <section class="bg-light">
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 40px;">Alumni Reviews</h2>
+            <div class="section-header reveal">
+                <span class="eyebrow">Testimonials</span>
+                <h2>Alumni Reviews</h2>
+            </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;">
                 <?php
                 if ($reviews && mysqli_num_rows($reviews) > 0) {
@@ -146,7 +141,7 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
                         echo '<div class="card">';
                         echo '<div style="margin-bottom: 15px;">';
                         for ($i = 0; $i < $review['rating']; $i++) {
-                            echo '<i class="fas fa-star" style="color: #F9C900;"></i>';
+                            echo '<i class="fas fa-star" style="color: var(--accent-color);"></i>';
                         }
                         echo '</div>';
                         echo '<p style="font-style: italic; margin-bottom: 15px; color: var(--text-dark);">"' . htmlspecialchars($review['review']) . '"</p>';
@@ -164,67 +159,70 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
     </section>
 
     <!-- Registration Form -->
-    <section style="padding: 60px 0;" id="registration">
+    <section id="registration">
         <div class="container">
             <div class="card" style="max-width: 800px; margin: 0 auto;">
-                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">Alumni Registration Form</h2>
+                <div class="text-center mb-30">
+                    <span class="eyebrow">Get Involved</span>
+                    <h2 style="color: var(--ink);">Alumni Registration Form</h2>
+                </div>
                 <form method="POST" enctype="multipart/form-data">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Student Name *</label>
-                            <input type="text" name="student_name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Student Name *</label>
+                            <input type="text" name="student_name" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Father Name *</label>
-                            <input type="text" name="father_name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Father Name *</label>
+                            <input type="text" name="father_name" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Course Passed *</label>
-                            <input type="text" name="course" required placeholder="e.g., Matric, Intermediate" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Course Passed *</label>
+                            <input type="text" name="course" required placeholder="e.g., Matric, Intermediate" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Passing Year *</label>
-                            <input type="number" name="passing_year" required min="1990" max="2030" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Passing Year *</label>
+                            <input type="number" name="passing_year" required min="1990" max="2030" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Current Job</label>
-                            <input type="text" name="current_job" placeholder="Job title" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Current Job</label>
+                            <input type="text" name="current_job" placeholder="Job title" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Department</label>
-                            <input type="text" name="job_department" placeholder="Department" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Department</label>
+                            <input type="text" name="job_department" placeholder="Department" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">City</label>
-                            <input type="text" name="job_city" placeholder="City" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">City</label>
+                            <input type="text" name="job_city" placeholder="City" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Mobile Number *</label>
-                            <input type="text" name="mobile_number" required placeholder="03001234567" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Mobile Number *</label>
+                            <input type="text" name="mobile_number" required placeholder="03001234567" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">WhatsApp Number</label>
-                            <input type="text" name="whatsapp_number" placeholder="03001234567" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">WhatsApp Number</label>
+                            <input type="text" name="whatsapp_number" placeholder="03001234567" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                         </div>
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Photo (JPG, PNG)</label>
-                        <input type="file" name="photo" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Photo (JPG, PNG)</label>
+                        <input type="file" name="photo" accept="image/*" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Your Review/Feedback * (Compulsory)</label>
-                        <textarea name="review" required rows="5" placeholder="Share your experience with SHAHEEN PUBLIC HIGH SCHOOL..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Your Review/Feedback * (Compulsory)</label>
+                        <textarea name="review" required rows="5" placeholder="Share your experience with SHAHEEN PUBLIC HIGH SCHOOL..." style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);"></textarea>
                     </div>
 
                     <button type="submit" name="submit_alumni" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
@@ -236,24 +234,27 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
     </section>
 
     <!-- Submit Review Separately -->
-    <section style="padding: 60px 0; background: var(--bg-light);" id="review">
+    <section class="bg-light" id="review">
         <div class="container">
             <div class="card" style="max-width: 600px; margin: 0 auto;">
-                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">Submit Your Review</h2>
+                <div class="text-center mb-30">
+                    <span class="eyebrow">Share Feedback</span>
+                    <h2 style="color: var(--ink);">Submit Your Review</h2>
+                </div>
                 <form method="POST">
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Your Name *</label>
-                        <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Your Name *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Passing Year</label>
-                        <input type="number" name="passing_year" min="1990" max="2030" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Passing Year</label>
+                        <input type="number" name="passing_year" min="1990" max="2030" style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Rating *</label>
-                        <select name="rating" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Rating *</label>
+                        <select name="rating" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
                             <option value="5">★★★★★ (5 Stars)</option>
                             <option value="4">★★★★ (4 Stars)</option>
                             <option value="3">★★★ (3 Stars)</option>
@@ -263,8 +264,8 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Your Review *</label>
-                        <textarea name="review" required rows="4" placeholder="Share your thoughts..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: var(--text-dark);">Your Review *</label>
+                        <textarea name="review" required rows="4" placeholder="Share your thoughts..." style="width: 100%; padding: 13px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm);"></textarea>
                     </div>
 
                     <button type="submit" name="submit_review" class="btn btn-primary" style="width: 100%; padding: 15px;">
@@ -276,5 +277,3 @@ $reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'app
     </section>
 
     <?php include 'includes/footer.php'; ?>
-</body>
-</html>

@@ -5,10 +5,11 @@ $page_title = 'Courses & Programs';
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">Our Courses & Programs</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Comprehensive educational programs designed to help you achieve your academic goals</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">Programs</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">Our Courses & Programs</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Comprehensive educational programs designed to help you achieve your academic goals</p>
     </div>
 </section>
 
@@ -144,7 +145,8 @@ $page_title = 'Courses & Programs';
 <!-- Admission Requirements -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Requirements</span>
             <h2>Admission Requirements</h2>
             <p>What you need to know before applying</p>
         </div>
@@ -152,30 +154,30 @@ $page_title = 'Courses & Programs';
             <div class="card">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Matric Programs</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Previous class result card</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Birth certificate or B-Form</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ 4 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Parent/Guardian CNIC copy</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Previous class result card</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Birth certificate or B-Form</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 4 passport size photographs</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Parent/Guardian CNIC copy</li>
                     <li style="padding: 10px 0;">✓ Admission fee</li>
                 </ul>
             </div>
             <div class="card">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Intermediate Programs</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Matric certificate & result card</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ CNIC or B-Form</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ 6 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Migration certificate (if applicable)</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Matric certificate & result card</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ CNIC or B-Form</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 6 passport size photographs</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Migration certificate (if applicable)</li>
                     <li style="padding: 10px 0;">✓ Admission & registration fee</li>
                 </ul>
             </div>
             <div class="card">
                 <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Short Courses</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Educational certificates (as applicable)</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ CNIC or B-Form copy</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ 2 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0;">✓ Course registration form</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Educational certificates (as applicable)</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ CNIC or B-Form copy</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 2 passport size photographs</li>
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Course registration form</li>
                     <li style="padding: 10px 0;">✓ Course fee</li>
                 </ul>
             </div>
@@ -184,13 +186,15 @@ $page_title = 'Courses & Programs';
 </section>
 
 <!-- CTA Section -->
-<section style="background: linear-gradient(135deg, var(--primary-color) 0%, #0a3a7a 100%); color: white; padding: 60px 0;">
-    <div class="container text-center">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">Ready to Enroll?</h2>
-        <p style="font-size: 18px; margin-bottom: 30px;">Start your learning journey with SHAHEEN PUBLIC HIGH SCHOOL today</p>
-        <div class="btn-group" style="justify-content: center;">
-            <a href="admission.php" class="btn btn-primary">Apply Now</a>
-            <a href="contact.php" class="btn btn-outline">Have Questions?</a>
+<section>
+    <div class="container">
+        <div class="cta-banner reveal">
+            <h2>Ready to Enroll?</h2>
+            <p>Start your learning journey with <?php echo getSiteName(); ?> today</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="admission.php" class="btn btn-primary">Apply Now</a>
+                <a href="contact.php" class="btn btn-outline">Have Questions?</a>
+            </div>
         </div>
     </div>
 </section>

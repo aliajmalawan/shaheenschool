@@ -5,26 +5,28 @@ $page_title = 'About Us';
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">About <?php echo getSiteName(); ?></h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Learn about our mission, vision, and commitment to educational excellence</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">About Us</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">About <?php echo getSiteName(); ?></h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Learn about our mission, vision, and commitment to educational excellence</p>
     </div>
 </section>
 
 <!-- About Content -->
 <section class="bg-light">
     <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 60px;">
+        <div class="grid-2 reveal">
             <div>
                 <?php $about = getAboutContent(); ?>
-                <h2 style="color: var(--primary-color); font-size: 32px; margin-bottom: 20px;">Who We Are</h2>
+                <span class="eyebrow">Who We Are</span>
+                <h2 style="color: var(--ink); font-size: 32px; margin-bottom: 20px;">Our Story</h2>
                 <p style="margin-bottom: 15px; line-height: 1.8;"><?php echo nl2br(htmlspecialchars($about['description'])); ?></p>
                 <p style="margin-bottom: 15px; line-height: 1.8;">Our institution stands as a beacon of knowledge, symbolized by our candle logo - representing the light of learning that illuminates the path to success. We believe in holistic education that develops not just academic excellence but also character, values, and life skills.</p>
                 <p style="line-height: 1.8;">With experienced faculty, modern facilities, and a student-centered approach, we create an environment where every student can thrive and reach their full potential.</p>
             </div>
             <div>
-                <img src="images/about_us.jpg" alt="SHAHEEN PUBLIC HIGH SCHOOL Campus" style="border-radius: 15px; box-shadow: var(--shadow-lg);" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBCNERBMiIgb3BhY2l0eT0iMC4xIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzBCNERBMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfj6vvuI88L3RleHQ+PC9zdmc+'">
+                <img src="images/about_us.jpg" alt="SHAHEEN PUBLIC HIGH SCHOOL Campus" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBCNERBMiIgb3BhY2l0eT0iMC4xIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzBCNERBMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfj6vvuI88L3RleHQ+PC9zdmc+'">
             </div>
         </div>
     </div>
@@ -55,7 +57,8 @@ $page_title = 'About Us';
 <!-- Candle Logo Meaning -->
 <section class="bg-light">
     <div class="container text-center">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Our Symbol</span>
             <h2>The Candle: Our Symbol of Knowledge</h2>
         </div>
         <div style="max-width: 800px; margin: 0 auto;">
@@ -70,7 +73,8 @@ $page_title = 'About Us';
 <!-- Our Values -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Our Values</span>
             <h2>Our Core Values</h2>
             <p>The principles that guide everything we do</p>
         </div>
@@ -124,12 +128,13 @@ $page_title = 'About Us';
 <!-- Leadership Message -->
 <section class="bg-light">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Leadership</span>
             <h2>Message from Our Leadership</h2>
         </div>
-        <div class="card" style="max-width: 900px; margin: 0 auto; padding: 40px;">
+        <div class="card reveal" style="max-width: 900px; margin: 0 auto; padding: 40px;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), #0a3a7a); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px;">
+                <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px;">
                     <i class="fas fa-user-tie"></i>
                 </div>
                 <h3 style="color: var(--primary-color); margin-bottom: 5px;">Principal's Message</h3>
@@ -143,13 +148,15 @@ $page_title = 'About Us';
 </section>
 
 <!-- CTA Section -->
-<section style="background: linear-gradient(135deg, var(--primary-color) 0%, #0a3a7a 100%); color: white; padding: 60px 0;">
-    <div class="container text-center">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">Join Our Educational Community</h2>
-        <p style="font-size: 18px; margin-bottom: 30px;">Discover how SHAHEEN PUBLIC HIGH SCHOOL can help you achieve your academic goals</p>
-        <div class="btn-group" style="justify-content: center;">
-            <a href="admission.php" class="btn btn-primary">Apply for Admission</a>
-            <a href="contact.php" class="btn btn-outline">Contact Us</a>
+<section>
+    <div class="container">
+        <div class="cta-banner reveal">
+            <h2>Join Our Educational Community</h2>
+            <p>Discover how <?php echo getSiteName(); ?> can help you achieve your academic goals</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="admission.php" class="btn btn-primary">Apply for Admission</a>
+                <a href="contact.php" class="btn btn-outline">Contact Us</a>
+            </div>
         </div>
     </div>
 </section>

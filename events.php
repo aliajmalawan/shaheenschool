@@ -5,17 +5,19 @@ $page_title = 'Events & News';
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">Events & News</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Stay updated with latest happenings at SHAHEEN PUBLIC HIGH SCHOOL</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">What's Happening</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">Events & News</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Stay updated with latest happenings at <?php echo getSiteName(); ?></p>
     </div>
 </section>
 
 <!-- Upcoming Events -->
 <section class="bg-light">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Calendar</span>
             <h2>Upcoming Events</h2>
             <p>Mark your calendar for these exciting events</p>
         </div>
@@ -60,9 +62,10 @@ $page_title = 'Events & News';
 <!-- Latest News -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Newsroom</span>
             <h2>Latest News & Announcements</h2>
-            <p>Recent updates from SHAHEEN PUBLIC HIGH SCHOOL</p>
+            <p>Recent updates from <?php echo getSiteName(); ?></p>
         </div>
 
         <div style="max-width: 900px; margin: 0 auto;">
@@ -121,15 +124,17 @@ $page_title = 'Events & News';
 </section>
 
 <!-- CTA Section -->
-<section style="background: linear-gradient(135deg, var(--primary-color) 0%, #0a3a7a 100%); color: white; padding: 60px 0;">
-    <div class="container text-center">
-        <h2 style="font-size: 36px; margin-bottom: 20px;">Stay Connected!</h2>
-        <p style="font-size: 18px; margin-bottom: 30px;">Follow us on social media to never miss an update</p>
-        <div class="social-links" style="justify-content: center; font-size: 24px;">
-            <a href="https://www.facebook.com/forteducationsystem/" target="_blank" style="width: 50px; height: 50px; font-size: 24px;"><i class="fab fa-facebook"></i></a>
-            <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 24px;"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 24px;"><i class="fab fa-youtube"></i></a>
-            <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 24px;"><i class="fab fa-twitter"></i></a>
+<section>
+    <div class="container">
+        <div class="cta-banner reveal">
+            <h2>Stay Connected!</h2>
+            <p>Follow us on social media to never miss an update</p>
+            <div class="social-links" style="justify-content: center;">
+                <a href="https://www.facebook.com/forteducationsystem/" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-youtube"></i></a>
+                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+            </div>
         </div>
     </div>
 </section>

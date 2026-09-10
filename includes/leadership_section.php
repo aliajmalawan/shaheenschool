@@ -1,7 +1,8 @@
 <!-- Leadership Messages Section -->
 <section>
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">Leadership</span>
             <h2>Message from Our Leadership</h2>
             <p>Words of wisdom from our esteemed leaders</p>
         </div>
@@ -16,7 +17,7 @@
         ?>
 
         <!-- Leadership Message: <?php echo htmlspecialchars($leader['name']); ?> -->
-        <div style="display: grid; grid-template-columns: <?php echo $is_reverse ? '1fr 350px' : '350px 1fr'; ?>; gap: 50px; align-items: center; margin-bottom: <?php echo ($count == count($leaders)) ? '40px' : '80px'; ?>; background: linear-gradient(135deg, <?php echo $is_reverse ? '#ffffff 0%, #f8f9fa 100%' : '#f8f9fa 0%, #ffffff 100%'; ?>); padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+        <div class="reveal" style="display: grid; grid-template-columns: <?php echo $is_reverse ? '1fr 350px' : '350px 1fr'; ?>; gap: 50px; align-items: center; margin-bottom: <?php echo ($count == count($leaders)) ? '40px' : '40px'; ?>; background: var(--surface); padding: 50px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
 
             <?php if ($is_reverse): ?>
             <!-- Message Content (Left) -->
@@ -26,7 +27,7 @@
                     <div style="font-size: 16px; line-height: 1.8; color: var(--text-dark);">
                         <?php echo nl2br(htmlspecialchars($leader['message'])); ?>
                     </div>
-                    <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid var(--border-color);">
                         <?php if (!empty($leader['signature'])): ?>
                             <img src="<?php echo htmlspecialchars($leader['signature']); ?>" alt="Signature" style="height: 50px; margin-bottom: 10px;" onerror="this.style.display='none'">
                         <?php endif; ?>
@@ -39,7 +40,7 @@
 
             <!-- Profile (Right or Left) -->
             <div style="text-align: center;">
-                <div style="width: 250px; height: 250px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; border: 5px solid var(--accent-color); box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: linear-gradient(135deg, var(--primary-color), #0a3a7a);">
+                <div style="width: 250px; height: 250px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; border: 5px solid var(--accent-color); box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));">
                     <?php if (!empty($leader['photo'])): ?>
                         <img src="<?php echo htmlspecialchars($leader['photo']); ?>" alt="<?php echo htmlspecialchars($leader['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" onerror="this.parentElement.innerHTML='<i class=\'fas fa-user-tie\' style=\'font-size: 80px; color: white; display: flex; align-items: center; justify-content: center; height: 100%;\'></i>'">
                     <?php else: ?>
@@ -59,7 +60,7 @@
                     <div style="font-size: 16px; line-height: 1.8; color: var(--text-dark);">
                         <?php echo nl2br(htmlspecialchars($leader['message'])); ?>
                     </div>
-                    <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid var(--border-color);">
                         <?php if (!empty($leader['signature'])): ?>
                             <img src="<?php echo htmlspecialchars($leader['signature']); ?>" alt="Signature" style="height: 50px; margin-bottom: 10px;" onerror="this.style.display='none'">
                         <?php endif; ?>

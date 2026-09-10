@@ -8,6 +8,11 @@
     <meta name="author" content="SHAHEEN PUBLIC HIGH SCHOOL">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?><?php echo getSiteName(); ?></title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -61,8 +66,8 @@
             <div class="container">
                 <div class="logo">
                     <a href="index.php">
-                    <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" onerror="this.style.display='none'">
-                    <a/>
+                        <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" onerror="this.style.display='none'">
+                    </a>
                     <h1><?php echo getSiteName(); ?></h1>
                 </div>
 
@@ -89,6 +94,7 @@
                     </li>
                     <li><a href="gallery.php">Gallery</a></li>
                     <li><a href="contact.php">Contact</a></li>
+                    <li><a href="admission.php" class="nav-cta">Admissions Open</a></li>
                 </ul>
             </div>
         </nav>

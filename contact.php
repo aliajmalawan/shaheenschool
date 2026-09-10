@@ -156,10 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php include 'includes/header.php'; ?>
 
 <!-- Page Header -->
-<section class="hero" style="background: linear-gradient(rgba(11, 77, 162, 0.7), rgba(10, 58, 122, 0.7)), url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600') center/cover no-repeat; padding: 100px 0; min-height: 400px; display: flex; align-items: center;">
-    <div class="container text-center" style="position: relative; z-index: 2;">
-        <h1 style="color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">Contact Us</h1>
-        <p style="font-size: 20px; max-width: 700px; margin: 20px auto 0; color: white; text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">Get in touch with us - we're here to help!</p>
+<section class="hero-cover" style="min-height: 360px; background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600');">
+    <div class="container text-center">
+        <span class="eyebrow on-dark">Get In Touch</span>
+        <h1 style="color: #fff; font-size: clamp(32px, 4vw, 48px); font-weight: 800;">Contact Us</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 16px auto 0; color: rgba(255,255,255,0.88);">Get in touch with us — we're here to help!</p>
     </div>
 </section>
 
@@ -200,10 +201,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Contact Form & Map -->
 <section>
     <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start;">
+        <div class="grid-2 reveal" style="align-items: start;">
             <!-- Contact Form -->
             <div>
-                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Send us a Message</h2>
+                <span class="eyebrow">Contact Form</span>
+                <h2 style="color: var(--ink); margin-bottom: 20px;">Send us a Message</h2>
 
                 <?php if ($success_message): ?>
                     <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
@@ -260,10 +262,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <!-- Google Map & Additional Info -->
             <div>
-                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Find Us Here</h2>
+                <span class="eyebrow">Our Location</span>
+                <h2 style="color: var(--ink); margin-bottom: 20px;">Find Us Here</h2>
 
                 <!-- Google Map -->
-                <div style="border-radius: 15px; overflow: hidden; margin-bottom: 30px; height: 400px; border: 2px solid #e0e0e0; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 30px; height: 400px; border: 2px solid var(--border-color); box-shadow: var(--shadow-sm);">
                     <iframe src="https://maps.google.com/maps?width=600&height=400&hl=en&q=Shaheen%20Public%20High%20School%20Sadiq%20Abad&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
@@ -271,11 +274,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card">
                     <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-clock"></i> Working Hours</h3>
                     <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                             <strong>Monday - Friday</strong>
                             <span>8:00 AM - 5:00 PM</span>
                         </li>
-                        <li style="padding: 10px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
                             <strong>Saturday</strong>
                             <span>9:00 AM - 3:00 PM</span>
                         </li>
@@ -293,7 +296,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- FAQ Section -->
 <section class="bg-light">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
+            <span class="eyebrow">FAQs</span>
             <h2>Frequently Asked Questions</h2>
             <p>Quick answers to common questions</p>
         </div>
