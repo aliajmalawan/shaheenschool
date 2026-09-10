@@ -81,25 +81,39 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
-            background: #f5f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-light, #f5f7fa);
+            font-family: var(--font-body, 'Segoe UI'), Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Screen-fit shell: sidebar + content as two grid tracks that always
+           exactly fill the viewport, instead of fixed + margin-left math. */
+        .admin-shell {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            min-height: 100vh;
         }
 
         /* Sidebar */
         .sidebar {
-            position: fixed;
-            left: 0;
+            position: sticky;
             top: 0;
             height: 100vh;
-            width: 260px;
-            background: linear-gradient(135deg, #0B4DA2 0%, #0a3a7a 100%);
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
             overflow-y: auto;
+            background: linear-gradient(180deg, var(--primary-color, #0B4DA2) 0%, var(--primary-dark, #0a3a7a) 100%);
+            box-shadow: var(--shadow-md, 4px 0 10px rgba(0,0,0,0.1));
+            z-index: 100;
         }
 
         .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
             padding: 25px 20px;
             background: rgba(255,255,255,0.1);
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -107,6 +121,7 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
 
         .sidebar-header h2 {
             color: white;
+            font-family: var(--font-display, inherit);
             font-size: 20px;
             margin-bottom: 5px;
         }
@@ -116,15 +131,28 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             font-size: 13px;
         }
 
+        .sidebar-close {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         .sidebar-menu {
-            padding: 20px 0;
-            padding-bottom: 30px;
+            padding: 15px 10px;
+            padding-bottom: 20px;
         }
 
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
+            padding: 13px 14px;
+            margin-bottom: 2px;
+            border-radius: var(--radius-sm, 8px);
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: all 0.3s ease;
@@ -134,13 +162,12 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
         .sidebar-menu a:hover {
             background: rgba(255,255,255,0.1);
             color: white;
-            border-left-color: #F9C900;
         }
 
         .sidebar-menu a.active {
             background: rgba(255,255,255,0.15);
             color: white;
-            border-left-color: #F9C900;
+            border-left-color: var(--accent-color, #F9C900);
         }
 
         .sidebar-menu a i {
@@ -157,23 +184,22 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
         }
 
         .logout-section {
-            padding: 0 0 20px 0;
+            padding: 0 10px 20px;
         }
 
         .logout-section a {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
+            padding: 13px 14px;
+            border-radius: var(--radius-sm, 8px);
             color: rgba(255,255,255,0.8);
             text-decoration: none;
             transition: all 0.3s ease;
-            border-left: 4px solid transparent;
         }
 
         .logout-section a:hover {
-            background: rgba(255,255,255,0.1);
-            color: #ff6b6b;
-            border-left-color: #ff6b6b;
+            background: rgba(255,107,107,0.15);
+            color: #ff8f8f;
         }
 
         .logout-section a i {
@@ -183,11 +209,33 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             text-align: center;
         }
 
+        /* Mobile sidebar backdrop */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 26, 0.5);
+            z-index: 90;
+        }
+
+        .sidebar-backdrop.is-open {
+            display: block;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--ink, #333);
+            cursor: pointer;
+            margin-right: 6px;
+        }
+
         /* Main Content */
         .main-content {
-            margin-left: 260px;
+            min-width: 0;
             padding: 30px;
-            min-height: 100vh;
         }
 
         /* Top Bar */
@@ -200,6 +248,14 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .welcome-text h1 {
@@ -483,28 +539,65 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .admin-shell {
+                grid-template-columns: 1fr;
+            }
+
             .sidebar {
-                width: 0;
-                overflow: hidden;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 280px;
+                height: 100vh;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.is-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-close {
+                display: block;
+            }
+
+            .sidebar-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .main-content {
-                margin-left: 0;
+                padding: 20px;
             }
 
             .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .quick-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
+    <div class="admin-shell">
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="adminSidebar">
         <div class="sidebar-header">
-            <h2><?php echo SITE_NAME; ?></h2>
-            <p>Admin Panel</p>
+            <div>
+                <h2><?php echo SITE_NAME; ?></h2>
+                <p>Admin Panel</p>
+            </div>
+            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">&times;</button>
         </div>
 
         <div class="sidebar-menu">
@@ -590,13 +683,21 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
         </div>
     </div>
 
+    <!-- Backdrop for mobile sidebar -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <!-- Main Content -->
     <div class="main-content">
         <!-- Top Bar -->
         <div class="top-bar">
-            <div class="welcome-text">
-                <h1>Welcome back, <?php echo htmlspecialchars($_SESSION['admin_name']); ?>!</h1>
-                <p><?php echo date('l, F d, Y'); ?></p>
+            <div class="top-bar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="welcome-text">
+                    <h1>Welcome back, <?php echo htmlspecialchars($_SESSION['admin_name']); ?>!</h1>
+                    <p><?php echo date('l, F d, Y'); ?></p>
+                </div>
             </div>
 
             <div class="top-bar-actions">
@@ -837,5 +938,31 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             </div>
         </div>
     </div>
+    </div>
+
+    <script>
+        (function() {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const openBtn = document.getElementById('sidebarToggle');
+            const closeBtn = document.getElementById('sidebarClose');
+
+            function openSidebar() {
+                sidebar.classList.add('is-open');
+                backdrop.classList.add('is-open');
+                openBtn.setAttribute('aria-expanded', 'true');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+                openBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            if (openBtn) openBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+        })();
+    </script>
 </body>
 </html>
