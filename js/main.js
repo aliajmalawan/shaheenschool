@@ -12,6 +12,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Search Panel Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchPanel = document.getElementById('search-panel');
+    const searchInput = document.getElementById('search-input');
+    const searchQueryPrefix = document.getElementById('search-query-prefix');
+    const searchForm = searchPanel ? searchPanel.querySelector('form') : null;
+
+    if (searchToggle && searchPanel) {
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isHidden = searchPanel.hasAttribute('hidden');
+            searchPanel.toggleAttribute('hidden', !isHidden);
+            searchToggle.setAttribute('aria-expanded', String(isHidden));
+            if (isHidden && searchInput) {
+                searchInput.focus();
+            }
+        });
+    }
+
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            const query = (searchInput.value || '').trim();
+            if (!query) {
+                e.preventDefault();
+                return;
+            }
+            searchQueryPrefix.value = 'site:' + window.location.hostname + ' ' + query;
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        if (searchPanel && !searchPanel.hasAttribute('hidden') && !e.target.closest('#search-panel') && !e.target.closest('#search-toggle')) {
+            searchPanel.setAttribute('hidden', '');
+            if (searchToggle) searchToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+});
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -41,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('nav')) {
+        if (!e.target.closest('header')) {
             navLinks.classList.remove('active');
             if (menuToggle) {
                 menuToggle.classList.remove('active');

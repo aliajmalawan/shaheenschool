@@ -29,54 +29,79 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="container">
-                <div class="top-bar-left">
+    <header id="site-header">
+        <!-- Top Bar: brand, contact info, social, apply -->
+        <div class="topbar">
+            <div class="container topbar-inner">
+                <a href="index.php" class="brand">
+                    <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" class="brand-logo" onerror="this.style.display='none'">
+                    <span class="brand-text">
+                        <strong><?php echo getSiteName(); ?></strong>
+                        <small>Lighting the Candle of Knowledge</small>
+                    </span>
+                </a>
+
+                <div class="topbar-info">
                     <?php
                     $phone = getSitePhone();
                     $phone_numbers = explode(',', $phone);
                     $first_phone = trim($phone_numbers[0]);
                     ?>
-                    <a href="tel:<?php echo str_replace([' ', '-'], '', $first_phone); ?>"><i class="fas fa-phone"></i> <?php echo $first_phone; ?></a>
-                    <a href="mailto:<?php echo getSiteEmail(); ?>"><i class="fas fa-envelope"></i> <?php echo getSiteEmail(); ?></a>
+                    <a href="tel:<?php echo str_replace([' ', '-'], '', $first_phone); ?>" class="info-item">
+                        <span class="info-icon"><i class="fas fa-phone"></i></span>
+                        <span class="info-text"><small>Call Us</small><strong><?php echo htmlspecialchars($first_phone); ?></strong></span>
+                    </a>
+                    <a href="mailto:<?php echo getSiteEmail(); ?>" class="info-item">
+                        <span class="info-icon"><i class="fas fa-envelope"></i></span>
+                        <span class="info-text"><small>Email Us</small><strong><?php echo htmlspecialchars(getSiteEmail()); ?></strong></span>
+                    </a>
                 </div>
-                <div class="top-bar-right">
-                    <?php
-                    $social = getSocialMedia();
-                    if (!empty($social['facebook'])): ?>
-                        <a href="<?php echo htmlspecialchars($social['facebook']); ?>" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <?php endif;
-                    if (!empty($social['instagram'])): ?>
-                        <a href="<?php echo htmlspecialchars($social['instagram']); ?>" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <?php endif;
-                    if (!empty($social['youtube'])): ?>
-                        <a href="<?php echo htmlspecialchars($social['youtube']); ?>" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <?php endif;
-                    if (!empty($social['twitter'])): ?>
-                        <a href="<?php echo htmlspecialchars($social['twitter']); ?>" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <?php endif; ?>
+
+                <div class="topbar-actions">
+                    <nav class="topbar-social" aria-label="Social media">
+                        <?php
+                        $social = getSocialMedia();
+                        if (!empty($social['facebook'])): ?>
+                            <a href="<?php echo htmlspecialchars($social['facebook']); ?>" target="_blank" rel="noopener" class="soc soc-fb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <?php endif;
+                        if (!empty($social['instagram'])): ?>
+                            <a href="<?php echo htmlspecialchars($social['instagram']); ?>" target="_blank" rel="noopener" class="soc soc-ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <?php endif;
+                        if (!empty($social['youtube'])): ?>
+                            <a href="<?php echo htmlspecialchars($social['youtube']); ?>" target="_blank" rel="noopener" class="soc soc-yt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <?php endif;
+                        if (!empty($social['twitter'])): ?>
+                            <a href="<?php echo htmlspecialchars($social['twitter']); ?>" target="_blank" rel="noopener" class="soc soc-tw" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <?php endif; ?>
+                    </nav>
+
+                    <button type="button" id="search-toggle" class="icon-btn" aria-label="Search the website" aria-expanded="false" aria-controls="search-panel">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <a href="admission.php" class="apply-btn"><i class="fas fa-pen"></i> <span class="btn-label">Apply Now</span></a>
+
+                    <div class="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Search Panel -->
+        <div id="search-panel" class="search-panel" hidden>
+            <form action="https://www.google.com/search" method="get" target="_blank" class="container search-panel-inner">
+                <input type="hidden" name="q" id="search-query-prefix" value="">
+                <input type="search" id="search-input" placeholder="Search this website…" autocomplete="off" aria-label="Search this website">
+                <button type="submit"><i class="fas fa-search"></i> Search</button>
+            </form>
         </div>
 
         <!-- Main Navigation -->
         <nav>
             <div class="container">
-                <div class="logo">
-                    <a href="index.php">
-                        <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" onerror="this.style.display='none'">
-                    </a>
-                    <h1><?php echo getSiteName(); ?></h1>
-                </div>
-
-                <div class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
                 <ul class="nav-links">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About Us</a></li>
@@ -94,7 +119,6 @@
                     </li>
                     <li><a href="gallery.php">Gallery</a></li>
                     <li><a href="contact.php">Contact</a></li>
-                    <li><a href="admission.php" class="nav-cta">Admissions Open</a></li>
                 </ul>
             </div>
         </nav>
