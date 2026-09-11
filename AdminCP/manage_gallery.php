@@ -145,77 +145,98 @@ if ($all_categories) {
 }
 
 // Handle add/edit image
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
-    $title = mysqli_real_escape_string($conn, $_POST['title']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset($_POST['new_category_name'])) {
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $display_order = intval($_POST['display_order']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $gallery_id = isset($_POST['gallery_id']) && !empty($_POST['gallery_id']) ? intval($_POST['gallery_id']) : null;
 
-    // Handle image upload
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $upload_dir = '../uploads/gallery/';
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $upload_dir = '../uploads/gallery/';
+    if (!file_exists($upload_dir)) {
+        mkdir($upload_dir, 0777, true);
+    }
 
-        // Create directory if not exists
-        if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
+    // Collect the selected files (name="images[]", works whether 0, 1, or many were chosen)
+    $selected_files = [];
+    if (isset($_FILES['images']) && !empty($_FILES['images']['name'][0])) {
+        foreach ($_FILES['images']['name'] as $idx => $name) {
+            if ($_FILES['images']['error'][$idx] == 0) {
+                $selected_files[] = [
+                    'name' => $name,
+                    'tmp_name' => $_FILES['images']['tmp_name'][$idx],
+                ];
+            }
         }
+    }
 
-        $file_extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    if ($gallery_id) {
+        // Editing an existing item - at most one replacement file is relevant
+        if (!empty($selected_files)) {
+            $file = $selected_files[0];
+            $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
-        if (in_array($file_extension, $allowed_extensions)) {
-            $new_filename = time() . '_' . uniqid() . '.jpg'; // Always save as JPG after compression
-            $target_file = $upload_dir . $new_filename;
-            $temp_file = $_FILES['image']['tmp_name'];
+            if (in_array($file_extension, $allowed_extensions)) {
+                $new_filename = time() . '_' . uniqid() . '.jpg';
+                $target_file = $upload_dir . $new_filename;
 
-            // Compress image if larger than 100KB
-            if (compressToTargetSize($temp_file, $target_file, 100)) {
-                $image_path = 'uploads/gallery/' . $new_filename;
+                if (compressToTargetSize($file['tmp_name'], $target_file, 100)) {
+                    $image_path = 'uploads/gallery/' . $new_filename;
 
-                // Get final file size for info
-                $final_size_kb = round(filesize($target_file) / 1024, 2);
-
-                if (isset($_POST['gallery_id']) && !empty($_POST['gallery_id'])) {
-                    // Update
-                    $id = intval($_POST['gallery_id']);
-
-                    // Delete old image
-                    $old_img_query = mysqli_query($conn, "SELECT image_path FROM gallery WHERE id = $id");
-                    if ($old_img_row = mysqli_fetch_assoc($old_img_query)) {
-                        if (file_exists('../' . $old_img_row['image_path'])) {
-                            unlink('../' . $old_img_row['image_path']);
-                        }
+                    $old_img_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT image_path FROM gallery WHERE id = $gallery_id"));
+                    if ($old_img_row && file_exists('../' . $old_img_row['image_path'])) {
+                        unlink('../' . $old_img_row['image_path']);
                     }
 
-                    $query = "UPDATE gallery SET title='$title', image_path='$image_path', category='$category', display_order=$display_order, status='$status' WHERE id=$id";
+                    $query = "UPDATE gallery SET image_path='$image_path', category='$category', display_order=$display_order, status='$status' WHERE id=$gallery_id";
+                    $message = mysqli_query($conn, $query) ? "Gallery item updated successfully!" : "Error updating gallery item.";
                 } else {
-                    // Insert
-                    $query = "INSERT INTO gallery (title, image_path, category, display_order, status) VALUES ('$title', '$image_path', '$category', $display_order, '$status')";
-                }
-
-                if (mysqli_query($conn, $query)) {
-                    $message = "Image saved successfully! (Compressed to {$final_size_kb} KB)";
-                } else {
-                    $message = "Error saving image.";
+                    $message = "Error compressing and uploading file.";
                 }
             } else {
-                $message = "Error compressing and uploading file.";
+                $message = "Invalid file format. Only JPG, PNG, GIF, WEBP allowed.";
             }
         } else {
-            $message = "Invalid file format. Only JPG, PNG, GIF, WEBP allowed.";
-        }
-    } else if (isset($_POST['gallery_id']) && !empty($_POST['gallery_id'])) {
-        // Update without image
-        $id = intval($_POST['gallery_id']);
-        $query = "UPDATE gallery SET title='$title', category='$category', display_order=$display_order, status='$status' WHERE id=$id";
-
-        if (mysqli_query($conn, $query)) {
-            $message = "Gallery item updated successfully!";
-        } else {
-            $message = "Error updating gallery item.";
+            $query = "UPDATE gallery SET category='$category', display_order=$display_order, status='$status' WHERE id=$gallery_id";
+            $message = mysqli_query($conn, $query) ? "Gallery item updated successfully!" : "Error updating gallery item.";
         }
     } else {
-        $message = "Please select an image to upload.";
+        // Adding new - every selected file becomes its own gallery row
+        if (empty($selected_files)) {
+            $message = "Please select at least one image to upload.";
+        } else {
+            $saved_count = 0;
+            $order = $display_order;
+
+            foreach ($selected_files as $file) {
+                $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                if (!in_array($file_extension, $allowed_extensions)) {
+                    continue;
+                }
+
+                $new_filename = time() . '_' . uniqid() . '.jpg';
+                $target_file = $upload_dir . $new_filename;
+
+                if (compressToTargetSize($file['tmp_name'], $target_file, 100)) {
+                    $image_path = 'uploads/gallery/' . $new_filename;
+                    $query = "INSERT INTO gallery (image_path, category, display_order, status) VALUES ('$image_path', '$category', $order, '$status')";
+                    if (mysqli_query($conn, $query)) {
+                        $saved_count++;
+                    }
+                }
+
+                $order++;
+            }
+
+            $total_selected = count($selected_files);
+            if ($saved_count === 0) {
+                $message = "Error uploading images. Only JPG, PNG, GIF, WEBP allowed.";
+            } elseif ($saved_count < $total_selected) {
+                $message = "$saved_count of $total_selected image(s) uploaded (some had an invalid format).";
+            } else {
+                $message = $saved_count == 1 ? "Image uploaded successfully!" : "$saved_count images uploaded successfully!";
+            }
+        }
     }
 }
 
@@ -294,16 +315,11 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
 
         <!-- Add/Edit Form -->
         <div class="card" style="margin-bottom: 30px;">
-            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><?php echo $edit_item ? 'Edit Gallery Item' : 'Add New Image'; ?></h2>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><?php echo $edit_item ? 'Edit Gallery Item' : 'Add New Images'; ?></h2>
             <form method="POST" enctype="multipart/form-data">
                 <?php if ($edit_item): ?>
                     <input type="hidden" name="gallery_id" value="<?php echo $edit_item['id']; ?>">
                 <?php endif; ?>
-
-                <div class="form-group">
-                    <label>Image Title *</label>
-                    <input type="text" name="title" required value="<?php echo $edit_item ? htmlspecialchars($edit_item['title']) : ''; ?>" placeholder="e.g., Annual Sports Day 2024">
-                </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                     <div class="form-group">
@@ -339,18 +355,24 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Image <?php echo $edit_item ? '(optional - leave empty to keep current)' : '*'; ?></label>
-                    <input type="file" name="image" accept="image/*" <?php echo !$edit_item ? 'required' : ''; ?>>
-                    <?php if ($edit_item && !empty($edit_item['image_path'])): ?>
-                        <div style="margin-top: 15px;">
-                            <img src="../<?php echo htmlspecialchars($edit_item['image_path']); ?>" alt="Current Image" style="max-width: 300px; border-radius: 8px; box-shadow: var(--shadow);">
-                            <p style="margin-top: 5px; font-size: 13px; color: var(--text-light);">Current image</p>
-                        </div>
+                    <?php if ($edit_item): ?>
+                        <label>Replace Image (optional - leave empty to keep current)</label>
+                        <input type="file" name="images[]" accept="image/*">
+                        <?php if (!empty($edit_item['image_path'])): ?>
+                            <div style="margin-top: 15px;">
+                                <img src="../<?php echo htmlspecialchars($edit_item['image_path']); ?>" alt="Current Image" style="max-width: 300px; border-radius: 8px; box-shadow: var(--shadow);">
+                                <p style="margin-top: 5px; font-size: 13px; color: var(--text-light);">Current image</p>
+                            </div>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <label>Upload Images *</label>
+                        <input type="file" name="images[]" accept="image/*" multiple required>
+                        <small style="color: var(--text-light); font-size: 12px; display: block; margin-top: 5px;">You can select multiple images at once - each becomes its own gallery entry.</small>
                     <?php endif; ?>
                 </div>
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> <?php echo $edit_item ? 'Update Image' : 'Add Image'; ?>
+                    <i class="fas fa-save"></i> <?php echo $edit_item ? 'Update Image' : 'Upload Images'; ?>
                 </button>
                 <?php if ($edit_item): ?>
                     <a href="manage_gallery.php" class="btn btn-primary" style="background: var(--text-light); margin-left: 10px;">Cancel</a>
@@ -395,9 +417,8 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                     <?php
                     while ($item = mysqli_fetch_assoc($gallery)) {
                         echo '<div class="gallery-item">';
-                        echo '<img src="../' . htmlspecialchars($item['image_path']) . '" alt="' . htmlspecialchars($item['title']) . '">';
+                        echo '<img src="../' . htmlspecialchars($item['image_path']) . '" alt="Gallery image">';
                         echo '<div class="gallery-item-info">';
-                        echo '<h4 style="margin: 0 0 5px 0; color: var(--primary-color);">' . htmlspecialchars($item['title']) . '</h4>';
                         $cat_label = !empty($item['category']) && isset($category_names[$item['category']]) ? $category_names[$item['category']] : 'Uncategorized';
                         echo '<p style="margin: 0; font-size: 13px; color: var(--text-light);"><i class="fas fa-tag"></i> ' . htmlspecialchars($cat_label) . '</p>';
                         echo '<p style="margin: 5px 0 0 0; font-size: 13px; color: var(--text-light);"><i class="fas fa-sort"></i> Order: ' . $item['display_order'] . '</p>';
