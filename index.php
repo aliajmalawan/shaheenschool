@@ -267,8 +267,37 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
                 <p style="margin-bottom: 25px; line-height: 1.8;">This approach helps us identify each student's strengths early, address gaps before they widen, and keep parents informed through regular progress updates rather than a single end-of-term result.</p>
                 <a href="about.php" class="btn btn-secondary">Learn More</a>
             </div>
-            <div>
-                <img src="images/about_us.jpg" alt="Assessment at <?php echo getSiteName(); ?>" style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+            <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 40px;">
+                <div style="display: flex; flex-direction: column; gap: 28px;">
+                    <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-clipboard-check"></i></div>
+                        <div>
+                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Continuous Assessment</strong>
+                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Class tests & assignments year-round</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Progress Tracking</strong>
+                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Regular reports shared with parents</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-comments"></i></div>
+                        <div>
+                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Personalized Feedback</strong>
+                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">One-on-one guidance for every student</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-file-alt"></i></div>
+                        <div>
+                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Formal Examinations</strong>
+                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Structured tests aligned with the curriculum</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -648,6 +677,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 
 <!-- Our Campus -->
+<?php $home_gallery = mysqli_query($conn, "SELECT * FROM gallery WHERE status = 'active' ORDER BY created_at DESC LIMIT 4"); ?>
 <section>
     <div class="container">
         <div class="section-header reveal">
@@ -655,12 +685,18 @@ document.addEventListener('DOMContentLoaded', function() {
             <h2>Our Campus</h2>
             <p>A glimpse into the spaces where our students learn, grow, and thrive</p>
         </div>
+        <?php if ($home_gallery && mysqli_num_rows($home_gallery) > 0): ?>
         <div class="grid-auto reveal">
-            <img src="images/about_us.jpg" alt="Campus" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
-            <img src="images/digital_one.jpeg" alt="Smart Classroom" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
-            <img src="images/digital_two.png" alt="Interactive Learning" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
-            <img src="images/digital_four.jpeg" alt="Modern Teaching" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+            <?php while ($photo = mysqli_fetch_assoc($home_gallery)): ?>
+                <img src="<?php echo htmlspecialchars($photo['image_path']); ?>" alt="<?php echo htmlspecialchars($photo['title'] ?: 'Campus photo'); ?>" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+            <?php endwhile; ?>
         </div>
+        <?php else: ?>
+        <div class="text-center reveal" style="padding: 20px;">
+            <i class="fas fa-images" style="font-size: 60px; color: var(--border-color); margin-bottom: 20px;"></i>
+            <p style="color: var(--text-light); font-size: 18px;">Campus photos are on their way — check back soon!</p>
+        </div>
+        <?php endif; ?>
         <div class="text-center mt-30">
             <a href="gallery.php" class="btn btn-secondary">View Full Gallery</a>
         </div>
