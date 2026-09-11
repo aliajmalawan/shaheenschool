@@ -16,7 +16,7 @@ $page_title = 'About Us';
 <!-- About Content -->
 <section class="bg-light">
     <div class="container">
-        <div class="grid-2 reveal">
+        <div class="grid-2 reveal" style="align-items: stretch;">
             <div>
                 <?php $about = getAboutContent(); ?>
                 <span class="eyebrow">Who We Are</span>
@@ -25,8 +25,8 @@ $page_title = 'About Us';
                 <p style="margin-bottom: 15px; line-height: 1.8;">Our institution stands as a beacon of knowledge, symbolized by our candle logo - representing the light of learning that illuminates the path to success. We believe in holistic education that develops not just academic excellence but also character, values, and life skills.</p>
                 <p style="line-height: 1.8;">With experienced faculty, modern facilities, and a student-centered approach, we create an environment where every student can thrive and reach their full potential.</p>
             </div>
-            <div>
-                <img src="images/about_us.jpg" alt="SHAHEEN PUBLIC HIGH SCHOOL Campus" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzBCNERBMiIgb3BhY2l0eT0iMC4xIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzBCNERBMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfj6vvuI88L3RleHQ+PC9zdmc+'">
+            <div style="min-height: 320px;">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900" alt="Students at SHAHEEN PUBLIC HIGH SCHOOL" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
             </div>
         </div>
     </div>
