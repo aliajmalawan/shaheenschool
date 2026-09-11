@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <i class="fas fa-phone"></i>
                 </div>
                 <h3>Call Us</h3>
-                <p><a href="tel:+92300-6700956">0300-6700956</a><br>
+                <p><a href="tel:+923006700956">0300-6700956</a><br>
                 Mon - Sat: 8:00 AM - 5:00 PM</p>
             </div>
 
@@ -208,45 +208,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h2 style="color: var(--ink); margin-bottom: 20px;">Send us a Message</h2>
 
                 <?php if ($success_message): ?>
-                    <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                        <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <span><?php echo $success_message; ?></span>
                     </div>
                 <?php endif; ?>
 
                 <?php if ($error_message): ?>
-                    <div style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                        <i class="fas fa-exclamation-triangle"></i> <?php echo $error_message; ?>
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span><?php echo $error_message; ?></span>
                     </div>
                 <?php endif; ?>
 
                 <form method="POST" id="contactForm" onsubmit="return validateForm('contactForm')">
-                    <div class="form-group">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                    <div class="grid-2" style="gap: 20px; align-items: start;">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                    </div>
+                    <div class="grid-2" style="gap: 20px; align-items: start;">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="03001234567">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="03001234567">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <select id="subject" name="subject" required>
-                            <option value="">-- Select Subject --</option>
-                            <option value="Admission Inquiry">Admission Inquiry</option>
-                            <option value="Course Information">Course Information</option>
-                            <option value="Fee Inquiry">Fee Inquiry</option>
-                            <option value="General Question">General Question</option>
-                            <option value="Feedback">Feedback</option>
-                            <option value="Complaint">Complaint</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">-- Select Subject --</option>
+                                <option value="Admission Inquiry">Admission Inquiry</option>
+                                <option value="Course Information">Course Information</option>
+                                <option value="Fee Inquiry">Fee Inquiry</option>
+                                <option value="General Question">General Question</option>
+                                <option value="Feedback">Feedback</option>
+                                <option value="Complaint">Complaint</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -274,17 +280,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card">
                     <h3 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-clock"></i> Working Hours</h3>
                     <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                            <strong>Monday - Friday</strong>
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                            <span style="display: flex; align-items: center; gap: 10px; font-weight: 600;"><i class="fas fa-calendar-day" style="color: var(--primary-color); width: 18px; text-align: center;"></i> Monday - Friday</span>
                             <span>8:00 AM - 5:00 PM</span>
                         </li>
-                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                            <strong>Saturday</strong>
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                            <span style="display: flex; align-items: center; gap: 10px; font-weight: 600;"><i class="fas fa-calendar-day" style="color: var(--primary-color); width: 18px; text-align: center;"></i> Saturday</span>
                             <span>9:00 AM - 3:00 PM</span>
                         </li>
-                        <li style="padding: 10px 0; display: flex; justify-content: space-between;">
-                            <strong>Sunday</strong>
-                            <span style="color: #dc3545;">Closed</span>
+                        <li style="padding: 10px 0; display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                            <span style="display: flex; align-items: center; gap: 10px; font-weight: 600;"><i class="fas fa-calendar-times" style="color: #dc3545; width: 18px; text-align: center;"></i> Sunday</span>
+                            <span style="color: #dc3545; font-weight: 600;">Closed</span>
                         </li>
                     </ul>
                 </div>
