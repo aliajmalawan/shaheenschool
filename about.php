@@ -26,7 +26,7 @@ $page_title = 'About Us';
                 <p style="line-height: 1.8;">With experienced faculty, modern facilities, and a student-centered approach, we create an environment where every student can thrive and reach their full potential.</p>
             </div>
             <div style="min-height: 320px;">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900" alt="Students at SHAHEEN PUBLIC HIGH SCHOOL" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                <img src="images/about_us.jpg" alt="SHAHEEN PUBLIC HIGH SCHOOL Students" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
             </div>
         </div>
     </div>
