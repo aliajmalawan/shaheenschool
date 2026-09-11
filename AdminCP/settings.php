@@ -12,9 +12,17 @@ $message = '';
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $success = true;
+    $social_url_keys = ['facebook_url', 'instagram_url', 'youtube_url', 'twitter_url'];
 
     foreach ($_POST as $key => $value) {
         if ($key !== 'submit') {
+            // Social links are plain text inputs (not type="url") so a value
+            // without a scheme doesn't block submission - add https:// here
+            // instead, so "facebook.com/page" still becomes a working link.
+            if (in_array($key, $social_url_keys, true) && $value !== '' && !preg_match('#^https?://#i', $value)) {
+                $value = 'https://' . ltrim($value, '/');
+            }
+
             $key_escaped = mysqli_real_escape_string($conn, $key);
             $value_escaped = mysqli_real_escape_string($conn, $value);
 
@@ -143,24 +151,24 @@ loadSettings();
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fab fa-facebook"></i> Facebook URL</label>
-                        <input type="url" name="facebook_url" value="<?php echo htmlspecialchars(getSetting('facebook_url')); ?>" placeholder="https://facebook.com/yourpage">
+                        <input type="text" name="facebook_url" value="<?php echo htmlspecialchars(getSetting('facebook_url')); ?>" placeholder="https://facebook.com/yourpage">
                     </div>
 
                     <div class="form-group">
                         <label><i class="fab fa-instagram"></i> Instagram URL</label>
-                        <input type="url" name="instagram_url" value="<?php echo htmlspecialchars(getSetting('instagram_url')); ?>" placeholder="https://instagram.com/yourpage">
+                        <input type="text" name="instagram_url" value="<?php echo htmlspecialchars(getSetting('instagram_url')); ?>" placeholder="https://instagram.com/yourpage">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fab fa-youtube"></i> YouTube URL</label>
-                        <input type="url" name="youtube_url" value="<?php echo htmlspecialchars(getSetting('youtube_url')); ?>" placeholder="https://youtube.com/yourchannel">
+                        <input type="text" name="youtube_url" value="<?php echo htmlspecialchars(getSetting('youtube_url')); ?>" placeholder="https://youtube.com/yourchannel">
                     </div>
 
                     <div class="form-group">
                         <label><i class="fab fa-twitter"></i> Twitter URL</label>
-                        <input type="url" name="twitter_url" value="<?php echo htmlspecialchars(getSetting('twitter_url')); ?>" placeholder="https://twitter.com/yourpage">
+                        <input type="text" name="twitter_url" value="<?php echo htmlspecialchars(getSetting('twitter_url')); ?>" placeholder="https://twitter.com/yourpage">
                     </div>
                 </div>
             </div>
