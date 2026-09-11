@@ -302,30 +302,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Quick answers to common questions</p>
         </div>
 
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="card" style="margin-bottom: 20px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 10px;">What are the admission requirements?</h3>
-                <p>Admission requirements vary by program. Generally, you need previous educational certificates, CNIC/B-Form, photographs, and the admission fee. Visit our Courses page for detailed requirements.</p>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>What are the admission requirements?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Admission requirements vary by program. Generally, you need previous educational certificates, CNIC/B-Form, photographs, and the admission fee. Visit our Courses page for detailed requirements.</p>
+                </div>
             </div>
 
-            <div class="card" style="margin-bottom: 20px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 10px;">How can I apply for admission?</h3>
-                <p>You can apply online through our Admission page or visit our campus in person. Fill out the application form, submit required documents, and pay the admission fee to complete the process.</p>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>How can I apply for admission?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>You can apply online through our Admission page or visit our campus in person. Fill out the application form, submit required documents, and pay the admission fee to complete the process.</p>
+                </div>
             </div>
 
-            <div class="card" style="margin-bottom: 20px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 10px;">What is the fee structure?</h3>
-                <p>Our fee structure is transparent and affordable. Fees vary by program, starting from Rs. 3,000/month for short courses to Rs. 8,000/month for entry test preparation. Check our Admission page for complete details.</p>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>What is the fee structure?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Our fee structure is transparent and affordable. Fees vary by program, starting from Rs. 3,000/month for short courses to Rs. 8,000/month for entry test preparation. Check our Admission page for complete details.</p>
+                </div>
             </div>
 
-            <div class="card" style="margin-bottom: 20px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Do you offer scholarships?</h3>
-                <p>Yes, we offer merit-based scholarships and financial assistance to deserving students. Contact our admission office for more information about scholarship opportunities.</p>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Do you offer scholarships?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, we offer merit-based scholarships and financial assistance to deserving students. Contact our admission office for more information about scholarship opportunities.</p>
+                </div>
             </div>
 
-            <div class="card">
-                <h3 style="color: var(--primary-color); margin-bottom: 10px;">How can I contact a specific teacher?</h3>
-                <p>You can visit our campus during working hours or call our main office. We'll connect you with the appropriate faculty member or department.</p>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>How can I contact a specific teacher?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>You can visit our campus during working hours or call our main office. We'll connect you with the appropriate faculty member or department.</p>
+                </div>
             </div>
         </div>
     </div>

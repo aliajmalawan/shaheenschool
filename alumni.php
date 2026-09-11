@@ -134,27 +134,37 @@ $page_title = 'Alumni';
                 <span class="eyebrow">Testimonials</span>
                 <h2>Alumni Reviews</h2>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px;">
-                <?php
-                if ($reviews && mysqli_num_rows($reviews) > 0) {
-                    while ($review = mysqli_fetch_assoc($reviews)) {
-                        echo '<div class="card">';
-                        echo '<div style="margin-bottom: 15px;">';
-                        for ($i = 0; $i < $review['rating']; $i++) {
-                            echo '<i class="fas fa-star" style="color: var(--accent-color);"></i>';
-                        }
-                        echo '</div>';
-                        echo '<p style="font-style: italic; margin-bottom: 15px; color: var(--text-dark);">"' . htmlspecialchars($review['review']) . '"</p>';
-                        echo '<p style="font-weight: bold; color: var(--primary-color);">- ' . htmlspecialchars($review['name']);
-                        if ($review['passing_year']) {
-                            echo ' (' . $review['passing_year'] . ')';
-                        }
-                        echo '</p>';
-                        echo '</div>';
-                    }
-                }
-                ?>
+            <?php if ($reviews && mysqli_num_rows($reviews) > 0): ?>
+            <div class="testimonial-carousel reveal">
+                <div class="testimonial-track">
+                    <?php while ($review = mysqli_fetch_assoc($reviews)): ?>
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <?php
+                                for ($i = 0; $i < $review['rating']; $i++) {
+                                    echo '<i class="fas fa-star"></i>';
+                                }
+                                ?>
+                            </div>
+                            <p class="testimonial-quote">"<?php echo htmlspecialchars($review['review']); ?>"</p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar"><i class="fas fa-user-graduate"></i></div>
+                                <div>
+                                    <strong><?php echo htmlspecialchars($review['name']); ?></strong>
+                                    <?php if ($review['passing_year']): ?>
+                                        <span>Batch <?php echo htmlspecialchars($review['passing_year']); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+                <button type="button" class="testimonial-nav prev" aria-label="Previous review"><i class="fas fa-chevron-left"></i></button>
+                <button type="button" class="testimonial-nav next" aria-label="Next review"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <?php else: ?>
+            <p style="text-align: center; color: var(--text-light); padding: 20px;">No reviews yet - be the first to share your experience!</p>
+            <?php endif; ?>
         </div>
     </section>
 

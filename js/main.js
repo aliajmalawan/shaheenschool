@@ -169,6 +169,47 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Testimonial Carousel (horizontal scroll-snap track + prev/next buttons)
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.testimonial-carousel').forEach(carousel => {
+        const track = carousel.querySelector('.testimonial-track');
+        const prevBtn = carousel.querySelector('.testimonial-nav.prev');
+        const nextBtn = carousel.querySelector('.testimonial-nav.next');
+        if (!track) return;
+
+        function scrollStep() {
+            const card = track.querySelector('.testimonial-card');
+            return card ? card.offsetWidth + 24 : 320;
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+            });
+        }
+    });
+});
+
+// FAQ Accordion
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (!question) return;
+        question.addEventListener('click', function() {
+            const isOpen = item.classList.contains('is-open');
+            faqItems.forEach(i => i.classList.remove('is-open'));
+            if (!isOpen) item.classList.add('is-open');
+        });
+    });
+});
+
 // Generic scroll-reveal (elements with .reveal class)
 document.addEventListener('DOMContentLoaded', function() {
     const revealElements = document.querySelectorAll('.reveal');
