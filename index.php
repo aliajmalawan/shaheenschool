@@ -246,7 +246,7 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
     <div class="container">
         <div class="section-header reveal">
             <span class="eyebrow">Our Network</span>
-            <h2>Our Campuses</h2>
+            <h2>Our Project</h2>
             <p>Beyond our main campus, <?php echo getSiteName(); ?> operates specialized institutes for focused learning</p>
         </div>
         <div class="card-grid">
