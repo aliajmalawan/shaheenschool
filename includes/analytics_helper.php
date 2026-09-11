@@ -106,61 +106,70 @@ function trackPageView($conn) {
         return;
     }
 
-    $visitor_ip = getVisitorIP();
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    // Analytics is a non-critical side effect - a DB hiccup here must never
+    // take down the page for a real visitor.
+    try {
+        $visitor_ip = getVisitorIP();
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-    // Create unique fingerprint based on IP + User Agent hash (more stable than session)
-    $visitor_fingerprint = md5($visitor_ip . substr($user_agent, 0, 200));
+        // Create unique fingerprint based on IP + User Agent hash (more stable than session)
+        $visitor_fingerprint = md5($visitor_ip . substr($user_agent, 0, 200));
 
-    // Use session ID if available, otherwise use fingerprint
-    $session_id = getVisitorSessionID();
-    if (empty($session_id)) {
-        $session_id = $visitor_fingerprint;
+        // Use session ID if available, otherwise use fingerprint
+        $session_id = getVisitorSessionID();
+        if (empty($session_id)) {
+            $session_id = $visitor_fingerprint;
+        }
+
+        // visitor_ip and user_agent come from client-controlled HTTP headers -
+        // escape everything before it touches SQL.
+        $visitor_ip_esc = mysqli_real_escape_string($conn, $visitor_ip);
+        $user_agent_esc = mysqli_real_escape_string($conn, $user_agent);
+        $session_id_esc = mysqli_real_escape_string($conn, $session_id);
+        $page_url = mysqli_real_escape_string($conn, $_SERVER['PHP_SELF']);
+        $page_title = mysqli_real_escape_string($conn, isset($page_title_meta) ? $page_title_meta : '');
+        $referrer = mysqli_real_escape_string($conn, isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Direct');
+        $device_type = getDeviceType($user_agent);
+        $browser = getBrowser($user_agent);
+        $os = getOperatingSystem($user_agent);
+        $visit_date = date('Y-m-d');
+        $visit_time = date('H:i:s');
+
+        // Insert page view
+        $sql = "INSERT INTO website_analytics
+                (visitor_ip, page_url, page_title, referrer, user_agent, device_type, browser, operating_system, session_id, visit_date, visit_time)
+                VALUES
+                ('$visitor_ip_esc', '$page_url', '$page_title', '$referrer', '$user_agent_esc', '$device_type', '$browser', '$os', '$session_id_esc', '$visit_date', '$visit_time')";
+
+        mysqli_query($conn, $sql);
+
+        // Upsert unique visitor, keyed on session_id (the table's actual unique
+        // constraint) so this can never collide with an existing row - unlike
+        // the previous check-by-ip+today's-date pattern, which missed rows
+        // from earlier days and then crashed on the INSERT.
+        mysqli_query($conn, "INSERT INTO unique_visitors (visitor_ip, session_id, user_agent, total_visits)
+                VALUES ('$visitor_ip_esc', '$session_id_esc', '$user_agent_esc', 1)
+                ON DUPLICATE KEY UPDATE
+                    last_visit = NOW(),
+                    total_visits = total_visits + 1,
+                    visitor_ip = VALUES(visitor_ip),
+                    user_agent = VALUES(user_agent)");
+
+        // Upsert active user (online now), also keyed on session_id for the
+        // same reason - the old check-by-ip could miss an existing row (IP
+        // changed) and then collide on insert.
+        mysqli_query($conn, "INSERT INTO active_users (session_id, visitor_ip, current_page, last_activity)
+                VALUES ('$session_id_esc', '$visitor_ip_esc', '$page_url', NOW())
+                ON DUPLICATE KEY UPDATE
+                    visitor_ip = VALUES(visitor_ip),
+                    current_page = VALUES(current_page),
+                    last_activity = NOW()");
+
+        // Clean up old active users (inactive for more than 5 minutes)
+        mysqli_query($conn, "DELETE FROM active_users WHERE last_activity < DATE_SUB(NOW(), INTERVAL 5 MINUTE)");
+    } catch (\Throwable $e) {
+        error_log('Analytics tracking failed: ' . $e->getMessage());
     }
-
-    $page_url = mysqli_real_escape_string($conn, $_SERVER['PHP_SELF']);
-    $page_title = mysqli_real_escape_string($conn, isset($page_title_meta) ? $page_title_meta : '');
-    $referrer = mysqli_real_escape_string($conn, isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Direct');
-    $device_type = getDeviceType($user_agent);
-    $browser = getBrowser($user_agent);
-    $os = getOperatingSystem($user_agent);
-    $visit_date = date('Y-m-d');
-    $visit_time = date('H:i:s');
-
-    // Insert page view
-    $sql = "INSERT INTO website_analytics
-            (visitor_ip, page_url, page_title, referrer, user_agent, device_type, browser, operating_system, session_id, visit_date, visit_time)
-            VALUES
-            ('$visitor_ip', '$page_url', '$page_title', '$referrer', '$user_agent', '$device_type', '$browser', '$os', '$session_id', '$visit_date', '$visit_time')";
-
-    mysqli_query($conn, $sql);
-
-    // Update or insert unique visitor based on fingerprint (more reliable)
-    $check_visitor = mysqli_query($conn, "SELECT id, total_visits FROM unique_visitors WHERE visitor_ip = '$visitor_ip' AND DATE(last_visit) = CURDATE()");
-
-    if (mysqli_num_rows($check_visitor) > 0) {
-        // Update existing visitor for today
-        $visitor = mysqli_fetch_assoc($check_visitor);
-        mysqli_query($conn, "UPDATE unique_visitors SET last_visit = NOW(), total_visits = total_visits + 1, session_id = '$session_id' WHERE id = " . $visitor['id']);
-    } else {
-        // New visitor for today
-        mysqli_query($conn, "INSERT INTO unique_visitors (visitor_ip, session_id, user_agent) VALUES ('$visitor_ip', '$session_id', '$user_agent')");
-    }
-
-    // Update active users (online now) - Use IP as unique identifier
-    // First check if this IP is already active
-    $existing_active = mysqli_query($conn, "SELECT id FROM active_users WHERE visitor_ip = '$visitor_ip'");
-
-    if (mysqli_num_rows($existing_active) > 0) {
-        // Update existing active user
-        mysqli_query($conn, "UPDATE active_users SET session_id = '$session_id', current_page = '$page_url', last_activity = NOW() WHERE visitor_ip = '$visitor_ip'");
-    } else {
-        // Insert new active user
-        mysqli_query($conn, "INSERT INTO active_users (session_id, visitor_ip, current_page, last_activity) VALUES ('$session_id', '$visitor_ip', '$page_url', NOW())");
-    }
-
-    // Clean up old active users (inactive for more than 5 minutes)
-    mysqli_query($conn, "DELETE FROM active_users WHERE last_activity < DATE_SUB(NOW(), INTERVAL 5 MINUTE)");
 }
 
 // Get total page views
