@@ -239,6 +239,74 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
     </div>
 </section>
 
+<!-- Learning Philosophy Intro -->
+<section>
+    <div class="container text-center">
+        <div class="reveal" style="max-width: 800px; margin: 0 auto;">
+            <span class="eyebrow">Our Philosophy</span>
+            <h2 style="font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; margin-bottom: 20px;">Where Learning is a Personal Journey</h2>
+            <p style="font-size: 18px; line-height: 1.9; margin-bottom: 30px;">
+                At <?php echo getSiteName(); ?>, we believe every child learns differently. Our teachers take the time to understand each student's strengths, curiosities, and pace — building a supportive environment where confidence grows alongside knowledge, and every learner is guided toward their own version of success.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="about.php" class="btn btn-secondary">Learn More</a>
+                <a href="contact.php" class="btn btn-outline-dark">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Approach to Assessment -->
+<section class="bg-light">
+    <div class="container">
+        <div class="grid-2 reveal">
+            <div>
+                <span class="eyebrow">Assessment Philosophy</span>
+                <h2 style="margin-bottom: 20px;">Our Approach to Assessment</h2>
+                <p style="margin-bottom: 15px; line-height: 1.8;">We believe assessment should guide learning, not just measure it. Our teachers use continuous, classroom-based assessment — class tests, assignments, and regular feedback — alongside formal examinations to build a complete picture of every student's progress.</p>
+                <p style="margin-bottom: 25px; line-height: 1.8;">This approach helps us identify each student's strengths early, address gaps before they widen, and keep parents informed through regular progress updates rather than a single end-of-term result.</p>
+                <a href="about.php" class="btn btn-secondary">Learn More</a>
+            </div>
+            <div>
+                <img src="images/about_us.jpg" alt="Assessment at <?php echo getSiteName(); ?>" style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Learner Attributes -->
+<section>
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">What We Nurture</span>
+            <h2>Learner Attributes We Build</h2>
+            <p>Qualities every student develops throughout their journey with us</p>
+        </div>
+        <div class="grid-4">
+            <div class="card reveal text-center">
+                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-comments"></i></div>
+                <h3>Confident Communicators</h3>
+                <p>Express ideas clearly and listen with confidence, in both Urdu and English.</p>
+            </div>
+            <div class="card reveal text-center">
+                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-brain"></i></div>
+                <h3>Critical Thinkers</h3>
+                <p>Question, analyze, and reason through problems rather than memorize answers.</p>
+            </div>
+            <div class="card reveal text-center">
+                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-hands-helping"></i></div>
+                <h3>Responsible Citizens</h3>
+                <p>Grow into caring, principled individuals who contribute positively to society.</p>
+            </div>
+            <div class="card reveal text-center">
+                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-seedling"></i></div>
+                <h3>Lifelong Learners</h3>
+                <p>Carry curiosity and a love of learning far beyond the classroom.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Digital School Management System -->
 <section class="bg-light">
     <div class="container">
@@ -574,6 +642,208 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <h3>Affordable Fees</h3>
                 <p>Quality education at competitive rates with flexible payment options available.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Campus -->
+<section>
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Campus Life</span>
+            <h2>Our Campus</h2>
+            <p>A glimpse into the spaces where our students learn, grow, and thrive</p>
+        </div>
+        <div class="grid-auto reveal">
+            <img src="images/about_us.jpg" alt="Campus" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+            <img src="images/digital_one.jpeg" alt="Smart Classroom" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+            <img src="images/digital_two.png" alt="Interactive Learning" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+            <img src="images/digital_four.jpeg" alt="Modern Teaching" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+        </div>
+        <div class="text-center mt-30">
+            <a href="gallery.php" class="btn btn-secondary">View Full Gallery</a>
+        </div>
+    </div>
+</section>
+
+<!-- Parent & Alumni Testimonials -->
+<?php $home_reviews = mysqli_query($conn, "SELECT * FROM alumni_reviews WHERE status = 'approved' ORDER BY created_at DESC LIMIT 6"); ?>
+<section class="bg-light">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Testimonials</span>
+            <h2>What Parents & Alumni Say</h2>
+            <p>Real experiences from our school community</p>
+        </div>
+        <?php if ($home_reviews && mysqli_num_rows($home_reviews) > 0): ?>
+        <div class="testimonial-carousel reveal">
+            <div class="testimonial-track">
+                <?php while ($rev = mysqli_fetch_assoc($home_reviews)): ?>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <?php for ($i = 0; $i < $rev['rating']; $i++) echo '<i class="fas fa-star"></i>'; ?>
+                    </div>
+                    <p class="testimonial-quote">"<?php echo htmlspecialchars($rev['review']); ?>"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <strong><?php echo htmlspecialchars($rev['name']); ?></strong>
+                            <?php if ($rev['passing_year']): ?><span>Batch <?php echo htmlspecialchars($rev['passing_year']); ?></span><?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endwhile; ?>
+            </div>
+            <button type="button" class="testimonial-nav prev" aria-label="Previous review"><i class="fas fa-chevron-left"></i></button>
+            <button type="button" class="testimonial-nav next" aria-label="Next review"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <?php else: ?>
+        <p class="text-center" style="color: var(--text-light);">We're gathering feedback from our school community — check back soon, or <a href="alumni.php#review" style="color: var(--primary-color); font-weight: 600;">share your experience</a>.</p>
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- Blogs / Latest News -->
+<?php $home_news = mysqli_query($conn, "SELECT * FROM news WHERE status = 'active' ORDER BY created_at DESC LIMIT 3"); ?>
+<section>
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">From Our Blog</span>
+            <h2>Latest News & Insights</h2>
+            <p>Stories, updates, and announcements from <?php echo getSiteName(); ?></p>
+        </div>
+        <?php if ($home_news && mysqli_num_rows($home_news) > 0): ?>
+        <div class="card-grid">
+            <?php while ($post = mysqli_fetch_assoc($home_news)): ?>
+            <div class="card reveal" style="padding: 0; overflow: hidden;">
+                <?php if (!empty($post['image'])): ?>
+                    <img src="<?php echo htmlspecialchars($post['image']); ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" style="width: 100%; height: 180px; object-fit: cover;">
+                <?php endif; ?>
+                <div style="padding: 26px;">
+                    <span class="eyebrow" style="margin-bottom: 12px;">Blog</span>
+                    <h3 style="margin-bottom: 10px;"><?php echo htmlspecialchars($post['title']); ?></h3>
+                    <p><?php echo htmlspecialchars(substr(strip_tags($post['content']), 0, 110)) . '...'; ?></p>
+                </div>
+            </div>
+            <?php endwhile; ?>
+        </div>
+        <div class="text-center mt-30">
+            <a href="events.php" class="btn btn-secondary">View All News</a>
+        </div>
+        <?php else: ?>
+        <div class="text-center reveal" style="padding: 20px;">
+            <i class="fas fa-newspaper" style="font-size: 60px; color: var(--border-color); margin-bottom: 20px;"></i>
+            <p style="color: var(--text-light); font-size: 18px;">New stories are on their way — check back soon!</p>
+        </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- FAQs -->
+<section class="bg-light">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Got Questions?</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers for prospective families</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>What programs does <?php echo getSiteName(); ?> offer?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>We offer Matric and Intermediate programs (Pre-Engineering, Pre-Medical, Computer Science), entry test preparation for ECAT/MDCAT, and short courses in programming, web development, spoken English, and IELTS. Visit our Courses page for full details.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>How can I apply for admission?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>You can apply online through our Admission page or visit our campus in person with the required documents and admission fee.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Is the school Cambridge-aligned?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes — we are the first school in Sadiqabad to adopt a complete Cambridge-aligned EdTech solution, combining smart classrooms with structured, concept-based teaching.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Do you offer scholarships?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, we offer merit-based scholarships and financial assistance to deserving students. Contact our admission office for details.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>What is the fee structure?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Our fees are transparent and affordable, ranging from Rs. 3,000/month for short courses to Rs. 8,000/month for entry test preparation. See the Admission page for the complete breakdown.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Us -->
+<section>
+    <div class="container">
+        <div class="grid-2 reveal" style="align-items: center;">
+            <div>
+                <span class="eyebrow">Get In Touch</span>
+                <h2 style="margin-bottom: 18px;">Have a Question? Send Us a Message</h2>
+                <p style="margin-bottom: 25px; line-height: 1.8;">Our admission team typically responds within 24-48 hours. For urgent queries, feel free to call or visit our campus directly.</p>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div class="info-icon" style="width: 44px; height: 44px;"><i class="fas fa-map-marker-alt"></i></div>
+                        <span><?php echo nl2br(htmlspecialchars(getSiteAddress())); ?></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div class="info-icon" style="width: 44px; height: 44px;"><i class="fas fa-phone"></i></div>
+                        <span><?php echo htmlspecialchars(getSitePhone()); ?></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div class="info-icon" style="width: 44px; height: 44px;"><i class="fas fa-envelope"></i></div>
+                        <span><?php echo htmlspecialchars(getSiteEmail()); ?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="padding: 36px;">
+                <form method="POST" action="contact.php">
+                    <div class="form-group">
+                        <label for="home_name">Your Name *</label>
+                        <input type="text" id="home_name" name="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="home_email">Email Address *</label>
+                        <input type="email" id="home_email" name="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="home_phone">Phone Number *</label>
+                        <input type="tel" id="home_phone" name="phone" required placeholder="03001234567">
+                    </div>
+                    <input type="hidden" name="subject" value="General Question">
+                    <div class="form-group">
+                        <label for="home_message">Your Message *</label>
+                        <textarea id="home_message" name="message" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
             </div>
         </div>
     </div>
