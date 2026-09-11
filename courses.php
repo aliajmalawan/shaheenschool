@@ -13,134 +13,111 @@ $page_title = 'Courses & Programs';
     </div>
 </section>
 
-<!-- Courses Section -->
+<?php
+// Fetch courses from database
+$courses_query = "SELECT * FROM courses WHERE status = 'active' ORDER BY display_order ASC";
+$courses_result = mysqli_query($conn, $courses_query);
+$has_db_courses = $courses_result && mysqli_num_rows($courses_result) > 0;
+
+// Renders one course card - shared by the DB-driven and default-content paths
+function renderCourseCard($icon, $title, $desc, $duration, $fee, $enroll_link) {
+    echo '<div class="card reveal">';
+    echo '<div class="card-icon"><i class="fas ' . htmlspecialchars($icon) . '"></i></div>';
+    echo '<h3>' . htmlspecialchars($title) . '</h3>';
+    echo '<p>' . htmlspecialchars($desc) . '</p>';
+    if (!empty($duration) || !empty($fee)) {
+        echo '<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border-color);">';
+        if (!empty($duration)) {
+            echo '<span style="background: var(--primary-soft); color: var(--primary-color); padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600;"><i class="fas fa-clock" style="margin-right: 6px;"></i>' . htmlspecialchars($duration) . '</span>';
+        }
+        if (!empty($fee)) {
+            echo '<span style="background: var(--primary-soft); color: var(--primary-color); padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600;"><i class="fas fa-tag" style="margin-right: 6px;"></i>' . htmlspecialchars($fee) . '</span>';
+        }
+        echo '</div>';
+    }
+    echo '<a href="' . htmlspecialchars($enroll_link) . '" class="btn btn-primary mt-30" style="width: 100%; justify-content: center;">Enroll Now</a>';
+    echo '</div>';
+}
+?>
+
+<?php if ($has_db_courses): ?>
+<!-- Courses Section (from database) -->
 <section class="bg-light">
     <div class="container">
         <div class="card-grid">
             <?php
-            // Fetch courses from database
-            $courses_query = "SELECT * FROM courses WHERE status = 'active' ORDER BY display_order ASC";
-            $courses_result = mysqli_query($conn, $courses_query);
-
-            if ($courses_result && mysqli_num_rows($courses_result) > 0) {
-                while ($course = mysqli_fetch_assoc($courses_result)) {
-                    echo '<div class="card">';
-                    echo '<div class="card-icon"><i class="fas fa-book"></i></div>';
-                    echo '<h3>' . htmlspecialchars($course['name']) . '</h3>';
-                    echo '<p>' . htmlspecialchars($course['description']) . '</p>';
-                    if (!empty($course['duration'])) {
-                        echo '<p style="margin-top: 15px;"><strong>Duration:</strong> ' . htmlspecialchars($course['duration']) . '</p>';
-                    }
-                    if (!empty($course['fee'])) {
-                        echo '<p><strong>Fee:</strong> Rs. ' . htmlspecialchars($course['fee']) . '</p>';
-                    }
-                    echo '<a href="admission.php?course=' . $course['id'] . '" class="btn btn-primary mt-30">Enroll Now</a>';
-                    echo '</div>';
-                }
-            } else {
-                // Default courses if database is empty
-                $default_courses = [
-                    [
-                        'icon' => 'fa-graduation-cap',
-                        'title' => 'Matric Programs (9th & 10th)',
-                        'desc' => 'Complete matriculation preparation in Science, Arts, and Computer Science groups. Our comprehensive program covers all subjects with experienced teachers and modern teaching methods.',
-                        'duration' => '2 Years',
-                        'fee' => '5,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-book-open',
-                        'title' => 'Intermediate - Pre-Engineering',
-                        'desc' => 'FSc Pre-Engineering program for students aspiring to pursue engineering careers. Covers Physics, Chemistry, Mathematics with practical lab work and concept-based learning.',
-                        'duration' => '2 Years',
-                        'fee' => '6,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-flask',
-                        'title' => 'Intermediate - Pre-Medical',
-                        'desc' => 'FSc Pre-Medical program designed for future medical professionals. Comprehensive coverage of Biology, Chemistry, Physics with focus on MDCAT preparation.',
-                        'duration' => '2 Years',
-                        'fee' => '6,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-laptop',
-                        'title' => 'Intermediate - Computer Science',
-                        'desc' => 'ICS program combining mathematics with computer science. Perfect for students interested in IT, software development, and technology fields.',
-                        'duration' => '2 Years',
-                        'fee' => '6,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-pencil-alt',
-                        'title' => 'ECAT Preparation',
-                        'desc' => 'Intensive preparation course for Engineering College Admission Test. Covers all test patterns, practice questions, and proven strategies for success.',
-                        'duration' => '3-6 Months',
-                        'fee' => '8,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-stethoscope',
-                        'title' => 'MDCAT Preparation',
-                        'desc' => 'Comprehensive Medical and Dental College Admission Test preparation. Expert faculty, extensive practice tests, and personalized guidance.',
-                        'duration' => '3-6 Months',
-                        'fee' => '8,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-laptop-code',
-                        'title' => 'Computer Programming',
-                        'desc' => 'Learn modern programming languages including C++, Python, Java, and web development. Hands-on projects and practical coding experience.',
-                        'duration' => '6 Months',
-                        'fee' => '4,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-globe',
-                        'title' => 'Web Development',
-                        'desc' => 'Complete web development course covering HTML, CSS, JavaScript, PHP, and MySQL. Build real-world websites and applications.',
-                        'duration' => '6 Months',
-                        'fee' => '5,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-comments',
-                        'title' => 'Spoken English',
-                        'desc' => 'Improve your English communication skills with our interactive spoken English course. Focus on fluency, pronunciation, and confidence.',
-                        'duration' => '3 Months',
-                        'fee' => '3,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-plane',
-                        'title' => 'IELTS Preparation',
-                        'desc' => 'Comprehensive IELTS test preparation covering all modules: Listening, Reading, Writing, and Speaking. Expert guidance and practice tests.',
-                        'duration' => '2-3 Months',
-                        'fee' => '7,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-calculator',
-                        'title' => 'Advanced Mathematics',
-                        'desc' => 'Advanced mathematics courses for competitive exams and higher studies. Covers Calculus, Algebra, Trigonometry, and more.',
-                        'duration' => '6 Months',
-                        'fee' => '4,000/month'
-                    ],
-                    [
-                        'icon' => 'fa-atom',
-                        'title' => 'Physics & Chemistry',
-                        'desc' => 'In-depth Physics and Chemistry courses with practical demonstrations and problem-solving techniques for all levels.',
-                        'duration' => '6 Months',
-                        'fee' => '4,500/month'
-                    ]
-                ];
-
-                foreach ($default_courses as $course) {
-                    echo '<div class="card">';
-                    echo '<div class="card-icon"><i class="fas ' . $course['icon'] . '"></i></div>';
-                    echo '<h3>' . $course['title'] . '</h3>';
-                    echo '<p>' . $course['desc'] . '</p>';
-                    echo '<p style="margin-top: 15px;"><strong>Duration:</strong> ' . $course['duration'] . '</p>';
-                    echo '<p><strong>Fee:</strong> Rs. ' . $course['fee'] . '</p>';
-                    echo '<a href="admission.php" class="btn btn-primary mt-30">Enroll Now</a>';
-                    echo '</div>';
-                }
+            while ($course = mysqli_fetch_assoc($courses_result)) {
+                $fee_label = !empty($course['fee']) ? 'Rs. ' . number_format((float) $course['fee']) . '/month' : '';
+                renderCourseCard(
+                    !empty($course['icon']) ? $course['icon'] : 'fa-book',
+                    $course['name'],
+                    $course['description'],
+                    $course['duration'],
+                    $fee_label,
+                    'admission.php?course=' . intval($course['id'])
+                );
             }
             ?>
         </div>
     </div>
 </section>
+<?php else: ?>
+<!-- Default course catalogue, grouped by program level -->
+<?php
+$course_catalogue = [
+    [
+        'eyebrow' => 'Academic Programs',
+        'group' => 'Matric & Intermediate Programs',
+        'tagline' => 'Board-recognized full-time academic programs',
+        'courses' => [
+            ['icon' => 'fa-graduation-cap', 'title' => 'Matric Programs (9th & 10th)', 'desc' => 'Complete matriculation preparation in Science, Arts, and Computer Science groups. Our comprehensive program covers all subjects with experienced teachers and modern teaching methods.', 'duration' => '2 Years', 'fee' => 'Rs. 5,000/month'],
+            ['icon' => 'fa-book-open', 'title' => 'Intermediate - Pre-Engineering', 'desc' => 'FSc Pre-Engineering program for students aspiring to pursue engineering careers. Covers Physics, Chemistry, Mathematics with practical lab work and concept-based learning.', 'duration' => '2 Years', 'fee' => 'Rs. 6,000/month'],
+            ['icon' => 'fa-flask', 'title' => 'Intermediate - Pre-Medical', 'desc' => 'FSc Pre-Medical program designed for future medical professionals. Comprehensive coverage of Biology, Chemistry, Physics with focus on MDCAT preparation.', 'duration' => '2 Years', 'fee' => 'Rs. 6,000/month'],
+            ['icon' => 'fa-laptop', 'title' => 'Intermediate - Computer Science', 'desc' => 'ICS program combining mathematics with computer science. Perfect for students interested in IT, software development, and technology fields.', 'duration' => '2 Years', 'fee' => 'Rs. 6,000/month'],
+        ],
+    ],
+    [
+        'eyebrow' => 'Test Prep',
+        'group' => 'Entry Test Preparation',
+        'tagline' => 'Focused coaching for university admission tests',
+        'courses' => [
+            ['icon' => 'fa-pencil-alt', 'title' => 'ECAT Preparation', 'desc' => 'Intensive preparation course for Engineering College Admission Test. Covers all test patterns, practice questions, and proven strategies for success.', 'duration' => '3-6 Months', 'fee' => 'Rs. 8,000/month'],
+            ['icon' => 'fa-stethoscope', 'title' => 'MDCAT Preparation', 'desc' => 'Comprehensive Medical and Dental College Admission Test preparation. Expert faculty, extensive practice tests, and personalized guidance.', 'duration' => '3-6 Months', 'fee' => 'Rs. 8,000/month'],
+        ],
+    ],
+    [
+        'eyebrow' => 'Skill Development',
+        'group' => 'Short Courses & Skill Development',
+        'tagline' => 'Practical, career-focused skills you can build fast',
+        'courses' => [
+            ['icon' => 'fa-laptop-code', 'title' => 'Computer Programming', 'desc' => 'Learn modern programming languages including C++, Python, Java, and web development. Hands-on projects and practical coding experience.', 'duration' => '6 Months', 'fee' => 'Rs. 4,000/month'],
+            ['icon' => 'fa-globe', 'title' => 'Web Development', 'desc' => 'Complete web development course covering HTML, CSS, JavaScript, PHP, and MySQL. Build real-world websites and applications.', 'duration' => '6 Months', 'fee' => 'Rs. 5,000/month'],
+            ['icon' => 'fa-comments', 'title' => 'Spoken English', 'desc' => 'Improve your English communication skills with our interactive spoken English course. Focus on fluency, pronunciation, and confidence.', 'duration' => '3 Months', 'fee' => 'Rs. 3,000/month'],
+            ['icon' => 'fa-plane', 'title' => 'IELTS Preparation', 'desc' => 'Comprehensive IELTS test preparation covering all modules: Listening, Reading, Writing, and Speaking. Expert guidance and practice tests.', 'duration' => '2-3 Months', 'fee' => 'Rs. 7,000/month'],
+            ['icon' => 'fa-calculator', 'title' => 'Advanced Mathematics', 'desc' => 'Advanced mathematics courses for competitive exams and higher studies. Covers Calculus, Algebra, Trigonometry, and more.', 'duration' => '6 Months', 'fee' => 'Rs. 4,000/month'],
+            ['icon' => 'fa-atom', 'title' => 'Physics & Chemistry', 'desc' => 'In-depth Physics and Chemistry courses with practical demonstrations and problem-solving techniques for all levels.', 'duration' => '6 Months', 'fee' => 'Rs. 4,500/month'],
+        ],
+    ],
+];
+
+foreach ($course_catalogue as $index => $group):
+?>
+<section class="<?php echo $index % 2 === 0 ? 'bg-light' : ''; ?>">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow"><?php echo htmlspecialchars($group['eyebrow']); ?></span>
+            <h2><?php echo htmlspecialchars($group['group']); ?></h2>
+            <p><?php echo htmlspecialchars($group['tagline']); ?></p>
+        </div>
+        <div class="card-grid">
+            <?php foreach ($group['courses'] as $course): ?>
+                <?php renderCourseCard($course['icon'], $course['title'], $course['desc'], $course['duration'], $course['fee'], 'admission.php'); ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endforeach; ?>
+<?php endif; ?>
 
 <!-- Admission Requirements -->
 <section>
@@ -150,37 +127,29 @@ $page_title = 'Courses & Programs';
             <h2>Admission Requirements</h2>
             <p>What you need to know before applying</p>
         </div>
+        <?php
+        $requirement_groups = [
+            ['icon' => 'fa-graduation-cap', 'title' => 'For Matric Programs', 'items' => ['Previous class result card', 'Birth certificate or B-Form', '4 passport size photographs', 'Parent/Guardian CNIC copy', 'Admission fee']],
+            ['icon' => 'fa-university', 'title' => 'For Intermediate Programs', 'items' => ['Matric certificate & result card', 'CNIC or B-Form', '6 passport size photographs', 'Migration certificate (if applicable)', 'Admission & registration fee']],
+            ['icon' => 'fa-bolt', 'title' => 'For Short Courses', 'items' => ['Educational certificates (as applicable)', 'CNIC or B-Form copy', '2 passport size photographs', 'Course registration form', 'Course fee']],
+        ];
+        ?>
         <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
-            <div class="card">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Matric Programs</h3>
+            <?php foreach ($requirement_groups as $req): ?>
+            <div class="card reveal">
+                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+                    <div class="card-icon" style="margin: 0; width: 50px; height: 50px; font-size: 20px;"><i class="fas <?php echo $req['icon']; ?>"></i></div>
+                    <h3 style="margin: 0;"><?php echo htmlspecialchars($req['title']); ?></h3>
+                </div>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Previous class result card</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Birth certificate or B-Form</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 4 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Parent/Guardian CNIC copy</li>
-                    <li style="padding: 10px 0;">✓ Admission fee</li>
+                    <?php foreach ($req['items'] as $i => $item): ?>
+                        <li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; <?php echo $i < count($req['items']) - 1 ? 'border-bottom: 1px solid var(--border-color);' : ''; ?>">
+                            <i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> <?php echo htmlspecialchars($item); ?>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="card">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Intermediate Programs</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Matric certificate & result card</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ CNIC or B-Form</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 6 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Migration certificate (if applicable)</li>
-                    <li style="padding: 10px 0;">✓ Admission & registration fee</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px;">For Short Courses</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Educational certificates (as applicable)</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ CNIC or B-Form copy</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ 2 passport size photographs</li>
-                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">✓ Course registration form</li>
-                    <li style="padding: 10px 0;">✓ Course fee</li>
-                </ul>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
