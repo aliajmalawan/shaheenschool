@@ -239,6 +239,48 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
     </div>
 </section>
 
+<!-- Our Campuses -->
+<?php $home_campuses = mysqli_query($conn, "SELECT * FROM campuses WHERE status = 'active' ORDER BY display_order ASC, id ASC"); ?>
+<?php if ($home_campuses && mysqli_num_rows($home_campuses) > 0): ?>
+<section class="bg-light">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="eyebrow">Sister Institutes</span>
+            <h2>Our Campuses</h2>
+            <p>Beyond our main campus, <?php echo getSiteName(); ?> operates specialized institutes for focused learning</p>
+        </div>
+        <div class="card-grid">
+            <?php while ($c = mysqli_fetch_assoc($home_campuses)): ?>
+            <div class="card reveal text-center">
+                <?php if (!empty($c['image_path'])): ?>
+                    <img src="<?php echo htmlspecialchars($c['image_path']); ?>" alt="<?php echo htmlspecialchars($c['name']); ?>" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 20px;">
+                <?php else: ?>
+                    <div class="card-icon" style="margin: 0 auto 20px;"><i class="fas <?php echo htmlspecialchars($c['icon'] ?: 'fa-school'); ?>"></i></div>
+                <?php endif; ?>
+                <h3><?php echo htmlspecialchars($c['name']); ?></h3>
+                <?php if (!empty($c['tagline'])): ?>
+                    <p style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;"><?php echo htmlspecialchars($c['tagline']); ?></p>
+                <?php endif; ?>
+                <?php if (!empty($c['description'])): ?>
+                    <p><?php echo htmlspecialchars($c['description']); ?></p>
+                <?php endif; ?>
+                <?php if (!empty($c['address']) || !empty($c['phone'])): ?>
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); text-align: left; font-size: 14px; color: var(--text-light);">
+                    <?php if (!empty($c['address'])): ?>
+                        <p style="margin-bottom: 6px;"><i class="fas fa-map-marker-alt" style="color: var(--primary-color); width: 16px;"></i> <?php echo htmlspecialchars($c['address']); ?></p>
+                    <?php endif; ?>
+                    <?php if (!empty($c['phone'])): ?>
+                        <p><i class="fas fa-phone" style="color: var(--primary-color); width: 16px;"></i> <?php echo htmlspecialchars($c['phone']); ?></p>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
 <!-- Learning Philosophy Intro -->
 <section>
     <div class="container text-center">
@@ -676,13 +718,13 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </section>
 
-<!-- Our Campus -->
+<!-- Campus Gallery -->
 <?php $home_gallery = mysqli_query($conn, "SELECT * FROM gallery WHERE status = 'active' ORDER BY created_at DESC LIMIT 4"); ?>
 <section>
     <div class="container">
         <div class="section-header reveal">
             <span class="eyebrow">Campus Life</span>
-            <h2>Our Campus</h2>
+            <h2>Campus Gallery</h2>
             <p>A glimpse into the spaces where our students learn, grow, and thrive</p>
         </div>
         <?php if ($home_gallery && mysqli_num_rows($home_gallery) > 0): ?>

@@ -11,6 +11,7 @@ $admin_nav_links = [
     ['dashboard.php', 'fa-home', 'Dashboard'],
     ['analytics.php', 'fa-chart-line', 'Website Analytics'],
     ['manage_courses.php', 'fa-book', 'Courses'],
+    ['manage_campuses.php', 'fa-school', 'Campuses'],
     ['manage_faculty.php', 'fa-chalkboard-teacher', 'Faculty'],
     ['manage_admissions.php', 'fa-user-graduate', 'Admissions'],
     ['manage_contacts.php', 'fa-envelope', 'Contact Messages'],
