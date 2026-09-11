@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Social links are plain text inputs (not type="url") so a value
             // without a scheme doesn't block submission - add https:// here
             // instead, so "facebook.com/page" still becomes a working link.
-            if (in_array($key, $social_url_keys, true) && $value !== '' && !preg_match('#^https?://#i', $value)) {
+            // "#" (or anything starting with it) is left alone - that's an
+            // intentional placeholder link for "show the icon, no page yet".
+            if (in_array($key, $social_url_keys, true) && $value !== '' && $value[0] !== '#' && !preg_match('#^https?://#i', $value)) {
                 $value = 'https://' . ltrim($value, '/');
             }
 
