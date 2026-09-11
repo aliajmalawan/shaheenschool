@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -30,7 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_download'])) {
             $upload_path = '../uploads/downloads/' . $new_file_name;
             $db_path = 'uploads/downloads/' . $new_file_name; // Path for database (frontend use)
 
-            if (move_uploaded_file($file_tmp, $upload_path)) {
+            $is_image = in_array($file_ext, ['jpg', 'jpeg', 'png']);
+            $uploaded_ok = $is_image
+                ? compressUploadedImage($file_tmp, $upload_path, 2000, 88)
+                : move_uploaded_file($file_tmp, $upload_path);
+
+            if ($uploaded_ok) {
                 $sql = "INSERT INTO downloads (date, description, file_path, file_name, file_type, display_order)
                         VALUES ('$date', '$description', '$db_path', '$file_name', '$file_type', $display_order)";
 

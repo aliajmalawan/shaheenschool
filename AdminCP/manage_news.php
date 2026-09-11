@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -50,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $new_filename = time() . '_' . uniqid() . '.' . $file_extension;
             $target_file = $upload_dir . $new_filename;
 
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+            if (compressUploadedImage($_FILES['image']['tmp_name'], $target_file, 1600, 85)) {
                 $image_path = 'uploads/news/' . $new_filename;
             }
         }

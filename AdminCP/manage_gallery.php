@@ -7,71 +7,9 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
+require_once '../includes/image_helper.php';
+
 $message = '';
-
-// Image compression function
-function compressImage($source, $destination, $quality = 75) {
-    $info = getimagesize($source);
-    $mime = $info['mime'];
-
-    switch ($mime) {
-        case 'image/jpeg':
-            $image = imagecreatefromjpeg($source);
-            break;
-        case 'image/png':
-            $image = imagecreatefrompng($source);
-            break;
-        case 'image/gif':
-            $image = imagecreatefromgif($source);
-            break;
-        case 'image/webp':
-            $image = imagecreatefromwebp($source);
-            break;
-        default:
-            return false;
-    }
-
-    // Save compressed image
-    imagejpeg($image, $destination, $quality);
-    imagedestroy($image);
-
-    return file_exists($destination);
-}
-
-// Compress image to target size (100KB)
-function compressToTargetSize($source, $destination, $maxSizeKB = 100) {
-    $maxSizeBytes = $maxSizeKB * 1024;
-
-    // If already under size, just copy
-    if (filesize($source) <= $maxSizeBytes) {
-        copy($source, $destination);
-        return true;
-    }
-
-    // Start with quality 75 and reduce until file is small enough
-    $quality = 75;
-    $attempts = 0;
-    $maxAttempts = 10;
-
-    while ($attempts < $maxAttempts) {
-        compressImage($source, $destination, $quality);
-
-        if (file_exists($destination) && filesize($destination) <= $maxSizeBytes) {
-            return true;
-        }
-
-        // Reduce quality for next attempt
-        $quality -= 10;
-        $attempts++;
-
-        if ($quality < 10) {
-            $quality = 10;
-        }
-    }
-
-    // If still too large, use the last compressed version
-    return file_exists($destination);
-}
 
 // Handle delete image
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
@@ -180,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
                 $new_filename = time() . '_' . uniqid() . '.jpg';
                 $target_file = $upload_dir . $new_filename;
 
-                if (compressToTargetSize($file['tmp_name'], $target_file, 100)) {
+                if (compressUploadedImage($file['tmp_name'], $target_file, 1600, 85)) {
                     $image_path = 'uploads/gallery/' . $new_filename;
 
                     $old_img_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT image_path FROM gallery WHERE id = $gallery_id"));
@@ -217,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
                 $new_filename = time() . '_' . uniqid() . '.jpg';
                 $target_file = $upload_dir . $new_filename;
 
-                if (compressToTargetSize($file['tmp_name'], $target_file, 100)) {
+                if (compressUploadedImage($file['tmp_name'], $target_file, 1600, 85)) {
                     $image_path = 'uploads/gallery/' . $new_filename;
                     $query = "INSERT INTO gallery (image_path, category, display_order, status) VALUES ('$image_path', '$category', $order, '$status')";
                     if (mysqli_query($conn, $query)) {

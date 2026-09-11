@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_result'])) {
             $image_name = time() . '_' . $_FILES['image']['name'];
             $image_path = '../uploads/results/' . $image_name;
 
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+            if (compressUploadedImage($_FILES['image']['tmp_name'], $image_path, 2000, 88)) {
                 $sql = "INSERT INTO board_results (title, board_type, year, image_path, display_order)
                         VALUES ('$title', '$board_type', $year, '$image_path', $display_order)";
 

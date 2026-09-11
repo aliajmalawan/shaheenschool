@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
         if (in_array($file_ext, $allowed)) {
             $photo_name = time() . '_' . $_FILES['photo']['name'];
             $photo_path = 'uploads/alumni/' . $photo_name;
-            move_uploaded_file($_FILES['photo']['tmp_name'], '../' . $photo_path);
+            compressUploadedImage($_FILES['photo']['tmp_name'], '../' . $photo_path, 800, 85);
         }
     }
 

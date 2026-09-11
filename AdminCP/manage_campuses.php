@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (in_array($file_extension, $allowed_extensions)) {
             $new_filename = 'campus_' . time() . '_' . uniqid() . '.' . $file_extension;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $new_filename)) {
+            if (compressUploadedImage($_FILES['image']['tmp_name'], $upload_dir . $new_filename, 1600, 85)) {
                 $image_path = 'uploads/campuses/' . $new_filename;
 
                 // Remove old image when replacing on edit

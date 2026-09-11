@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 mkdir($upload_dir, 0777, true);
             }
             $new_filename = 'principal_' . time() . '_' . uniqid() . '.' . $file_extension;
-            if (move_uploaded_file($_FILES['principal_photo_upload']['tmp_name'], $upload_dir . $new_filename)) {
+            if (compressUploadedImage($_FILES['principal_photo_upload']['tmp_name'], $upload_dir . $new_filename, 800, 85)) {
                 $_POST['principal_photo'] = 'uploads/staff/' . $new_filename;
             }
         }

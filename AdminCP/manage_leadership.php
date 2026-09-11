@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/image_helper.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -34,7 +35,7 @@ if (isset($_POST['add_leader'])) {
             $filename = 'leader_' . time() . '_' . rand(1000, 9999) . '.' . $extension;
             $filepath = $upload_dir . $filename;
 
-            if (move_uploaded_file($_FILES['photo']['tmp_name'], $filepath)) {
+            if (compressUploadedImage($_FILES['photo']['tmp_name'], $filepath, 800, 85)) {
                 $photo_path = 'images/leadership/' . $filename;
             }
         }
@@ -54,7 +55,7 @@ if (isset($_POST['add_leader'])) {
             $filename = 'signature_' . time() . '_' . rand(1000, 9999) . '.' . $extension;
             $filepath = $upload_dir . $filename;
 
-            if (move_uploaded_file($_FILES['signature']['tmp_name'], $filepath)) {
+            if (compressUploadedImage($_FILES['signature']['tmp_name'], $filepath, 800, 90)) {
                 $signature_path = 'images/signatures/' . $filename;
             }
         }
@@ -99,7 +100,7 @@ if (isset($_POST['edit_leader'])) {
             $filename = 'leader_' . time() . '_' . rand(1000, 9999) . '.' . $extension;
             $filepath = $upload_dir . $filename;
 
-            if (move_uploaded_file($_FILES['photo']['tmp_name'], $filepath)) {
+            if (compressUploadedImage($_FILES['photo']['tmp_name'], $filepath, 800, 85)) {
                 // Delete old photo
                 if ($photo_path && file_exists('../' . $photo_path)) {
                     unlink('../' . $photo_path);
@@ -122,7 +123,7 @@ if (isset($_POST['edit_leader'])) {
             $filename = 'signature_' . time() . '_' . rand(1000, 9999) . '.' . $extension;
             $filepath = $upload_dir . $filename;
 
-            if (move_uploaded_file($_FILES['signature']['tmp_name'], $filepath)) {
+            if (compressUploadedImage($_FILES['signature']['tmp_name'], $filepath, 800, 90)) {
                 // Delete old signature
                 if ($signature_path && file_exists('../' . $signature_path)) {
                     unlink('../' . $signature_path);

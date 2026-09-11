@@ -3,6 +3,7 @@
  * Theme Helper Functions
  * Manages dynamic theme colors and logo
  */
+require_once __DIR__ . '/image_helper.php';
 
 // Get active theme
 function getActiveTheme() {
@@ -149,8 +150,9 @@ function uploadLogo($file) {
     $filename = 'logo_' . time() . '.' . $extension;
     $filepath = $upload_dir . $filename;
 
-    // Upload file
-    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+    // Upload file (compressed - logos stay small so this mostly just
+    // protects against someone uploading a huge multi-MB source file)
+    if (compressUploadedImage($file['tmp_name'], $filepath, 500, 90)) {
         // Return path relative to website root
         return ['success' => true, 'path' => 'images/logos/' . $filename];
     } else {
@@ -185,8 +187,8 @@ function uploadHeroImage($file) {
     $filename = 'hero_' . time() . '.' . $extension;
     $filepath = $upload_dir . $filename;
 
-    // Upload file
-    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+    // Upload file (compressed to a sane max width for a full-bleed banner)
+    if (compressUploadedImage($file['tmp_name'], $filepath, 1920, 85)) {
         // Return path relative to website root
         return ['success' => true, 'path' => 'images/hero/' . $filename];
     } else {
