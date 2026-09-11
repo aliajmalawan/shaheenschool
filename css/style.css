@@ -1053,6 +1053,37 @@ section {
 }
 
 /* ========================================
+   Alerts (form success/error feedback)
+   ======================================== */
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    border-radius: var(--radius-md);
+    margin-bottom: 25px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.alert i {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.alert-success {
+    background: #eafaf1;
+    color: #1e7e4d;
+    border-color: #c3ecd6;
+}
+
+.alert-error {
+    background: #fdecec;
+    color: #b3261e;
+    border-color: #f8cfcc;
+}
+
+/* ========================================
    FAQ Accordion
    ======================================== */
 .faq-list {

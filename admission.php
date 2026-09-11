@@ -214,16 +214,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <section class="bg-light">
     <div class="container">
         <?php if ($success_message): ?>
-            <div style="background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center; border: 1px solid #c3e6cb;">
-                <i class="fas fa-check-circle" style="font-size: 24px; margin-right: 10px;"></i>
-                <?php echo $success_message; ?>
+            <div class="alert alert-success" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+                <i class="fas fa-check-circle"></i>
+                <span><?php echo $success_message; ?></span>
             </div>
         <?php endif; ?>
 
         <?php if ($error_message): ?>
-            <div style="background: #f8d7da; color: #721c24; padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center; border: 1px solid #f5c6cb;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 24px; margin-right: 10px;"></i>
-                <?php echo $error_message; ?>
+            <div class="alert alert-error" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span><?php echo $error_message; ?></span>
             </div>
         <?php endif; ?>
 
@@ -235,22 +235,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <form method="POST" enctype="multipart/form-data" id="admissionForm" onsubmit="return validateForm('admissionForm')">
-                    <div class="form-group">
-                        <label for="student_name">Student Name *</label>
-                        <input type="text" id="student_name" name="student_name" required placeholder="Enter student's full name">
+                    <div class="grid-2" style="gap: 20px; align-items: start;">
+                        <div class="form-group">
+                            <label for="student_name">Student Name *</label>
+                            <input type="text" id="student_name" name="student_name" required placeholder="Enter student's full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="father_name">Father/Guardian Name *</label>
+                            <input type="text" id="father_name" name="father_name" required placeholder="Enter father or guardian name">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="father_name">Father/Guardian Name *</label>
-                        <input type="text" id="father_name" name="father_name" required placeholder="Enter father or guardian name">
+                    <div class="grid-2" style="gap: 20px; align-items: start;">
+                        <div class="form-group">
+                            <label for="cnic_bform">CNIC / B-Form Number *</label>
+                            <input type="text" id="cnic_bform" name="cnic_bform" required placeholder="e.g., 12345-1234567-1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="previous_education">Previous Education *</label>
+                            <input type="text" id="previous_education" name="previous_education" required placeholder="e.g., Matric from XYZ School, 85%">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="cnic_bform">CNIC / B-Form Number *</label>
-                        <input type="text" id="cnic_bform" name="cnic_bform" required placeholder="e.g., 12345-1234567-1">
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="grid-2" style="gap: 20px; align-items: start;">
                         <div class="form-group">
                             <label for="phone">Phone Number *</label>
                             <input type="tel" id="phone" name="phone" required placeholder="03001234567">
@@ -301,11 +310,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             }
                             ?>
                         </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="previous_education">Previous Education *</label>
-                        <input type="text" id="previous_education" name="previous_education" required placeholder="e.g., Matric from XYZ School, 85%">
                     </div>
 
                     <div class="form-group">
@@ -379,27 +383,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <i class="fas fa-money-bill-wave" style="font-size: 60px; color: var(--accent-color);"></i>
             </div>
 
+            <?php
+            $fee_rows = [
+                ['icon' => 'fa-id-card', 'label' => 'Admission Fee (One Time)', 'amount' => 'Rs. 2,000'],
+                ['icon' => 'fa-graduation-cap', 'label' => 'Matric Programs (Monthly)', 'amount' => 'Rs. 5,000'],
+                ['icon' => 'fa-university', 'label' => 'Intermediate Programs (Monthly)', 'amount' => 'Rs. 6,000'],
+                ['icon' => 'fa-pencil-alt', 'label' => 'Entry Test Preparation (Monthly)', 'amount' => 'Rs. 8,000'],
+                ['icon' => 'fa-bolt', 'label' => 'Short Courses (Monthly)', 'amount' => 'Rs. 3,000 - 7,000'],
+            ];
+            ?>
             <ul style="list-style: none; padding: 0;">
-                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                    <strong>Admission Fee (One Time)</strong>
-                    <span>Rs. 2,000</span>
+                <?php foreach ($fee_rows as $i => $row): ?>
+                <li style="display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 0; <?php echo $i < count($fee_rows) - 1 ? 'border-bottom: 1px solid var(--border-color);' : ''; ?>">
+                    <span style="display: flex; align-items: center; gap: 12px; font-weight: 600;">
+                        <i class="fas <?php echo $row['icon']; ?>" style="color: var(--primary-color); width: 20px; text-align: center;"></i>
+                        <?php echo htmlspecialchars($row['label']); ?>
+                    </span>
+                    <span style="font-weight: 700; color: var(--primary-color);"><?php echo htmlspecialchars($row['amount']); ?></span>
                 </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                    <strong>Matric Programs (Monthly)</strong>
-                    <span>Rs. 5,000</span>
-                </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                    <strong>Intermediate Programs (Monthly)</strong>
-                    <span>Rs. 6,000</span>
-                </li>
-                <li style="padding: 15px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-                    <strong>Entry Test Preparation (Monthly)</strong>
-                    <span>Rs. 8,000</span>
-                </li>
-                <li style="padding: 15px 0; display: flex; justify-content: space-between;">
-                    <strong>Short Courses (Monthly)</strong>
-                    <span>Rs. 3,000 - 7,000</span>
-                </li>
+                <?php endforeach; ?>
             </ul>
 
             <div style="background: var(--bg-light); padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
