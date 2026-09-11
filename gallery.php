@@ -16,13 +16,18 @@ $page_title = 'Gallery';
 <!-- Gallery Categories -->
 <section class="bg-light">
     <div class="container">
+        <?php
+        $gallery_categories = mysqli_query($conn, "SELECT * FROM gallery_categories WHERE status = 'active' ORDER BY display_order ASC, name ASC");
+        $has_categories = $gallery_categories && mysqli_num_rows($gallery_categories) > 0;
+        ?>
+        <?php if ($has_categories): ?>
         <div class="text-center mb-30">
             <button class="btn btn-secondary" style="margin: 5px;" onclick="filterGallery('all')">All</button>
-            <button class="btn btn-outline-dark" style="margin: 5px;" onclick="filterGallery('events')">Events</button>
-            <button class="btn btn-outline-dark" style="margin: 5px;" onclick="filterGallery('classes')">Classes</button>
-            <button class="btn btn-outline-dark" style="margin: 5px;" onclick="filterGallery('activities')">Activities</button>
-            <button class="btn btn-outline-dark" style="margin: 5px;" onclick="filterGallery('achievements')">Achievements</button>
+            <?php while ($cat = mysqli_fetch_assoc($gallery_categories)): ?>
+                <button class="btn btn-outline-dark" style="margin: 5px;" onclick="filterGallery('<?php echo htmlspecialchars($cat['slug']); ?>')"><?php echo htmlspecialchars($cat['name']); ?></button>
+            <?php endwhile; ?>
         </div>
+        <?php endif; ?>
 
         <div id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
             <?php

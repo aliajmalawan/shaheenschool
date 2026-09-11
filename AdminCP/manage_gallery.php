@@ -73,7 +73,7 @@ function compressToTargetSize($source, $destination, $maxSizeKB = 100) {
     return file_exists($destination);
 }
 
-// Handle delete
+// Handle delete image
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
@@ -90,8 +90,62 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     }
 }
 
-// Handle add/edit
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Handle delete category
+if (isset($_GET['action']) && $_GET['action'] == 'delete_category' && isset($_GET['cat_id'])) {
+    $cat_id = intval($_GET['cat_id']);
+    $cat_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT slug FROM gallery_categories WHERE id = $cat_id"));
+
+    if ($cat_row) {
+        $slug_esc = mysqli_real_escape_string($conn, $cat_row['slug']);
+        $in_use = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as cnt FROM gallery WHERE category = '$slug_esc'"));
+
+        if ($in_use['cnt'] > 0) {
+            $message = "Cannot delete this category - {$in_use['cnt']} image(s) are still using it. Reassign or delete those images first.";
+        } elseif (mysqli_query($conn, "DELETE FROM gallery_categories WHERE id = $cat_id")) {
+            $message = "Category deleted successfully!";
+        }
+    }
+}
+
+// Handle add category
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['new_category_name'])) {
+    $cat_name = trim($_POST['new_category_name']);
+    if ($cat_name !== '') {
+        $cat_name_esc = mysqli_real_escape_string($conn, $cat_name);
+        $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($cat_name)), '-'));
+        $slug_esc = mysqli_real_escape_string($conn, $slug);
+
+        $exists = mysqli_fetch_assoc(mysqli_query($conn, "SELECT id FROM gallery_categories WHERE slug = '$slug_esc'"));
+        if ($exists) {
+            $message = "A category with that name already exists.";
+        } elseif (mysqli_query($conn, "INSERT INTO gallery_categories (name, slug) VALUES ('$cat_name_esc', '$slug_esc')")) {
+            $message = "Category added successfully!";
+        } else {
+            $message = "Error adding category.";
+        }
+    }
+}
+
+// Fetch categories (used by the image form dropdown and the category manager list)
+$categories = mysqli_query($conn, "SELECT * FROM gallery_categories WHERE status = 'active' ORDER BY display_order ASC, name ASC");
+$categories_list = [];
+if ($categories) {
+    while ($cat_row = mysqli_fetch_assoc($categories)) {
+        $categories_list[] = $cat_row;
+    }
+}
+
+// slug => display name lookup (includes inactive, so old items still show a real label)
+$category_names = [];
+$all_categories = mysqli_query($conn, "SELECT slug, name FROM gallery_categories");
+if ($all_categories) {
+    while ($cat_row = mysqli_fetch_assoc($all_categories)) {
+        $category_names[$cat_row['slug']] = $cat_row['name'];
+    }
+}
+
+// Handle add/edit image
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['title'])) {
     $title = mysqli_real_escape_string($conn, $_POST['title']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $display_order = intval($_POST['display_order']);
@@ -253,13 +307,20 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                     <div class="form-group">
-                        <label>Category *</label>
-                        <select name="category" required>
-                            <option value="events" <?php echo ($edit_item && $edit_item['category'] == 'events') ? 'selected' : ''; ?>>Events</option>
-                            <option value="classes" <?php echo ($edit_item && $edit_item['category'] == 'classes') ? 'selected' : ''; ?>>Classes</option>
-                            <option value="activities" <?php echo ($edit_item && $edit_item['category'] == 'activities') ? 'selected' : ''; ?>>Activities</option>
-                            <option value="achievements" <?php echo ($edit_item && $edit_item['category'] == 'achievements') ? 'selected' : ''; ?>>Achievements</option>
-                        </select>
+                        <label>Category <?php echo empty($categories_list) ? '' : '*'; ?></label>
+                        <?php if (empty($categories_list)): ?>
+                            <select name="category" disabled>
+                                <option value="">No categories yet</option>
+                            </select>
+                            <small style="color: var(--text-light); font-size: 12px;">Add a category below first</small>
+                        <?php else: ?>
+                            <select name="category" required>
+                                <option value="">-- Select Category --</option>
+                                <?php foreach ($categories_list as $cat): ?>
+                                    <option value="<?php echo htmlspecialchars($cat['slug']); ?>" <?php echo ($edit_item && $edit_item['category'] == $cat['slug']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($cat['name']); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php endif; ?>
                     </div>
 
                     <div class="form-group">
@@ -297,6 +358,34 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
             </form>
         </div>
 
+        <!-- Manage Categories -->
+        <div class="card" style="margin-bottom: 30px;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-tags"></i> Manage Categories</h2>
+
+            <form method="POST" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 25px;">
+                <div class="form-group" style="flex: 1; min-width: 220px; margin-bottom: 0;">
+                    <label>New Category Name</label>
+                    <input type="text" name="new_category_name" placeholder="e.g., Sports Day" required>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Category</button>
+            </form>
+
+            <?php if (empty($categories_list)): ?>
+                <p style="color: var(--text-light);">No categories yet. Add your first one above.</p>
+            <?php else: ?>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <?php foreach ($categories_list as $cat): ?>
+                        <span style="display: inline-flex; align-items: center; gap: 10px; background: var(--bg-light); border-radius: 20px; padding: 8px 8px 8px 16px; font-size: 14px;">
+                            <?php echo htmlspecialchars($cat['name']); ?>
+                            <a href="?action=delete_category&cat_id=<?php echo $cat['id']; ?>" onclick="return confirm('Delete category &quot;<?php echo htmlspecialchars(addslashes($cat['name'])); ?>&quot;?');" style="width: 22px; height: 22px; border-radius: 50%; background: white; display: inline-flex; align-items: center; justify-content: center; color: #dc3545;" title="Delete category">
+                                <i class="fas fa-times" style="font-size: 11px;"></i>
+                            </a>
+                        </span>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
         <!-- Gallery Grid -->
         <div class="card">
             <h2 style="color: var(--primary-color); margin-bottom: 20px;">All Gallery Images</h2>
@@ -309,7 +398,8 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                         echo '<img src="../' . htmlspecialchars($item['image_path']) . '" alt="' . htmlspecialchars($item['title']) . '">';
                         echo '<div class="gallery-item-info">';
                         echo '<h4 style="margin: 0 0 5px 0; color: var(--primary-color);">' . htmlspecialchars($item['title']) . '</h4>';
-                        echo '<p style="margin: 0; font-size: 13px; color: var(--text-light);"><i class="fas fa-tag"></i> ' . ucfirst($item['category']) . '</p>';
+                        $cat_label = !empty($item['category']) && isset($category_names[$item['category']]) ? $category_names[$item['category']] : 'Uncategorized';
+                        echo '<p style="margin: 0; font-size: 13px; color: var(--text-light);"><i class="fas fa-tag"></i> ' . htmlspecialchars($cat_label) . '</p>';
                         echo '<p style="margin: 5px 0 0 0; font-size: 13px; color: var(--text-light);"><i class="fas fa-sort"></i> Order: ' . $item['display_order'] . '</p>';
                         echo '<span style="background: ' . ($item['status'] == 'active' ? '#28a745' : '#dc3545') . '; color: white; padding: 3px 8px; border-radius: 12px; font-size: 11px; display: inline-block; margin-top: 5px;">' . ucfirst($item['status']) . '</span>';
                         echo '</div>';
