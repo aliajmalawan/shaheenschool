@@ -115,6 +115,7 @@
                             <li><a href="alumni.php"><i class="fas fa-user-graduate"></i> Alumni</a></li>
                             <li><a href="examination.php"><i class="fas fa-file-alt"></i> Examination</a></li>
                             <li><a href="events.php"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                            <li><a href="campuses.php"><i class="fas fa-school"></i> Our Campuses</a></li>
                         </ul>
                     </li>
                     <li><a href="gallery.php">Gallery</a></li>

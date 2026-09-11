@@ -1462,6 +1462,22 @@ footer {
         gap: 30px !important;
     }
 
+    /* Campus detail rows (campuses.php) - class-based, not tied to a
+       specific pixel value like the legacy attribute-selector rules above */
+    .campus-row {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    /* Keep the image first on mobile regardless of desktop left/right order */
+    .campus-row-reverse > div:first-child {
+        order: 2;
+    }
+
+    .campus-row-reverse > div:last-child {
+        order: 1;
+    }
+
     section [style*="grid-template-columns: 1fr 350px"] > div:first-child {
         order: 2;
     }
