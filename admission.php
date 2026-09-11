@@ -342,29 +342,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <?php foreach (getFeatureCards('admission_process') as $step): ?>
             <div class="card reveal" style="text-align: center;">
-                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">1</div>
-                <h3 style="margin-bottom: 12px;">Fill Application</h3>
-                <p>Complete the online admission form with accurate information</p>
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;"><?php echo intval($step['display_order']); ?></div>
+                <h3 style="margin-bottom: 12px;"><?php echo htmlspecialchars($step['title']); ?></h3>
+                <p><?php echo htmlspecialchars($step['description']); ?></p>
             </div>
-
-            <div class="card reveal" style="text-align: center;">
-                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">2</div>
-                <h3 style="margin-bottom: 12px;">Submit Documents</h3>
-                <p>Upload or submit required documents at our office</p>
-            </div>
-
-            <div class="card reveal" style="text-align: center;">
-                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">3</div>
-                <h3 style="margin-bottom: 12px;">Verification</h3>
-                <p>Our team will review and verify your application</p>
-            </div>
-
-            <div class="card reveal" style="text-align: center;">
-                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; font-weight: 800;">4</div>
-                <h3 style="margin-bottom: 12px;">Confirmation</h3>
-                <p>Receive confirmation and start your classes</p>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -384,13 +368,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <?php
-            $fee_rows = [
-                ['icon' => 'fa-id-card', 'label' => 'Admission Fee (One Time)', 'amount' => 'Rs. 2,000'],
-                ['icon' => 'fa-graduation-cap', 'label' => 'Matric Programs (Monthly)', 'amount' => 'Rs. 5,000'],
-                ['icon' => 'fa-university', 'label' => 'Intermediate Programs (Monthly)', 'amount' => 'Rs. 6,000'],
-                ['icon' => 'fa-pencil-alt', 'label' => 'Entry Test Preparation (Monthly)', 'amount' => 'Rs. 8,000'],
-                ['icon' => 'fa-bolt', 'label' => 'Short Courses (Monthly)', 'amount' => 'Rs. 3,000 - 7,000'],
-            ];
+            $fee_rows = [];
+            $fee_result = mysqli_query($conn, "SELECT * FROM fee_items WHERE status = 'active' ORDER BY display_order ASC, id ASC");
+            if ($fee_result) {
+                while ($row = mysqli_fetch_assoc($fee_result)) {
+                    $fee_rows[] = $row;
+                }
+            }
             ?>
             <ul style="list-style: none; padding: 0;">
                 <?php foreach ($fee_rows as $i => $row): ?>

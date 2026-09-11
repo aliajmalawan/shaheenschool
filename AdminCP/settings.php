@@ -14,6 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $success = true;
     $social_url_keys = ['facebook_url', 'instagram_url', 'youtube_url', 'twitter_url'];
 
+    // Principal photo upload (optional) - only touch the setting if a new
+    // file was actually chosen, so re-saving the rest of the form doesn't
+    // wipe out an existing photo.
+    if (isset($_FILES['principal_photo_upload']) && $_FILES['principal_photo_upload']['error'] == 0) {
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $file_extension = strtolower(pathinfo($_FILES['principal_photo_upload']['name'], PATHINFO_EXTENSION));
+        if (in_array($file_extension, $allowed_extensions)) {
+            $upload_dir = '../uploads/staff/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $new_filename = 'principal_' . time() . '_' . uniqid() . '.' . $file_extension;
+            if (move_uploaded_file($_FILES['principal_photo_upload']['tmp_name'], $upload_dir . $new_filename)) {
+                $_POST['principal_photo'] = 'uploads/staff/' . $new_filename;
+            }
+        }
+    }
+
     foreach ($_POST as $key => $value) {
         if ($key !== 'submit') {
             // Social links are plain text inputs (not type="url") so a value
@@ -113,7 +131,7 @@ loadSettings();
             </div>
         <?php endif; ?>
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <!-- General Settings -->
             <div class="settings-section">
                 <h3><i class="fas fa-info-circle"></i> General Information</h3>
@@ -246,6 +264,99 @@ loadSettings();
                 <div class="form-group">
                     <label>Vision Statement</label>
                     <textarea name="vision_statement" rows="3" placeholder="Organization vision"><?php echo htmlspecialchars(getSetting('vision_statement', 'To be a center of educational excellence that nurtures future leaders and innovators.')); ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>"Our Story" - Second Paragraph</label>
+                    <textarea name="about_paragraph_2" rows="3"><?php echo htmlspecialchars(getSetting('about_paragraph_2')); ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>"Our Story" - Third Paragraph</label>
+                    <textarea name="about_paragraph_3" rows="3"><?php echo htmlspecialchars(getSetting('about_paragraph_3')); ?></textarea>
+                </div>
+            </div>
+
+            <!-- Candle Symbol Section (About Page) -->
+            <div class="settings-section">
+                <h3><i class="fas fa-fire"></i> "The Candle" Symbol Section (About Page)</h3>
+
+                <div class="form-group">
+                    <label>Paragraph 1</label>
+                    <textarea name="candle_paragraph_1" rows="2"><?php echo htmlspecialchars(getSetting('candle_paragraph_1')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Paragraph 2</label>
+                    <textarea name="candle_paragraph_2" rows="2"><?php echo htmlspecialchars(getSetting('candle_paragraph_2')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Paragraph 3</label>
+                    <textarea name="candle_paragraph_3" rows="2"><?php echo htmlspecialchars(getSetting('candle_paragraph_3')); ?></textarea>
+                </div>
+            </div>
+
+            <!-- Principal's Message (About Page) -->
+            <div class="settings-section">
+                <h3><i class="fas fa-user-tie"></i> Principal's Message (About Page)</h3>
+
+                <div class="form-group">
+                    <label>Principal's Photo</label>
+                    <?php $principal_photo = getSetting('principal_photo'); ?>
+                    <input type="file" name="principal_photo_upload" accept="image/*">
+                    <?php if (!empty($principal_photo)): ?>
+                        <div style="margin-top: 10px;"><img src="../<?php echo htmlspecialchars($principal_photo); ?>" style="height: 80px; border-radius: 8px;"></div>
+                    <?php else: ?>
+                        <small style="color: var(--text-light); display: block; margin-top: 5px;">No photo uploaded yet - a generic icon is shown instead.</small>
+                    <?php endif; ?>
+                </div>
+
+                <div class="form-group">
+                    <label>Opening Quote (shown in italics)</label>
+                    <textarea name="principal_message_quote" rows="2"><?php echo htmlspecialchars(getSetting('principal_message_quote')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Message - Paragraph 1</label>
+                    <textarea name="principal_message_para_1" rows="2"><?php echo htmlspecialchars(getSetting('principal_message_para_1')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Message - Paragraph 2</label>
+                    <textarea name="principal_message_para_2" rows="2"><?php echo htmlspecialchars(getSetting('principal_message_para_2')); ?></textarea>
+                </div>
+            </div>
+
+            <!-- Assessment Section (Homepage) -->
+            <div class="settings-section">
+                <h3><i class="fas fa-clipboard-check"></i> "Our Approach to Assessment" (Homepage)</h3>
+
+                <div class="form-group">
+                    <label>Paragraph 1</label>
+                    <textarea name="assessment_paragraph_1" rows="2"><?php echo htmlspecialchars(getSetting('assessment_paragraph_1')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Paragraph 2</label>
+                    <textarea name="assessment_paragraph_2" rows="2"><?php echo htmlspecialchars(getSetting('assessment_paragraph_2')); ?></textarea>
+                </div>
+            </div>
+
+            <!-- Cambridge EdTech Section (Homepage) -->
+            <div class="settings-section">
+                <h3><i class="fas fa-graduation-cap"></i> "Cambridge EdTech" Section (Homepage)</h3>
+
+                <div class="form-group">
+                    <label>Paragraph 1</label>
+                    <textarea name="cambridge_paragraph_1" rows="2"><?php echo htmlspecialchars(getSetting('cambridge_paragraph_1')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Paragraph 2</label>
+                    <textarea name="cambridge_paragraph_2" rows="2"><?php echo htmlspecialchars(getSetting('cambridge_paragraph_2')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Paragraph 3</label>
+                    <textarea name="cambridge_paragraph_3" rows="2"><?php echo htmlspecialchars(getSetting('cambridge_paragraph_3')); ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Highlight Box Text</label>
+                    <textarea name="cambridge_highlight" rows="2"><?php echo htmlspecialchars(getSetting('cambridge_highlight')); ?></textarea>
                 </div>
             </div>
 

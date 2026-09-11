@@ -129,48 +129,7 @@ $page_title = 'Our Faculty';
             <p>Qualities that make our teachers exceptional</p>
         </div>
         <div class="card-grid">
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3>Highly Qualified</h3>
-                <p>All our teachers hold advanced degrees and professional certifications in their respective fields.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-medal"></i>
-                </div>
-                <h3>Experienced Professionals</h3>
-                <p>Years of teaching experience with proven track records of student success and achievement.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>Student-Centered Approach</h3>
-                <p>Dedicated to understanding individual student needs and adapting teaching methods accordingly.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-book-reader"></i>
-                </div>
-                <h3>Continuous Learning</h3>
-                <p>Regularly update their knowledge and skills through professional development and training.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
-                <h3>Excellent Communication</h3>
-                <p>Clear and effective communicators who make complex concepts easy to understand.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <h3>Supportive Mentors</h3>
-                <p>Go beyond teaching to provide guidance, support, and encouragement to every student.</p>
-            </div>
+            <?php renderFeatureCardGrid('faculty_highlights'); ?>
         </div>
     </div>
 </section>

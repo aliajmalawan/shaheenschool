@@ -25,6 +25,9 @@ $admin_nav_links = [
     ['manage_board_results.php', 'fa-trophy', 'Board Results'],
     ['manage_notifications.php', 'fa-bullhorn', 'Notifications'],
     ['manage_leadership.php', 'fa-users', 'Leadership Messages'],
+    ['manage_feature_cards.php', 'fa-th-large', 'Feature Cards'],
+    ['manage_fee_items.php', 'fa-money-bill-wave', 'Fee Information'],
+    ['manage_faqs.php', 'fa-question-circle', 'FAQs'],
     ['settings.php', 'fa-cog', 'Settings'],
 ];
 ?>

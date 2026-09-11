@@ -305,40 +305,25 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
             <div>
                 <span class="eyebrow">Assessment Philosophy</span>
                 <h2 style="margin-bottom: 20px;">Our Approach to Assessment</h2>
-                <p style="margin-bottom: 15px; line-height: 1.8;">We believe assessment should guide learning, not just measure it. Our teachers use continuous, classroom-based assessment — class tests, assignments, and regular feedback — alongside formal examinations to build a complete picture of every student's progress.</p>
-                <p style="margin-bottom: 25px; line-height: 1.8;">This approach helps us identify each student's strengths early, address gaps before they widen, and keep parents informed through regular progress updates rather than a single end-of-term result.</p>
+                <p style="margin-bottom: 15px; line-height: 1.8;"><?php echo nl2br(htmlspecialchars(getSetting('assessment_paragraph_1'))); ?></p>
+                <p style="margin-bottom: 25px; line-height: 1.8;"><?php echo nl2br(htmlspecialchars(getSetting('assessment_paragraph_2'))); ?></p>
                 <a href="about.php" class="btn btn-secondary">Learn More</a>
             </div>
             <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 40px;">
                 <div style="display: flex; flex-direction: column; gap: 28px;">
-                    <div style="display: flex; align-items: center; gap: 18px;">
-                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-clipboard-check"></i></div>
-                        <div>
-                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Continuous Assessment</strong>
-                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Class tests & assignments year-round</span>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 18px;">
-                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-chart-line"></i></div>
-                        <div>
-                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Progress Tracking</strong>
-                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Regular reports shared with parents</span>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 18px;">
-                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-comments"></i></div>
-                        <div>
-                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Personalized Feedback</strong>
-                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">One-on-one guidance for every student</span>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 18px;">
-                        <div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="fas fa-file-alt"></i></div>
-                        <div>
-                            <strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">Formal Examinations</strong>
-                            <span style="color: rgba(255,255,255,0.75); font-size: 14px;">Structured tests aligned with the curriculum</span>
-                        </div>
-                    </div>
+                    <?php
+                    $assessment_features = mysqli_query($conn, "SELECT * FROM feature_cards WHERE section = 'assessment_features' AND status = 'active' ORDER BY display_order ASC, id ASC");
+                    if ($assessment_features) {
+                        while ($f = mysqli_fetch_assoc($assessment_features)) {
+                            echo '<div style="display: flex; align-items: center; gap: 18px;">';
+                            echo '<div style="width: 54px; height: 54px; border-radius: var(--radius-md); background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0;"><i class="' . htmlspecialchars($f['icon']) . '"></i></div>';
+                            echo '<div>';
+                            echo '<strong style="display: block; color: #fff; font-size: 17px; margin-bottom: 4px;">' . htmlspecialchars($f['title']) . '</strong>';
+                            echo '<span style="color: rgba(255,255,255,0.75); font-size: 14px;">' . htmlspecialchars($f['description']) . '</span>';
+                            echo '</div></div>';
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -354,26 +339,7 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
             <p>Qualities every student develops throughout their journey with us</p>
         </div>
         <div class="grid-4">
-            <div class="card reveal text-center">
-                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-comments"></i></div>
-                <h3>Confident Communicators</h3>
-                <p>Express ideas clearly and listen with confidence, in both Urdu and English.</p>
-            </div>
-            <div class="card reveal text-center">
-                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-brain"></i></div>
-                <h3>Critical Thinkers</h3>
-                <p>Question, analyze, and reason through problems rather than memorize answers.</p>
-            </div>
-            <div class="card reveal text-center">
-                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-hands-helping"></i></div>
-                <h3>Responsible Citizens</h3>
-                <p>Grow into caring, principled individuals who contribute positively to society.</p>
-            </div>
-            <div class="card reveal text-center">
-                <div class="card-icon" style="margin: 0 auto 22px;"><i class="fas fa-seedling"></i></div>
-                <h3>Lifelong Learners</h3>
-                <p>Carry curiosity and a love of learning far beyond the classroom.</p>
-            </div>
+            <?php renderFeatureCardGrid('learner_attributes', true); ?>
         </div>
     </div>
 </section>
@@ -388,69 +354,15 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
         </div>
 
         <div class="grid-auto mb-30">
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                <div>
-                    <h4>Online Exam Results</h4>
-                    <p>Instant results & analysis</p>
+            <?php foreach (getFeatureCards('digital_features') as $f): ?>
+                <div class="feature-row reveal">
+                    <div class="feature-icon"><i class="<?php echo htmlspecialchars($f['icon']); ?>"></i></div>
+                    <div>
+                        <h4><?php echo htmlspecialchars($f['title']); ?></h4>
+                        <p><?php echo htmlspecialchars($f['description']); ?></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-user-check"></i></div>
-                <div>
-                    <h4>Digital Attendance</h4>
-                    <p>Real-time tracking</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fab fa-whatsapp"></i></div>
-                <div>
-                    <h4>WhatsApp & SMS</h4>
-                    <p>Auto alerts to parents</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-comments"></i></div>
-                <div>
-                    <h4>Parent Complaints</h4>
-                    <p>Quick resolution system</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-wallet"></i></div>
-                <div>
-                    <h4>Fee History</h4>
-                    <p>Online fee management</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-book-open"></i></div>
-                <div>
-                    <h4>Digital Diaries</h4>
-                    <p>Online homework</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div>
-                    <h4>Smart Timetable</h4>
-                    <p>Dynamic schedules</p>
-                </div>
-            </div>
-
-            <div class="feature-row reveal">
-                <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
-                <div>
-                    <h4>PTM Notes</h4>
-                    <p>Meeting & feedback</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
 
         <!-- Mobile App CTA -->
@@ -497,23 +409,23 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
             <div class="card" style="border-left: 4px solid var(--accent-color); padding: 40px;">
                 <p style="font-size: 17px; line-height: 1.9; color: var(--text-dark); margin-bottom: 22px; font-weight: 500;">
                     <i class="fas fa-star" style="color: var(--accent-color); margin-right: 10px;"></i>
-                    <?php echo getSiteName(); ?> <strong style="color: var(--primary-color);">proudly becomes the first school in the city</strong> to adopt a complete Cambridge-aligned EdTech solution, setting a new benchmark in modern education.
+                    <?php echo nl2br(htmlspecialchars(getSetting('cambridge_paragraph_1'))); ?>
                 </p>
 
                 <p style="font-size: 16px; line-height: 1.9; color: var(--text-dark); margin-bottom: 22px;">
                     <i class="fas fa-chalkboard-teacher" style="color: var(--primary-color); margin-right: 10px;"></i>
-                    Our classrooms are transforming into <strong style="color: var(--primary-color);">fully smart, technology-enabled learning spaces</strong>, where teachers deliver lessons through visual, interactive, and concept-based teaching methods.
+                    <?php echo nl2br(htmlspecialchars(getSetting('cambridge_paragraph_2'))); ?>
                 </p>
 
                 <p style="font-size: 16px; line-height: 1.9; color: var(--text-dark); margin-bottom: 22px;">
                     <i class="fas fa-laptop-code" style="color: var(--primary-color); margin-right: 10px;"></i>
-                    By integrating digital screens, smart content, and structured Cambridge-style pedagogy, we move <strong style="color: var(--primary-color);">beyond rote learning toward critical thinking</strong> and real understanding.
+                    <?php echo nl2br(htmlspecialchars(getSetting('cambridge_paragraph_3'))); ?>
                 </p>
 
                 <div style="background: var(--primary-soft); padding: 22px; border-radius: var(--radius-md);">
                     <p style="font-size: 16px; line-height: 1.9; color: var(--text-dark); margin: 0; font-weight: 500;">
                         <i class="fas fa-rocket" style="color: var(--accent-color); margin-right: 10px; font-size: 18px;"></i>
-                        This innovative approach empowers students to learn the way the <strong style="color: var(--primary-color);">21st century demands</strong> — with clarity, engagement, and confidence — preparing them not just for exams, but for the future.
+                        <?php echo nl2br(htmlspecialchars(getSetting('cambridge_highlight'))); ?>
                     </p>
                 </div>
             </div>
@@ -672,48 +584,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Excellence in education with a student-centered approach</p>
         </div>
         <div class="card-grid">
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <h3>Expert Faculty</h3>
-                <p>Learn from highly qualified and experienced teachers dedicated to student success.</p>
-            </div>
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h3>Modern Facilities</h3>
-                <p>State-of-the-art classrooms and learning resources for an enhanced educational experience.</p>
-            </div>
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Small Class Sizes</h3>
-                <p>Personalized attention with optimal student-teacher ratios for better learning outcomes.</p>
-            </div>
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
-                <h3>Quality Education</h3>
-                <p>Curriculum designed to meet modern educational standards and prepare students for the future.</p>
-            </div>
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Proven Results</h3>
-                <p>Track record of excellent exam results and successful student placements.</p>
-            </div>
-            <div class="card reveal">
-                <div class="card-icon">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <h3>Affordable Fees</h3>
-                <p>Quality education at competitive rates with flexible payment options available.</p>
-            </div>
+            <?php renderFeatureCardGrid('why_choose_us'); ?>
         </div>
     </div>
 </section>

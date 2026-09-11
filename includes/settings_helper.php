@@ -175,4 +175,46 @@ function getHeroCarouselSlides() {
 
     return $slides;
 }
+
+/**
+ * Get active feature_cards rows for a given section (why_choose_us,
+ * digital_features, learner_attributes, assessment_features, core_values,
+ * faculty_highlights, admission_requirements, admission_process)
+ */
+function getFeatureCards($section) {
+    global $conn;
+
+    $section_escaped = mysqli_real_escape_string($conn, $section);
+    $query = "SELECT * FROM feature_cards WHERE section = '$section_escaped' AND status = 'active' ORDER BY display_order ASC, id ASC";
+    $result = mysqli_query($conn, $query);
+
+    $cards = [];
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $cards[] = $row;
+        }
+    }
+
+    return $cards;
+}
+
+/**
+ * Render a list of feature_cards as standard .card / .card-icon markup
+ * (used by "Why Choose Us", "Learner Attributes", "Core Values",
+ * "Why Our Faculty Stands Out"). Pass $centered = true to also center
+ * the card text (used by grid-4 sections like Learner Attributes).
+ */
+function renderFeatureCardGrid($section, $centered = false) {
+    $cards = getFeatureCards($section);
+    $class = 'card reveal' . ($centered ? ' text-center' : '');
+    $icon_style = $centered ? ' style="margin: 0 auto 22px;"' : '';
+
+    foreach ($cards as $card) {
+        echo '<div class="' . $class . '">';
+        echo '<div class="card-icon"' . $icon_style . '><i class="' . htmlspecialchars($card['icon']) . '"></i></div>';
+        echo '<h3>' . htmlspecialchars($card['title']) . '</h3>';
+        echo '<p>' . htmlspecialchars($card['description']) . '</p>';
+        echo '</div>';
+    }
+}
 ?>

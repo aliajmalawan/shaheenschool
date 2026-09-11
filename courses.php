@@ -127,24 +127,19 @@ foreach ($course_catalogue as $index => $group):
             <h2>Admission Requirements</h2>
             <p>What you need to know before applying</p>
         </div>
-        <?php
-        $requirement_groups = [
-            ['icon' => 'fa-graduation-cap', 'title' => 'For Matric Programs', 'items' => ['Previous class result card', 'Birth certificate or B-Form', '4 passport size photographs', 'Parent/Guardian CNIC copy', 'Admission fee']],
-            ['icon' => 'fa-university', 'title' => 'For Intermediate Programs', 'items' => ['Matric certificate & result card', 'CNIC or B-Form', '6 passport size photographs', 'Migration certificate (if applicable)', 'Admission & registration fee']],
-            ['icon' => 'fa-bolt', 'title' => 'For Short Courses', 'items' => ['Educational certificates (as applicable)', 'CNIC or B-Form copy', '2 passport size photographs', 'Course registration form', 'Course fee']],
-        ];
-        ?>
+        <?php $requirement_groups = getFeatureCards('admission_requirements'); ?>
         <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
             <?php foreach ($requirement_groups as $req): ?>
+            <?php $items = array_filter(explode("\n", $req['description'])); ?>
             <div class="card reveal">
                 <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
-                    <div class="card-icon" style="margin: 0; width: 50px; height: 50px; font-size: 20px;"><i class="fas <?php echo $req['icon']; ?>"></i></div>
+                    <div class="card-icon" style="margin: 0; width: 50px; height: 50px; font-size: 20px;"><i class="<?php echo htmlspecialchars($req['icon']); ?>"></i></div>
                     <h3 style="margin: 0;"><?php echo htmlspecialchars($req['title']); ?></h3>
                 </div>
                 <ul style="list-style: none; padding: 0;">
-                    <?php foreach ($req['items'] as $i => $item): ?>
-                        <li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; <?php echo $i < count($req['items']) - 1 ? 'border-bottom: 1px solid var(--border-color);' : ''; ?>">
-                            <i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> <?php echo htmlspecialchars($item); ?>
+                    <?php foreach (array_values($items) as $i => $item): ?>
+                        <li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; <?php echo $i < count($items) - 1 ? 'border-bottom: 1px solid var(--border-color);' : ''; ?>">
+                            <i class="fas fa-check-circle" style="color: var(--accent-dark);"></i> <?php echo htmlspecialchars(trim($item)); ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
