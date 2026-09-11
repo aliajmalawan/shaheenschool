@@ -95,7 +95,6 @@ loadSettings();
                 <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar"><i class="fas fa-bars"></i></button>
                 <h1 style="color: var(--primary-color); margin:0;"><i class="fas fa-cog"></i> Site Settings</h1>
             </div>
-            <a href="dashboard.php" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
         </div>
 
         <?php if ($message): ?>
