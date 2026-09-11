@@ -89,95 +89,9 @@ function getPageName($url) {
     <title>Website Analytics - <?php echo SITE_NAME; ?></title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/admin.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #f5f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            width: 260px;
-            background: linear-gradient(135deg, #0B4DA2 0%, #0a3a7a 100%);
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .sidebar-header {
-            padding: 25px 20px;
-            background: rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .sidebar-header h2 {
-            color: white;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-        }
-
-        .sidebar-menu {
-            padding: 20px 0;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-left-color: #F9C900;
-        }
-
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border-left-color: #F9C900;
-        }
-
-        .sidebar-menu a i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .menu-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 15px 20px;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 260px;
-            padding: 30px;
-            min-height: 100vh;
-        }
-
         /* Top Bar */
         .top-bar {
             background: white;
@@ -188,6 +102,14 @@ function getPageName($url) {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .welcome-text h1 {
@@ -415,16 +337,6 @@ function getPageName($url) {
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                overflow: hidden;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 15px;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -449,43 +361,22 @@ function getPageName($url) {
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2><?php echo SITE_NAME; ?></h2>
-            <p>Admin Panel</p>
-        </div>
-
-        <div class="sidebar-menu">
-            <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="analytics.php" class="active"><i class="fas fa-chart-line"></i> Website Analytics</a>
-            <div class="menu-divider"></div>
-            <a href="manage_courses.php"><i class="fas fa-book"></i> Manage Courses</a>
-            <a href="manage_faculty.php"><i class="fas fa-chalkboard-teacher"></i> Manage Faculty</a>
-            <a href="manage_admissions.php"><i class="fas fa-user-graduate"></i> Manage Admissions</a>
-            <a href="manage_contacts.php"><i class="fas fa-envelope"></i> Contact Messages</a>
-            <a href="manage_events.php"><i class="fas fa-calendar-alt"></i> Manage Events</a>
-            <a href="manage_news.php"><i class="fas fa-newspaper"></i> Manage News</a>
-            <a href="manage_gallery.php"><i class="fas fa-images"></i> Manage Gallery</a>
-            <a href="manage_downloads.php"><i class="fas fa-download"></i> Manage Downloads</a>
-            <a href="manage_datesheets.php"><i class="fas fa-calendar-check"></i> Exam Datesheets</a>
-            <a href="manage_board_results.php"><i class="fas fa-trophy"></i> Board Results</a>
-            <a href="manage_alumni.php"><i class="fas fa-users"></i> Manage Alumni</a>
-            <a href="manage_alumni_reviews.php"><i class="fas fa-star"></i> Alumni Reviews</a>
-            <a href="manage_notifications.php"><i class="fas fa-bell"></i> Notifications</a>
-            <div class="menu-divider"></div>
-            <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
-            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
-    </div>
+<div class="admin-shell">
+    <?php $active_page = 'analytics.php'; include 'includes/sidebar.php'; ?>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <!-- Main Content -->
     <div class="main-content">
         <!-- Top Bar -->
         <div class="top-bar">
-            <div class="welcome-text">
-                <h1><i class="fas fa-chart-line"></i> Website Analytics</h1>
-                <p>Monitor your website traffic and visitor behavior</p>
+            <div class="top-bar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="welcome-text">
+                    <h1><i class="fas fa-chart-line"></i> Website Analytics</h1>
+                    <p>Monitor your website traffic and visitor behavior</p>
+                </div>
             </div>
             <div class="date-filter">
                 <a href="?range=today" class="<?php echo $date_range == 'today' ? 'active' : ''; ?>">Today</a>
@@ -774,5 +665,7 @@ function getPageName($url) {
             }
         });
     </script>
+</div>
+<script src="assets/admin.js"></script>
 </body>
 </html>

@@ -74,170 +74,8 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
     <title>Admin Dashboard - Shaheen Public High School</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/admin.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            background: var(--bg-light, #f5f7fa);
-            font-family: var(--font-body, 'Segoe UI'), Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Screen-fit shell: sidebar + content as two grid tracks that always
-           exactly fill the viewport, instead of fixed + margin-left math. */
-        .admin-shell {
-            display: grid;
-            grid-template-columns: 260px minmax(0, 1fr);
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            background: linear-gradient(180deg, var(--primary-color, #0B4DA2) 0%, var(--primary-dark, #0a3a7a) 100%);
-            box-shadow: var(--shadow-md, 4px 0 10px rgba(0,0,0,0.1));
-            z-index: 100;
-        }
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 25px 20px;
-            background: rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .sidebar-header h2 {
-            color: white;
-            font-family: var(--font-display, inherit);
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-        }
-
-        .sidebar-close {
-            display: none;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 22px;
-            line-height: 1;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .sidebar-menu {
-            padding: 15px 10px;
-            padding-bottom: 20px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 13px 14px;
-            margin-bottom: 2px;
-            border-radius: var(--radius-sm, 8px);
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border-left-color: var(--accent-color, #F9C900);
-        }
-
-        .sidebar-menu a i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .menu-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 15px 20px;
-        }
-
-        .logout-section {
-            padding: 0 10px 20px;
-        }
-
-        .logout-section a {
-            display: flex;
-            align-items: center;
-            padding: 13px 14px;
-            border-radius: var(--radius-sm, 8px);
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .logout-section a:hover {
-            background: rgba(255,107,107,0.15);
-            color: #ff8f8f;
-        }
-
-        .logout-section a i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Mobile sidebar backdrop */
-        .sidebar-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(10, 15, 26, 0.5);
-            z-index: 90;
-        }
-
-        .sidebar-backdrop.is-open {
-            display: block;
-        }
-
-        .sidebar-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: var(--ink, #333);
-            cursor: pointer;
-            margin-right: 6px;
-        }
-
-        /* Main Content */
-        .main-content {
-            min-width: 0;
-            padding: 30px;
-        }
-
         /* Top Bar */
         .top-bar {
             background: white;
@@ -532,7 +370,8 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
             font-size: 13px;
         }
 
-        /* Responsive */
+        /* Responsive (dashboard-specific widgets only - shell/sidebar
+           responsive rules live in assets/admin.css) */
         @media (max-width: 1024px) {
             .content-grid {
                 grid-template-columns: 1fr;
@@ -540,38 +379,6 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
         }
 
         @media (max-width: 900px) {
-            .admin-shell {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 280px;
-                height: 100vh;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.is-open {
-                transform: translateX(0);
-            }
-
-            .sidebar-close {
-                display: block;
-            }
-
-            .sidebar-toggle {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .main-content {
-                padding: 20px;
-            }
-
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -590,98 +397,7 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
 </head>
 <body>
     <div class="admin-shell">
-    <!-- Sidebar -->
-    <div class="sidebar" id="adminSidebar">
-        <div class="sidebar-header">
-            <div>
-                <h2><?php echo SITE_NAME; ?></h2>
-                <p>Admin Panel</p>
-            </div>
-            <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close menu">&times;</button>
-        </div>
-
-        <div class="sidebar-menu">
-            <a href="dashboard.php" class="active">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="analytics.php">
-                <i class="fas fa-chart-line"></i>
-                <span>Website Analytics</span>
-            </a>
-            <a href="manage_courses.php">
-                <i class="fas fa-book"></i>
-                <span>Courses</span>
-            </a>
-            <a href="manage_faculty.php">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Faculty</span>
-            </a>
-            <a href="manage_admissions.php">
-                <i class="fas fa-user-graduate"></i>
-                <span>Admissions</span>
-            </a>
-            <a href="manage_contacts.php">
-                <i class="fas fa-envelope"></i>
-                <span>Contact Messages</span>
-            </a>
-            <a href="manage_events.php">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Events</span>
-            </a>
-            <a href="manage_news.php">
-                <i class="fas fa-newspaper"></i>
-                <span>News</span>
-            </a>
-            <a href="manage_gallery.php">
-                <i class="fas fa-images"></i>
-                <span>Gallery</span>
-            </a>
-            <a href="manage_downloads.php">
-                <i class="fas fa-download"></i>
-                <span>Downloads</span>
-            </a>
-            <a href="manage_alumni.php">
-                <i class="fas fa-user-graduate"></i>
-                <span>Alumni</span>
-            </a>
-            <a href="manage_alumni_reviews.php">
-                <i class="fas fa-star"></i>
-                <span>Alumni Reviews</span>
-            </a>
-            <a href="manage_datesheets.php">
-                <i class="fas fa-calendar-check"></i>
-                <span>Exam Datesheets</span>
-            </a>
-            <a href="manage_board_results.php">
-                <i class="fas fa-trophy"></i>
-                <span>Board Results</span>
-            </a>
-            <a href="manage_notifications.php">
-                <i class="fas fa-bullhorn"></i>
-                <span>Notifications</span>
-            </a>
-            <a href="manage_leadership.php">
-                <i class="fas fa-users"></i>
-                <span>Leadership Messages</span>
-            </a>
-           
-            <a href="settings.php">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-           
-        </div>
-
-        <div class="menu-divider"></div>
-
-        <div class="logout-section">
-            <a href="logout.php">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+    <?php $active_page = 'dashboard.php'; include 'includes/sidebar.php'; ?>
 
     <!-- Backdrop for mobile sidebar -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -940,29 +656,6 @@ $recent_contacts = mysqli_query($conn, "SELECT * FROM contacts ORDER BY created_
     </div>
     </div>
 
-    <script>
-        (function() {
-            const sidebar = document.getElementById('adminSidebar');
-            const backdrop = document.getElementById('sidebarBackdrop');
-            const openBtn = document.getElementById('sidebarToggle');
-            const closeBtn = document.getElementById('sidebarClose');
-
-            function openSidebar() {
-                sidebar.classList.add('is-open');
-                backdrop.classList.add('is-open');
-                openBtn.setAttribute('aria-expanded', 'true');
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('is-open');
-                backdrop.classList.remove('is-open');
-                openBtn.setAttribute('aria-expanded', 'false');
-            }
-
-            if (openBtn) openBtn.addEventListener('click', openSidebar);
-            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-            if (backdrop) backdrop.addEventListener('click', closeSidebar);
-        })();
-    </script>
+    <script src="assets/admin.js"></script>
 </body>
 </html>

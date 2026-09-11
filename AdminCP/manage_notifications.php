@@ -46,11 +46,19 @@ $notifications = mysqli_query($conn, "SELECT * FROM notifications ORDER BY displ
     <title>Manage Notifications - Admin Panel</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/admin.css">
 </head>
 <body style="background: var(--bg-light);">
+<div class="admin-shell">
+<?php $active_page = 'manage_notifications.php'; include 'includes/sidebar.php'; ?>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div class="main-content">
     <div class="container" style="padding: 30px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h1 style="color: var(--primary-color);">Manage Notifications</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+            <div class="admin-topbar-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar"><i class="fas fa-bars"></i></button>
+                <h1 style="color: var(--primary-color); margin:0;">Manage Notifications</h1>
+            </div>
             <a href="dashboard.php" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
         </div>
 
@@ -124,5 +132,8 @@ $notifications = mysqli_query($conn, "SELECT * FROM notifications ORDER BY displ
             </table>
         </div>
     </div>
+    </div>
+</div>
+<script src="assets/admin.js"></script>
 </body>
 </html>

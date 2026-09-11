@@ -195,124 +195,10 @@ $leaders_result = mysqli_query($conn, $leaders_query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Leadership - Admin Panel</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="assets/admin.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #f5f7fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            width: 260px;
-            background: linear-gradient(135deg, #0B4DA2 0%, #0a3a7a 100%);
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .sidebar-header {
-            padding: 25px 20px;
-            background: rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .sidebar-header h2 {
-            color: white;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-        }
-
-        .sidebar-menu {
-            padding: 20px 0;
-            padding-bottom: 30px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .sidebar-menu a:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-left-color: #F9C900;
-        }
-
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border-left-color: #F9C900;
-        }
-
-        .sidebar-menu a i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .menu-divider {
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 15px 20px;
-        }
-
-        .logout-section {
-            padding: 0 0 20px 0;
-        }
-
-        .logout-section a {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
-        .logout-section a:hover {
-            background: rgba(255,255,255,0.1);
-            color: #ff6b6b;
-            border-left-color: #ff6b6b;
-        }
-
-        .logout-section a i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 260px;
-            padding: 30px;
-            min-height: 100vh;
-        }
-
         .admin-header {
             background: white;
             padding: 25px 30px;
@@ -322,6 +208,14 @@ $leaders_result = mysqli_query($conn, $leaders_query);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .admin-header h1 {
@@ -536,101 +430,18 @@ $leaders_result = mysqli_query($conn, $leaders_query);
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2><?php echo getSiteName(); ?></h2>
-            <p>Admin Panel</p>
-        </div>
-
-        <div class="sidebar-menu">
-            <a href="dashboard.php">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="analytics.php">
-                <i class="fas fa-chart-line"></i>
-                <span>Website Analytics</span>
-            </a>
-            <a href="manage_courses.php">
-                <i class="fas fa-book"></i>
-                <span>Courses</span>
-            </a>
-            <a href="manage_faculty.php">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span>Faculty</span>
-            </a>
-            <a href="manage_admissions.php">
-                <i class="fas fa-user-graduate"></i>
-                <span>Admissions</span>
-            </a>
-            <a href="manage_contacts.php">
-                <i class="fas fa-envelope"></i>
-                <span>Contact Messages</span>
-            </a>
-            <a href="manage_events.php">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Events</span>
-            </a>
-            <a href="manage_news.php">
-                <i class="fas fa-newspaper"></i>
-                <span>News</span>
-            </a>
-            <a href="manage_gallery.php">
-                <i class="fas fa-images"></i>
-                <span>Gallery</span>
-            </a>
-            <a href="manage_downloads.php">
-                <i class="fas fa-download"></i>
-                <span>Downloads</span>
-            </a>
-            <a href="manage_alumni.php">
-                <i class="fas fa-user-graduate"></i>
-                <span>Alumni</span>
-            </a>
-            <a href="manage_alumni_reviews.php">
-                <i class="fas fa-star"></i>
-                <span>Alumni Reviews</span>
-            </a>
-            <a href="manage_datesheets.php">
-                <i class="fas fa-calendar-check"></i>
-                <span>Exam Datesheets</span>
-            </a>
-            <a href="manage_board_results.php">
-                <i class="fas fa-trophy"></i>
-                <span>Board Results</span>
-            </a>
-            <a href="manage_notifications.php">
-                <i class="fas fa-bullhorn"></i>
-                <span>Notifications</span>
-            </a>
-            <a href="manage_leadership.php" class="active">
-                <i class="fas fa-users"></i>
-                <span>Leadership Messages</span>
-            </a>
-            <a href="settings.php">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-            <a href="theme_manager.php">
-                <i class="fas fa-palette"></i>
-                <span>Theme Manager</span>
-            </a>
-        </div>
-
-        <div class="menu-divider"></div>
-
-        <div class="logout-section">
-            <a href="logout.php">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </div>
+<div class="admin-shell">
+    <?php $active_page = 'manage_leadership.php'; include 'includes/sidebar.php'; ?>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="main-content">
         <div class="admin-header">
-            <h1><i class="fas fa-users"></i> Manage Leadership Messages</h1>
+            <div class="admin-header-left">
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1><i class="fas fa-users"></i> Manage Leadership Messages</h1>
+            </div>
             <button class="btn-primary" onclick="openAddModal()">
                 <i class="fas fa-plus"></i> Add New Leader
             </button>
@@ -905,5 +716,7 @@ $leaders_result = mysqli_query($conn, $leaders_query);
             }
         };
     </script>
+</div>
+<script src="assets/admin.js"></script>
 </body>
 </html>
