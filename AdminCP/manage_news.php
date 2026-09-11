@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle image upload
     $image_path = '';
+    $image_savings = '';
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $upload_dir = '../uploads/news/';
 
@@ -53,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (compressUploadedImage($_FILES['image']['tmp_name'], $target_file, 1600, 85)) {
                 $image_path = 'uploads/news/' . $new_filename;
+                $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $target_file);
             }
         }
     }
@@ -79,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (mysqli_query($conn, $query)) {
-        $message = "News saved successfully!";
+        $message = "News saved successfully!" . ($image_savings ? " Image compressed{$image_savings}." : "");
     } else {
         $message = "Error saving news.";
     }
@@ -161,6 +163,7 @@ $news = mysqli_query($conn, "SELECT * FROM news ORDER BY created_at DESC");
                 <div class="form-group">
                     <label>Featured Image (Optional)</label>
                     <input type="file" name="image" accept="image/*">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload.</small>
                     <?php if ($edit_news && !empty($edit_news['image'])): ?>
                         <div style="margin-top: 10px;">
                             <img src="../<?php echo htmlspecialchars($edit_news['image']); ?>" alt="Current Image" style="max-width: 300px; border-radius: 8px; box-shadow: var(--shadow);">

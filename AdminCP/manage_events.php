@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle image upload
     $image_path = '';
+    $image_savings = '';
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $upload_dir = '../uploads/events/';
 
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (compressUploadedImage($_FILES['image']['tmp_name'], $target_file, 1600, 85)) {
                 $image_path = 'uploads/events/' . $new_filename;
+                $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $target_file);
             }
         }
     }
@@ -81,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (mysqli_query($conn, $query)) {
-        $message = "Event saved successfully!";
+        $message = "Event saved successfully!" . ($image_savings ? " Image compressed{$image_savings}." : "");
     } else {
         $message = "Error saving event.";
     }
@@ -173,6 +175,7 @@ $events = mysqli_query($conn, "SELECT * FROM events ORDER BY event_date DESC, id
                 <div class="form-group">
                     <label>Event Image</label>
                     <input type="file" name="image" accept="image/*">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload.</small>
                     <?php if ($edit_event && !empty($edit_event['image'])): ?>
                         <div style="margin-top: 10px;">
                             <img src="../<?php echo htmlspecialchars($edit_event['image']); ?>" alt="Current Image" style="max-width: 200px; border-radius: 8px; box-shadow: var(--shadow);">

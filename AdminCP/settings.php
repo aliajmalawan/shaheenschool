@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Principal photo upload (optional) - only touch the setting if a new
     // file was actually chosen, so re-saving the rest of the form doesn't
     // wipe out an existing photo.
+    $photo_savings = '';
     if (isset($_FILES['principal_photo_upload']) && $_FILES['principal_photo_upload']['error'] == 0) {
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
         $file_extension = strtolower(pathinfo($_FILES['principal_photo_upload']['name'], PATHINFO_EXTENSION));
@@ -27,8 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 mkdir($upload_dir, 0777, true);
             }
             $new_filename = 'principal_' . time() . '_' . uniqid() . '.' . $file_extension;
-            if (compressUploadedImage($_FILES['principal_photo_upload']['tmp_name'], $upload_dir . $new_filename, 800, 85)) {
+            $new_filepath = $upload_dir . $new_filename;
+            if (compressUploadedImage($_FILES['principal_photo_upload']['tmp_name'], $new_filepath, 800, 85)) {
                 $_POST['principal_photo'] = 'uploads/staff/' . $new_filename;
+                $photo_savings = describeCompressionSavings($_FILES['principal_photo_upload']['tmp_name'], $new_filepath);
             }
         }
     }
@@ -68,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($success) {
-        $message = "Settings saved successfully!";
+        $message = "Settings saved successfully!" . ($photo_savings ? " Principal photo compressed{$photo_savings}." : "");
     } else {
         $message = "Error saving some settings.";
     }
@@ -304,6 +307,7 @@ loadSettings();
                     <label>Principal's Photo</label>
                     <?php $principal_photo = getSetting('principal_photo'); ?>
                     <input type="file" name="principal_photo_upload" accept="image/*">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
                     <?php if (!empty($principal_photo)): ?>
                         <div style="margin-top: 10px;"><img src="../<?php echo htmlspecialchars($principal_photo); ?>" style="height: 80px; border-radius: 8px;"></div>
                     <?php else: ?>

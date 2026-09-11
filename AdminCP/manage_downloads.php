@@ -37,11 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_download'])) {
                 : move_uploaded_file($file_tmp, $upload_path);
 
             if ($uploaded_ok) {
+                $savings = $is_image ? describeCompressionSavings($file_tmp, $upload_path) : '';
                 $sql = "INSERT INTO downloads (date, description, file_path, file_name, file_type, display_order)
                         VALUES ('$date', '$description', '$db_path', '$file_name', '$file_type', $display_order)";
 
                 if (mysqli_query($conn, $sql)) {
-                    $message = 'Download added successfully!';
+                    $message = 'Download added successfully!' . ($savings ? " Image compressed{$savings}." : '');
                 } else {
                     $error = 'Database error: ' . mysqli_error($conn);
                 }
@@ -145,6 +146,7 @@ $downloads = mysqli_query($conn, "SELECT * FROM downloads ORDER BY display_order
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">File (PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP):</label>
                     <input type="file" name="file" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Image files (JPG/PNG) are automatically compressed; other file types upload as-is.</small>
                 </div>
 
                 <button type="submit" name="add_download" class="btn btn-primary">

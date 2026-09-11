@@ -28,11 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_result'])) {
             $image_path = '../uploads/results/' . $image_name;
 
             if (compressUploadedImage($_FILES['image']['tmp_name'], $image_path, 2000, 88)) {
+                $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $image_path);
                 $sql = "INSERT INTO board_results (title, board_type, year, image_path, display_order)
                         VALUES ('$title', '$board_type', $year, '$image_path', $display_order)";
 
                 if (mysqli_query($conn, $sql)) {
-                    $message = 'Board result added successfully!';
+                    $message = "Board result added successfully! Image compressed{$image_savings}.";
                 } else {
                     $error = 'Database error!';
                 }
@@ -134,6 +135,7 @@ $results = mysqli_query($conn, "SELECT * FROM board_results ORDER BY year DESC, 
                 <div style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Result Image (JPG, PNG):</label>
                     <input type="file" name="image" required accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Image is automatically compressed on upload.</small>
                 </div>
 
                 <button type="submit" name="add_result" class="btn btn-primary">

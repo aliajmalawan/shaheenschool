@@ -120,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
 
                 if (compressUploadedImage($file['tmp_name'], $target_file, 1600, 85)) {
                     $image_path = 'uploads/gallery/' . $new_filename;
+                    $savings = describeCompressionSavings($file['tmp_name'], $target_file);
 
                     $old_img_row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT image_path FROM gallery WHERE id = $gallery_id"));
                     if ($old_img_row && file_exists('../' . $old_img_row['image_path'])) {
@@ -127,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
                     }
 
                     $query = "UPDATE gallery SET image_path='$image_path', category='$category', display_order=$display_order, status='$status' WHERE id=$gallery_id";
-                    $message = mysqli_query($conn, $query) ? "Gallery item updated successfully!" : "Error updating gallery item.";
+                    $message = mysqli_query($conn, $query) ? "Gallery item updated successfully! Image compressed{$savings}." : "Error updating gallery item.";
                 } else {
                     $message = "Error compressing and uploading file.";
                 }
@@ -145,6 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
         } else {
             $saved_count = 0;
             $order = $display_order;
+            $bytes_before = 0;
+            $bytes_after = 0;
 
             foreach ($selected_files as $file) {
                 $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -160,19 +163,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
                     $query = "INSERT INTO gallery (image_path, category, display_order, status) VALUES ('$image_path', '$category', $order, '$status')";
                     if (mysqli_query($conn, $query)) {
                         $saved_count++;
+                        $bytes_before += filesize($file['tmp_name']);
+                        $bytes_after += filesize($target_file);
                     }
                 }
 
                 $order++;
             }
 
+            $savings = ($bytes_before > 0)
+                ? ' (' . formatFileSize($bytes_before) . ' -> ' . formatFileSize($bytes_after) . ', ' . round((1 - $bytes_after / $bytes_before) * 100) . '% smaller)'
+                : '';
+
             $total_selected = count($selected_files);
             if ($saved_count === 0) {
                 $message = "Error uploading images. Only JPG, PNG, GIF, WEBP allowed.";
             } elseif ($saved_count < $total_selected) {
-                $message = "$saved_count of $total_selected image(s) uploaded (some had an invalid format).";
+                $message = "$saved_count of $total_selected image(s) uploaded and compressed{$savings} (some had an invalid format).";
             } else {
-                $message = $saved_count == 1 ? "Image uploaded successfully!" : "$saved_count images uploaded successfully!";
+                $message = ($saved_count == 1 ? "Image uploaded and compressed{$savings}!" : "$saved_count images uploaded and compressed{$savings}!");
             }
         }
     }
@@ -307,6 +316,7 @@ $gallery = mysqli_query($conn, "SELECT * FROM gallery ORDER BY display_order ASC
                         <input type="file" name="images[]" accept="image/*" multiple required>
                         <small style="color: var(--text-light); font-size: 12px; display: block; margin-top: 5px;">You can select multiple images at once - each becomes its own gallery entry.</small>
                     <?php endif; ?>
+                    <small style="color: var(--primary-color); font-size: 12px; display: flex; align-items: center; gap: 6px; margin-top: 8px;"><i class="fas fa-compress-alt"></i> Images are automatically compressed on upload - no need to resize them yourself first.</small>
                 </div>
 
                 <button type="submit" class="btn btn-primary">

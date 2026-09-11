@@ -27,13 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
 
     // Photo upload
     $photo_path = '';
+    $photo_savings = '';
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
         $allowed = array('jpg', 'jpeg', 'png');
         $file_ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
         if (in_array($file_ext, $allowed)) {
             $photo_name = time() . '_' . $_FILES['photo']['name'];
             $photo_path = 'uploads/alumni/' . $photo_name;
-            compressUploadedImage($_FILES['photo']['tmp_name'], '../' . $photo_path, 800, 85);
+            if (compressUploadedImage($_FILES['photo']['tmp_name'], '../' . $photo_path, 800, 85)) {
+                $photo_savings = describeCompressionSavings($_FILES['photo']['tmp_name'], '../' . $photo_path);
+            }
         }
     }
 
@@ -41,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
             VALUES ('$student_name', '$father_name', '$current_job', '$job_department', '$job_city', '$course', $passing_year, '$photo_path', '$mobile_number', '$whatsapp_number', '$review', '$status')";
 
     if (mysqli_query($conn, $sql)) {
-        $message = 'Alumni added successfully!';
+        $message = 'Alumni added successfully!' . ($photo_savings ? " Photo compressed{$photo_savings}." : '');
     } else {
         $error = 'Error: ' . mysqli_error($conn);
     }
@@ -172,6 +175,7 @@ $alumni = mysqli_query($conn, "SELECT * FROM alumni ORDER BY created_at DESC");
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Photo (JPG, PNG)</label>
                     <input type="file" name="photo" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
                 </div>
 
                 <div style="margin-bottom: 20px;">

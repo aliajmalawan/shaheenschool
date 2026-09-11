@@ -23,6 +23,7 @@ if (isset($_POST['add_leader'])) {
 
     // Handle photo upload
     $photo_path = '';
+    $photo_savings = '';
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
         $upload_dir = '../images/leadership/';
         if (!file_exists($upload_dir)) {
@@ -37,6 +38,7 @@ if (isset($_POST['add_leader'])) {
 
             if (compressUploadedImage($_FILES['photo']['tmp_name'], $filepath, 800, 85)) {
                 $photo_path = 'images/leadership/' . $filename;
+                $photo_savings = describeCompressionSavings($_FILES['photo']['tmp_name'], $filepath);
             }
         }
     }
@@ -65,7 +67,7 @@ if (isset($_POST['add_leader'])) {
               VALUES ('$name', '$designation', '$role_title', '$photo_path', '$signature_path', '$message', $display_order, '$status')";
 
     if (mysqli_query($conn, $query)) {
-        $success_message = "Leadership entry added successfully!";
+        $success_message = "Leadership entry added successfully!" . ($photo_savings ? " Photo compressed{$photo_savings}." : "");
     } else {
         $error_message = "Error adding leadership entry: " . mysqli_error($conn);
     }
@@ -86,6 +88,7 @@ if (isset($_POST['edit_leader'])) {
     $current_data = mysqli_fetch_assoc($current_result);
     $photo_path = $current_data['photo'];
     $signature_path = $current_data['signature'];
+    $photo_savings = '';
 
     // Handle photo upload
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
@@ -101,6 +104,7 @@ if (isset($_POST['edit_leader'])) {
             $filepath = $upload_dir . $filename;
 
             if (compressUploadedImage($_FILES['photo']['tmp_name'], $filepath, 800, 85)) {
+                $photo_savings = describeCompressionSavings($_FILES['photo']['tmp_name'], $filepath);
                 // Delete old photo
                 if ($photo_path && file_exists('../' . $photo_path)) {
                     unlink('../' . $photo_path);
@@ -145,7 +149,7 @@ if (isset($_POST['edit_leader'])) {
               WHERE id = $id";
 
     if (mysqli_query($conn, $query)) {
-        $success_message = "Leadership entry updated successfully!";
+        $success_message = "Leadership entry updated successfully!" . ($photo_savings ? " Photo compressed{$photo_savings}." : "");
     } else {
         $error_message = "Error updating leadership entry: " . mysqli_error($conn);
     }
@@ -545,6 +549,7 @@ $leaders_result = mysqli_query($conn, $leaders_query);
                 <div class="form-group">
                     <label>Photo (Optional)</label>
                     <input type="file" name="photo" accept="image/*" onchange="previewImage(this, 'add_photo_preview')">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
                     <small style="color: #666;">Max size: 5MB. Recommended: 500x500 pixels</small>
                     <img id="add_photo_preview" class="preview-img" style="display: none;">
                 </div>
@@ -614,6 +619,7 @@ $leaders_result = mysqli_query($conn, $leaders_query);
                 <div class="form-group">
                     <label>Photo (Leave empty to keep current)</label>
                     <input type="file" name="photo" accept="image/*" onchange="previewImage(this, 'edit_photo_preview')">
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 6px;"><i class="fas fa-compress-alt"></i> Photo is automatically compressed on upload.</small>
                     <small style="color: #666;">Max size: 5MB. Recommended: 500x500 pixels</small>
                     <img id="edit_photo_preview" class="preview-img">
                 </div>

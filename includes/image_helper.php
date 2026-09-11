@@ -140,4 +140,41 @@ function compressUploadedImageKeepFormat($sourcePath, $destDir, $baseFilename, $
 
     return false;
 }
+
+/**
+ * Human-readable byte size, e.g. 1258291 -> "1.2 MB"
+ */
+function formatFileSize($bytes) {
+    if ($bytes >= 1024 * 1024) {
+        return round($bytes / (1024 * 1024), 1) . ' MB';
+    }
+    if ($bytes >= 1024) {
+        return round($bytes / 1024, 1) . ' KB';
+    }
+    return $bytes . ' B';
+}
+
+/**
+ * Build a short "(2.3 MB -> 145 KB, 94% smaller)" string comparing an
+ * original uploaded file to the compressed result - call this right after
+ * compressUploadedImage()/compressUploadedImageKeepFormat() so the admin
+ * actually sees the compression happen instead of it being invisible.
+ */
+function describeCompressionSavings($originalPath, $compressedPath) {
+    if (!file_exists($originalPath) || !file_exists($compressedPath)) {
+        return '';
+    }
+
+    $before = filesize($originalPath);
+    $after = filesize($compressedPath);
+
+    if ($before <= 0) {
+        return '';
+    }
+
+    $percent = round((1 - $after / $before) * 100);
+    $percent_text = $percent > 0 ? "{$percent}% smaller" : 'no size change';
+
+    return ' (' . formatFileSize($before) . ' -> ' . formatFileSize($after) . ', ' . $percent_text . ')';
+}
 ?>
