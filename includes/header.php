@@ -34,7 +34,7 @@
         <div class="topbar">
             <div class="container topbar-inner">
                 <a href="index.php" class="brand">
-                    <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" class="brand-logo" width="74" height="74" onerror="this.style.display='none'">
+                    <img src="<?php echo getLogoPath(); ?>" alt="<?php echo getSiteName(); ?> Logo" class="brand-logo" width="56" height="56" onerror="this.style.display='none'">
                     <span class="brand-text">
                         <strong><?php echo getSiteName(); ?></strong>
                         <small>Lighting the Candle of Knowledge</small>
