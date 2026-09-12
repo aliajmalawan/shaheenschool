@@ -37,6 +37,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    // Cambridge EdTech homepage carousel images (5 fixed slots, optional
+    // replacement each save - same pattern as the principal photo above).
+    $cambridge_savings_count = 0;
+    for ($i = 1; $i <= 5; $i++) {
+        $field = "cambridge_image_{$i}_upload";
+        if (isset($_FILES[$field]) && $_FILES[$field]['error'] == 0) {
+            $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
+            $file_extension = strtolower(pathinfo($_FILES[$field]['name'], PATHINFO_EXTENSION));
+            if (in_array($file_extension, $allowed_extensions)) {
+                $upload_dir = '../images/cambridge/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
+                }
+                $base_filename = "cambridge_{$i}_" . time() . '_' . uniqid();
+                $new_filename = compressUploadedPhotoAsJpeg($_FILES[$field]['tmp_name'], $upload_dir, $base_filename, 1200, 85);
+                if ($new_filename) {
+                    $_POST["cambridge_image_{$i}"] = 'images/cambridge/' . $new_filename;
+                    $cambridge_savings_count++;
+                }
+            }
+        }
+    }
+
     foreach ($_POST as $key => $value) {
         if ($key !== 'submit') {
             // Social links are plain text inputs (not type="url") so a value
@@ -72,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($success) {
-        $message = "Settings saved successfully!" . ($photo_savings ? " Principal photo compressed{$photo_savings}." : "");
+        $message = "Settings saved successfully!" . ($photo_savings ? " Principal photo compressed{$photo_savings}." : "") . ($cambridge_savings_count > 0 ? " {$cambridge_savings_count} Cambridge EdTech image(s) compressed." : "");
     } else {
         $message = "Error saving some settings.";
     }
@@ -363,6 +386,30 @@ loadSettings();
                 <div class="form-group">
                     <label>Highlight Box Text</label>
                     <textarea name="cambridge_highlight" rows="2"><?php echo htmlspecialchars(getSetting('cambridge_highlight')); ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Carousel Photos (5 images, shown in order)</label>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px;">
+                        <?php
+                        $cambridge_defaults = [
+                            1 => 'images/digital_one.jpeg',
+                            2 => 'images/digital_two.jpg',
+                            3 => 'images/digital_three.jpg',
+                            4 => 'images/digital_four.jpeg',
+                            5 => 'images/digital_five.jpg',
+                        ];
+                        for ($i = 1; $i <= 5; $i++):
+                            $current_image = getSetting("cambridge_image_{$i}", $cambridge_defaults[$i]);
+                        ?>
+                            <div style="text-align: center;">
+                                <img src="../<?php echo htmlspecialchars($current_image); ?>" alt="Cambridge photo <?php echo $i; ?>" style="width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 8px; box-shadow: var(--shadow-xs);">
+                                <input type="hidden" name="cambridge_image_<?php echo $i; ?>" value="<?php echo htmlspecialchars($current_image); ?>">
+                                <input type="file" name="cambridge_image_<?php echo $i; ?>_upload" accept="image/*" style="width: 100%; font-size: 12px;">
+                            </div>
+                        <?php endfor; ?>
+                    </div>
+                    <small style="color: var(--primary-color); font-size: 12px; display: block; margin-top: 10px;"><i class="fas fa-compress-alt"></i> Only pick a file for the photo(s) you want to replace - images are automatically compressed on upload.</small>
                 </div>
             </div>
 

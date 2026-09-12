@@ -444,21 +444,28 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
             <div style="position: relative;">
                 <div class="cambridge-carousel" style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); position: relative; aspect-ratio: 4/3; background: var(--surface);">
                     <!-- Carousel Images -->
-                    <div class="cambridge-slide active" style="position: absolute; width: 100%; height: 100%; opacity: 1; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_one.jpeg" alt="Cambridge EdTech - Smart Classroom" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php
+                    $cambridge_defaults = [
+                        1 => 'images/digital_one.jpeg',
+                        2 => 'images/digital_two.jpg',
+                        3 => 'images/digital_three.jpg',
+                        4 => 'images/digital_four.jpeg',
+                        5 => 'images/digital_five.jpg',
+                    ];
+                    $cambridge_alts = [
+                        1 => 'Cambridge EdTech - Smart Classroom',
+                        2 => 'Cambridge EdTech - Interactive Learning',
+                        3 => 'Cambridge EdTech - Digital Content',
+                        4 => 'Cambridge EdTech - Modern Teaching',
+                        5 => 'Cambridge EdTech - Smart Education',
+                    ];
+                    foreach ($cambridge_defaults as $i => $default_path):
+                        $img_path = getSetting("cambridge_image_{$i}", $default_path);
+                    ?>
+                    <div class="cambridge-slide<?php echo $i === 1 ? ' active' : ''; ?>" style="position: absolute; width: 100%; height: 100%; opacity: <?php echo $i === 1 ? '1' : '0'; ?>; transition: opacity 0.8s ease-in-out;">
+                        <img src="<?php echo htmlspecialchars($img_path); ?>" alt="<?php echo htmlspecialchars($cambridge_alts[$i]); ?>" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                    <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_two.jpg" alt="Cambridge EdTech - Interactive Learning" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_three.jpg" alt="Cambridge EdTech - Digital Content" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_four.jpeg" alt="Cambridge EdTech - Modern Teaching" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_five.jpg" alt="Cambridge EdTech - Smart Education" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+                    <?php endforeach; ?>
 
                     <!-- Navigation Arrows -->
                     <button class="cambridge-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(11,17,31,0.55); backdrop-filter: blur(4px); border: none; color: white; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; cursor: pointer; transition: all 0.3s;">
