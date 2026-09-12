@@ -10,6 +10,7 @@ $active_page = $active_page ?? basename($_SERVER['PHP_SELF']);
 $admin_nav_links = [
     ['dashboard.php', 'fa-home', 'Dashboard'],
     ['analytics.php', 'fa-chart-line', 'Website Analytics'],
+    ['manage_hero_slides.php', 'fa-images', 'Homepage Banners'],
     ['manage_courses.php', 'fa-book', 'Courses'],
     ['manage_campuses.php', 'fa-school', 'Campuses'],
     ['manage_faculty.php', 'fa-chalkboard-teacher', 'Faculty'],
