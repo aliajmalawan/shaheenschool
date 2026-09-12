@@ -142,6 +142,77 @@ function compressUploadedImageKeepFormat($sourcePath, $destDir, $baseFilename, $
 }
 
 /**
+ * Compress an uploaded PHOTO and always save it as JPEG, regardless of
+ * the source format. PNG is lossless, so a phone-camera photo saved as
+ * PNG (screenshots, some phone camera apps, Photoshop exports) stays
+ * multi-megabyte no matter what PNG compression level you pick - JPEG
+ * handles photographic detail dramatically better. Only use this for
+ * genuine photos (hero banners, gallery, news, events, campuses, staff
+ * photos, etc) - never for logos, which may need real transparency.
+ *
+ * @param string $sourcePath   Temp path of the uploaded file
+ * @param string $destDir      Directory to save into (created if missing)
+ * @param string $baseFilename Filename without extension - .jpg is appended
+ * @return string|false Final filename (e.g. "hero_123.jpg") or false on failure
+ */
+function compressUploadedPhotoAsJpeg($sourcePath, $destDir, $baseFilename, $maxDimension = 1920, $jpegQuality = 85) {
+    $info = @getimagesize($sourcePath);
+    if (!$info) {
+        return false;
+    }
+    [$width, $height, $type] = $info;
+
+    switch ($type) {
+        case IMAGETYPE_JPEG:
+            $source = @imagecreatefromjpeg($sourcePath);
+            break;
+        case IMAGETYPE_PNG:
+            $source = @imagecreatefrompng($sourcePath);
+            break;
+        case IMAGETYPE_GIF:
+            $source = @imagecreatefromgif($sourcePath);
+            break;
+        case IMAGETYPE_WEBP:
+            $source = function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($sourcePath) : false;
+            break;
+        default:
+            return false;
+    }
+    if (!$source) {
+        return false;
+    }
+
+    $scale = min(1, $maxDimension / max($width, $height));
+    $newWidth = max(1, (int) round($width * $scale));
+    $newHeight = max(1, (int) round($height * $scale));
+
+    $canvas = imagecreatetruecolor($newWidth, $newHeight);
+    // Flatten any transparency onto white - this is photographic content,
+    // not a logo, so alpha isn't meaningful and JPEG has no alpha channel.
+    $white = imagecolorallocate($canvas, 255, 255, 255);
+    imagefilledrectangle($canvas, 0, 0, $newWidth, $newHeight, $white);
+    imagealphablending($canvas, true);
+    imagecopyresampled($canvas, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+    imagedestroy($source);
+
+    if (!file_exists($destDir)) {
+        mkdir($destDir, 0777, true);
+    }
+    $filename = $baseFilename . '.jpg';
+    $destinationPath = rtrim($destDir, '/') . '/' . $filename;
+    $saved = imagejpeg($canvas, $destinationPath, $jpegQuality);
+    imagedestroy($canvas);
+
+    if ($saved && file_exists($destinationPath) && filesize($destinationPath) > filesize($sourcePath)) {
+        // Safety net: re-encoding shouldn't usually grow the file, but if
+        // the source was already a tiny well-optimized JPEG, keep it.
+        copy($sourcePath, $destinationPath);
+    }
+
+    return ($saved && file_exists($destinationPath)) ? $filename : false;
+}
+
+/**
  * Human-readable byte size, e.g. 1258291 -> "1.2 MB"
  */
 function formatFileSize($bytes) {

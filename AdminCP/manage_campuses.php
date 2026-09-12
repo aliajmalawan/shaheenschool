@@ -52,8 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
 
         if (in_array($file_extension, $allowed_extensions)) {
-            $new_filename = 'campus_' . time() . '_' . uniqid() . '.' . $file_extension;
-            if (compressUploadedImage($_FILES['image']['tmp_name'], $upload_dir . $new_filename, 1600, 85)) {
+            $base_filename = 'campus_' . time() . '_' . uniqid();
+            $new_filename = compressUploadedPhotoAsJpeg($_FILES['image']['tmp_name'], $upload_dir, $base_filename, 1600, 85);
+            if ($new_filename) {
                 $image_path = 'uploads/campuses/' . $new_filename;
                 $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $upload_dir . $new_filename);
 

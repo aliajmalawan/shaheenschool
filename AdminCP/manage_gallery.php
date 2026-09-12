@@ -115,10 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
             $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
             if (in_array($file_extension, $allowed_extensions)) {
-                $new_filename = time() . '_' . uniqid() . '.jpg';
-                $target_file = $upload_dir . $new_filename;
+                $base_filename = time() . '_' . uniqid();
+                $new_filename = compressUploadedPhotoAsJpeg($file['tmp_name'], $upload_dir, $base_filename, 1600, 85);
 
-                if (compressUploadedImage($file['tmp_name'], $target_file, 1600, 85)) {
+                if ($new_filename) {
+                    $target_file = $upload_dir . $new_filename;
                     $image_path = 'uploads/gallery/' . $new_filename;
                     $savings = describeCompressionSavings($file['tmp_name'], $target_file);
 
@@ -155,10 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['category']) && !isset(
                     continue;
                 }
 
-                $new_filename = time() . '_' . uniqid() . '.jpg';
-                $target_file = $upload_dir . $new_filename;
+                $base_filename = time() . '_' . uniqid();
+                $new_filename = compressUploadedPhotoAsJpeg($file['tmp_name'], $upload_dir, $base_filename, 1600, 85);
 
-                if (compressUploadedImage($file['tmp_name'], $target_file, 1600, 85)) {
+                if ($new_filename) {
+                    $target_file = $upload_dir . $new_filename;
                     $image_path = 'uploads/gallery/' . $new_filename;
                     $query = "INSERT INTO gallery (image_path, category, display_order, status) VALUES ('$image_path', '$category', $order, '$status')";
                     if (mysqli_query($conn, $query)) {

@@ -32,9 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_alumni'])) {
         $allowed = array('jpg', 'jpeg', 'png');
         $file_ext = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
         if (in_array($file_ext, $allowed)) {
-            $photo_name = time() . '_' . $_FILES['photo']['name'];
-            $photo_path = 'uploads/alumni/' . $photo_name;
-            if (compressUploadedImage($_FILES['photo']['tmp_name'], '../' . $photo_path, 800, 85)) {
+            $upload_dir = '../uploads/alumni/';
+            $base_filename = time() . '_' . uniqid();
+            $photo_name = compressUploadedPhotoAsJpeg($_FILES['photo']['tmp_name'], $upload_dir, $base_filename, 800, 85);
+            if ($photo_name) {
+                $photo_path = 'uploads/alumni/' . $photo_name;
                 $photo_savings = describeCompressionSavings($_FILES['photo']['tmp_name'], '../' . $photo_path);
             }
         }

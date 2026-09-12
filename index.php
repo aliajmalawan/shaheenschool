@@ -253,7 +253,7 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
             <?php while ($c = mysqli_fetch_assoc($home_campuses)): ?>
             <div class="card reveal text-center">
                 <?php if (!empty($c['image_path'])): ?>
-                    <img src="<?php echo htmlspecialchars($c['image_path']); ?>" alt="<?php echo htmlspecialchars($c['name']); ?>" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 20px;">
+                    <img src="<?php echo htmlspecialchars($c['image_path']); ?>" alt="<?php echo htmlspecialchars($c['name']); ?>" loading="lazy" style="width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 20px;">
                 <?php else: ?>
                     <div class="card-icon" style="margin: 0 auto 20px;"><i class="fas <?php echo htmlspecialchars($c['icon'] ?: 'fa-school'); ?>"></i></div>
                 <?php endif; ?>
@@ -441,16 +441,16 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
                         <img src="images/digital_one.jpeg" alt="Cambridge EdTech - Smart Classroom" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_two.png" alt="Cambridge EdTech - Interactive Learning" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="images/digital_two.jpg" alt="Cambridge EdTech - Interactive Learning" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_three.png" alt="Cambridge EdTech - Digital Content" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="images/digital_three.jpg" alt="Cambridge EdTech - Digital Content" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
                         <img src="images/digital_four.jpeg" alt="Cambridge EdTech - Modern Teaching" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="cambridge-slide" style="position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out;">
-                        <img src="images/digital_five.png" alt="Cambridge EdTech - Smart Education" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="images/digital_five.jpg" alt="Cambridge EdTech - Smart Education" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
 
                     <!-- Navigation Arrows -->
@@ -604,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php if ($home_gallery && mysqli_num_rows($home_gallery) > 0): ?>
         <div class="grid-auto reveal">
             <?php while ($photo = mysqli_fetch_assoc($home_gallery)): ?>
-                <img src="<?php echo htmlspecialchars($photo['image_path']); ?>" alt="<?php echo htmlspecialchars($photo['title'] ?: 'Campus photo'); ?>" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
+                <img src="<?php echo htmlspecialchars($photo['image_path']); ?>" alt="<?php echo htmlspecialchars($photo['title'] ?: 'Campus photo'); ?>" loading="lazy" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">
             <?php endwhile; ?>
         </div>
         <?php else: ?>

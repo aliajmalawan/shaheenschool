@@ -27,9 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!file_exists($upload_dir)) {
                 mkdir($upload_dir, 0777, true);
             }
-            $new_filename = 'principal_' . time() . '_' . uniqid() . '.' . $file_extension;
-            $new_filepath = $upload_dir . $new_filename;
-            if (compressUploadedImage($_FILES['principal_photo_upload']['tmp_name'], $new_filepath, 800, 85)) {
+            $base_filename = 'principal_' . time() . '_' . uniqid();
+            $new_filename = compressUploadedPhotoAsJpeg($_FILES['principal_photo_upload']['tmp_name'], $upload_dir, $base_filename, 800, 85);
+            if ($new_filename) {
+                $new_filepath = $upload_dir . $new_filename;
                 $_POST['principal_photo'] = 'uploads/staff/' . $new_filename;
                 $photo_savings = describeCompressionSavings($_FILES['principal_photo_upload']['tmp_name'], $new_filepath);
             }

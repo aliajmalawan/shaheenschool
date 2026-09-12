@@ -182,13 +182,12 @@ function uploadHeroImage($file) {
         return ['success' => false, 'message' => 'File too large. Maximum size is 10MB.'];
     }
 
-    // Generate unique filename
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    $filename = 'hero_' . time() . '.' . $extension;
-    $filepath = $upload_dir . $filename;
+    // Upload file (compressed to a sane max width, always JPEG - a hero
+    // banner is a photo, so JPEG compresses it far better than PNG)
+    $base_filename = 'hero_' . time();
+    $filename = compressUploadedPhotoAsJpeg($file['tmp_name'], $upload_dir, $base_filename, 1920, 85);
 
-    // Upload file (compressed to a sane max width for a full-bleed banner)
-    if (compressUploadedImage($file['tmp_name'], $filepath, 1920, 85)) {
+    if ($filename) {
         // Return path relative to website root
         return ['success' => true, 'path' => 'images/hero/' . $filename];
     } else {

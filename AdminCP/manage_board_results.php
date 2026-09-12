@@ -24,10 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_result'])) {
         $file_ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
 
         if (in_array($file_ext, $allowed)) {
-            $image_name = time() . '_' . $_FILES['image']['name'];
-            $image_path = '../uploads/results/' . $image_name;
+            $upload_dir = '../uploads/results/';
+            $base_filename = time() . '_' . uniqid();
+            $image_name = compressUploadedPhotoAsJpeg($_FILES['image']['tmp_name'], $upload_dir, $base_filename, 2000, 88);
 
-            if (compressUploadedImage($_FILES['image']['tmp_name'], $image_path, 2000, 88)) {
+            if ($image_name) {
+                $image_path = $upload_dir . $image_name;
                 $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $image_path);
                 $sql = "INSERT INTO board_results (title, board_type, year, image_path, display_order)
                         VALUES ('$title', '$board_type', $year, '$image_path', $display_order)";

@@ -37,7 +37,7 @@ $page_title = 'Gallery';
             if ($gallery_result && mysqli_num_rows($gallery_result) > 0) {
                 while ($image = mysqli_fetch_assoc($gallery_result)) {
                     echo '<div class="gallery-item" data-category="' . htmlspecialchars($image['category']) . '" style="position: relative; overflow: hidden; border-radius: var(--radius-lg); box-shadow: var(--shadow-xs);">';
-                    echo '<img src="' . htmlspecialchars($image['image_path']) . '" alt="' . htmlspecialchars($image['title']) . '" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">';
+                    echo '<img src="' . htmlspecialchars($image['image_path']) . '" alt="' . htmlspecialchars($image['title']) . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform=\'scale(1.1)\'" onmouseout="this.style.transform=\'scale(1)\'">';
                     if (!empty($image['title'])) {
                         echo '<div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 15px 10px 10px; color: white;">';
                         echo '<p style="text-align: center; margin: 0; font-weight: 600; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">' . htmlspecialchars($image['title']) . '</p>';

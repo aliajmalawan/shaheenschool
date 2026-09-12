@@ -49,10 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
         if (in_array($file_extension, $allowed_extensions)) {
-            $new_filename = time() . '_' . uniqid() . '.' . $file_extension;
-            $target_file = $upload_dir . $new_filename;
+            $base_filename = time() . '_' . uniqid();
+            $new_filename = compressUploadedPhotoAsJpeg($_FILES['image']['tmp_name'], $upload_dir, $base_filename, 1600, 85);
 
-            if (compressUploadedImage($_FILES['image']['tmp_name'], $target_file, 1600, 85)) {
+            if ($new_filename) {
+                $target_file = $upload_dir . $new_filename;
                 $image_path = 'uploads/news/' . $new_filename;
                 $image_savings = describeCompressionSavings($_FILES['image']['tmp_name'], $target_file);
             }

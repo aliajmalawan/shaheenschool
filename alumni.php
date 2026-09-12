@@ -105,7 +105,7 @@ $page_title = 'Alumni';
                     while ($alum = mysqli_fetch_assoc($alumni)) {
                         echo '<div class="card" style="text-align: center;">';
                         if ($alum['photo']) {
-                            echo '<img src="' . $alum['photo'] . '" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px;">';
+                            echo '<img src="' . $alum['photo'] . '" loading="lazy" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px;">';
                         } else {
                             echo '<i class="fas fa-user-circle" style="font-size: 120px; color: var(--primary-color); opacity: 0.3; margin-bottom: 15px;"></i>';
                         }

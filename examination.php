@@ -109,7 +109,7 @@ $page_title = 'Examination';
                     if ($inter_results && mysqli_num_rows($inter_results) > 0) {
                         while ($result = mysqli_fetch_assoc($inter_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';
@@ -129,7 +129,7 @@ $page_title = 'Examination';
                     if ($matric_results && mysqli_num_rows($matric_results) > 0) {
                         while ($result = mysqli_fetch_assoc($matric_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';

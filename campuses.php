@@ -69,7 +69,7 @@ if ($campuses_result) {
 
             <div>
                 <?php if (!empty($c['image_path'])): ?>
-                    <img src="<?php echo htmlspecialchars($c['image_path']); ?>" alt="<?php echo htmlspecialchars($c['name']); ?>" style="width: 100%; height: 280px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <img src="<?php echo htmlspecialchars($c['image_path']); ?>" alt="<?php echo htmlspecialchars($c['name']); ?>" loading="lazy" style="width: 100%; height: 280px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
                 <?php else: ?>
                     <div style="width: 100%; height: 280px; border-radius: var(--radius-lg); background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); display: flex; align-items: center; justify-content: center;">
                         <i class="fas <?php echo htmlspecialchars($c['icon'] ?: 'fa-school'); ?>" style="font-size: 80px; color: #fff;"></i>
