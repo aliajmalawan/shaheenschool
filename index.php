@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Home';
+$meta_description = 'SHAHEEN PUBLIC HIGH SCHOOL in Sadiqabad offers quality education from Matric to Intermediate, with experienced faculty, modern facilities, and a focus on academic excellence and character building.';
 ?>
 <?php include 'includes/header.php'; ?>
 
@@ -13,9 +14,15 @@ $page_title = 'Home';
                 <div class="container" style="text-align: center;">
                     <div class="hero-content" style="max-width: 900px; margin: 0 auto;">
                         <span class="eyebrow on-dark">Welcome to <?php echo getSiteName(); ?></span>
-                        <h1 style="color: <?php echo htmlspecialchars($slide['text_color'] ?? '#ffffff'); ?>; animation: fadeInUp 1s;">
+                        <?php
+                        // Only one <h1> per page for SEO - the first slide gets the
+                        // real heading tag, the rest reuse its look via .hero-heading
+                        // so the carousel still looks identical as it rotates.
+                        $heading_tag = $index === 0 ? 'h1' : 'p';
+                        ?>
+                        <<?php echo $heading_tag; ?> class="hero-heading" style="color: <?php echo htmlspecialchars($slide['text_color'] ?? '#ffffff'); ?>; animation: fadeInUp 1s;">
                             <?php echo htmlspecialchars($slide['title'] ?: 'Welcome to ' . getSiteName()); ?>
-                        </h1>
+                        </<?php echo $heading_tag; ?>>
                         <?php if (!empty($slide['subtitle'])): ?>
                             <p class="tagline" style="color: <?php echo htmlspecialchars($slide['text_color'] ?? '#ffffff'); ?>; animation: fadeInUp 1.2s;">
                                 <?php echo htmlspecialchars($slide['subtitle']); ?>

@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Our Campuses';
+$meta_description = "Explore SHAHEEN PUBLIC HIGH SCHOOL's network of specialized institutes, including Computer College and Taekwondo Campus, beyond our main campus in Sadiqabad.";
 
 // Renders one campus's detail column - shared by both left/right layout slots
 function renderCampusDetails($c) {

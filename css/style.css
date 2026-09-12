@@ -630,6 +630,17 @@ header > nav .container {
     z-index: 2;
 }
 
+/* Only the first carousel slide uses a real <h1> (one per page, for SEO);
+   the other rotating slides reuse this class on a <p> so every slide
+   still looks identical as the carousel cycles through them. */
+.hero-cover h1,
+.hero-cover .hero-heading {
+    font-size: clamp(32px, 4.4vw, 54px);
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.15;
+}
+
 /* ========================================
    Buttons
    ======================================== */
@@ -1410,7 +1421,8 @@ footer {
         min-height: 480px !important;
     }
 
-    .hero-cover h1 {
+    .hero-cover h1,
+    .hero-cover .hero-heading {
         font-size: 28px !important;
         line-height: 1.25 !important;
     }
@@ -1531,7 +1543,8 @@ footer {
         min-height: 460px !important;
     }
 
-    .hero-cover h1 {
+    .hero-cover h1,
+    .hero-cover .hero-heading {
         font-size: 24px !important;
     }
 

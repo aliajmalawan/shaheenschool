@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Our Faculty';
+$meta_description = 'Meet the experienced and dedicated teaching faculty at SHAHEEN PUBLIC HIGH SCHOOL, committed to helping every student succeed academically.';
 ?>
 <?php include 'includes/header.php'; ?>
 

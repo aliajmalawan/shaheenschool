@@ -6,6 +6,7 @@ require_once 'includes/settings_helper.php';
 $downloads = mysqli_query($conn, "SELECT * FROM downloads WHERE status = 'active' ORDER BY display_order ASC, date DESC");
 
 $page_title = 'Downloads';
+$meta_description = 'Download important documents, homework assignments, and study materials from SHAHEEN PUBLIC HIGH SCHOOL.';
 ?>
 <?php include 'includes/header.php'; ?>
 

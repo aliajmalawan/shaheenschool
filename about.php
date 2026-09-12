@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'About Us';
+$meta_description = "Learn about SHAHEEN PUBLIC HIGH SCHOOL's mission, vision, and commitment to academic excellence, discipline, and holistic student development.";
 ?>
 <?php include 'includes/header.php'; ?>
 

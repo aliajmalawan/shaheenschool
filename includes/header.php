@@ -1,18 +1,66 @@
+<?php
+$meta_description = $meta_description ?? 'SHAHEEN PUBLIC HIGH SCHOOL - Quality Education for a Bright Future';
+$site_scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$site_base_url = $site_scheme . '://' . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+$current_url = $site_scheme . '://' . $_SERVER['HTTP_HOST'] . strtok($_SERVER['REQUEST_URI'], '?');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SHAHEEN PUBLIC HIGH SCHOOL - Quality Education for a Bright Future">
-    <meta name="keywords" content="education, school, learning, fort education">
+    <meta name="description" content="<?php echo htmlspecialchars($meta_description); ?>">
+    <meta name="keywords" content="education, school, learning, Sadiqabad, Shaheen Public High School">
     <meta name="author" content="SHAHEEN PUBLIC HIGH SCHOOL">
+    <link rel="canonical" href="<?php echo htmlspecialchars($current_url); ?>">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?><?php echo getSiteName(); ?></title>
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?php echo htmlspecialchars((isset($page_title) ? $page_title . ' - ' : '') . getSiteName()); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($meta_description); ?>">
+    <meta property="og:url" content="<?php echo htmlspecialchars($current_url); ?>">
+    <meta property="og:image" content="<?php echo htmlspecialchars($site_base_url . '/' . getLogoPath()); ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars((isset($page_title) ? $page_title . ' - ' : '') . getSiteName()); ?>">
+    <meta name="twitter:description" content="<?php echo htmlspecialchars($meta_description); ?>">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (helps Google show rich results / knowledge panel) -->
+    <script type="application/ld+json">
+    <?php
+        $schema_social = array_values(array_filter(getSocialMedia(), function ($url) {
+            return !empty($url) && $url[0] !== '#';
+        }));
+        // The address setting is free-form text (e.g. "Street, City\nPakistan") -
+        // split it into street/country so the schema fields aren't just one
+        // field with a raw line break jammed inside it.
+        $address_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', getSiteAddress()))));
+        $schema_address = ['@type' => 'PostalAddress'];
+        if (!empty($address_lines)) {
+            $schema_address['streetAddress'] = $address_lines[0];
+        }
+        if (isset($address_lines[1])) {
+            $schema_address['addressCountry'] = $address_lines[1];
+        }
+        echo json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'School',
+            'name' => getSiteName(),
+            'url' => $site_base_url . '/index.php',
+            'logo' => $site_base_url . '/' . getLogoPath(),
+            'telephone' => getSitePhone(),
+            'email' => getSiteEmail(),
+            'address' => $schema_address,
+            'sameAs' => $schema_social,
+        ], JSON_UNESCAPED_SLASHES);
+    ?>
+    </script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">

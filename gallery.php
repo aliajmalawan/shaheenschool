@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Gallery';
+$meta_description = 'Browse photos capturing campus life, events, and activities at SHAHEEN PUBLIC HIGH SCHOOL.';
 ?>
 <?php include 'includes/header.php'; ?>
 

@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Courses & Programs';
+$meta_description = 'Explore Matric, Intermediate, and specialized courses offered at SHAHEEN PUBLIC HIGH SCHOOL, including Pre-Engineering, Pre-Medical, Computer Science, and test preparation programs.';
 ?>
 <?php include 'includes/header.php'; ?>
 

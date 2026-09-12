@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Events & News';
+$meta_description = 'Stay updated with the latest events, news, and announcements from SHAHEEN PUBLIC HIGH SCHOOL, including upcoming school activities and achievements.';
 ?>
 <?php include 'includes/header.php'; ?>
 

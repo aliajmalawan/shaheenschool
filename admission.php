@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Admission';
+$meta_description = 'Apply for admission at SHAHEEN PUBLIC HIGH SCHOOL. Fill out our online admission form for Matric and Intermediate programs, or learn about the admission process and requirements.';
 
 $success_message = '';
 $error_message = '';

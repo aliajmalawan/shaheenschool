@@ -10,6 +10,7 @@ $matric_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status 
 $inter_results = mysqli_query($conn, "SELECT * FROM board_results WHERE status = 'active' AND board_type = 'Intermediate' ORDER BY year DESC, display_order ASC");
 
 $page_title = 'Examination';
+$meta_description = 'View exam datesheets and board results for Matric and Intermediate students at SHAHEEN PUBLIC HIGH SCHOOL.';
 ?>
 <?php include 'includes/header.php'; ?>
 
@@ -109,7 +110,7 @@ $page_title = 'Examination';
                     if ($inter_results && mysqli_num_rows($inter_results) > 0) {
                         while ($result = mysqli_fetch_assoc($inter_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" alt="' . htmlspecialchars($result['title']) . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';
@@ -129,7 +130,7 @@ $page_title = 'Examination';
                     if ($matric_results && mysqli_num_rows($matric_results) > 0) {
                         while ($result = mysqli_fetch_assoc($matric_results)) {
                             echo '<div class="card">';
-                            echo '<img src="' . $result['image_path'] . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
+                            echo '<img src="' . $result['image_path'] . '" alt="' . htmlspecialchars($result['title']) . '" loading="lazy" style="width: 100%; height: 250px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 15px; cursor: pointer; box-shadow: var(--shadow-xs);" onclick="window.open(\'' . $result['image_path'] . '\', \'_blank\')">';
                             echo '<h4 style="color: var(--primary-color); margin-bottom: 10px;">' . htmlspecialchars($result['title']) . '</h4>';
                             echo '<p style="color: var(--text-light);">Year: ' . $result['year'] . '</p>';
                             echo '</div>';

@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config.php';
 $page_title = 'Contact Us';
+$meta_description = 'Get in touch with SHAHEEN PUBLIC HIGH SCHOOL. Find our address, phone number, email, office hours, and location map, or send us a message directly.';
 
 $success_message = '';
 $error_message = '';
