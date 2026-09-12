@@ -507,7 +507,7 @@ header > nav .container {
     .topbar-social { display: flex; }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1130px) {
     .topbar-info { display: flex; }
 }
 
@@ -1404,6 +1404,34 @@ footer {
         text-align: center;
     }
 
+    /* Hero carousel: shrink the fixed-height slide and its text so wrapped
+       titles don't grow past the vertically-centered prev/next arrows */
+    .hero-carousel {
+        min-height: 480px !important;
+    }
+
+    .hero-cover h1 {
+        font-size: 28px !important;
+        line-height: 1.25 !important;
+    }
+
+    .hero-cover .tagline {
+        font-size: 16px !important;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 16px !important;
+        left: 10px !important;
+    }
+
+    .carousel-next {
+        left: auto !important;
+        right: 10px !important;
+    }
+
     /* Grid utilities */
     .grid-2,
     .grid-3,
@@ -1495,6 +1523,21 @@ footer {
 @media (max-width: 480px) {
     .hero h1 {
         font-size: 26px !important;
+    }
+
+    /* Arrows collide with wrapped hero titles at this width; dots still
+       give full slide navigation, so hide the arrows instead of the text */
+    .hero-carousel {
+        min-height: 460px !important;
+    }
+
+    .hero-cover h1 {
+        font-size: 24px !important;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        display: none !important;
     }
 
     .hero .tagline {
