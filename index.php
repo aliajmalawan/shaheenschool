@@ -263,6 +263,8 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
                 <?php endif; ?>
                 <?php if (!empty($c['description'])): ?>
                     <p><?php echo htmlspecialchars($c['description']); ?></p>
+                <?php else: ?>
+                    <p style="font-style: italic; color: var(--text-light);">More details about this campus are coming soon.</p>
                 <?php endif; ?>
                 <?php if (!empty($c['address']) || !empty($c['phone'])): ?>
                 <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); text-align: left; font-size: 14px; color: var(--text-light);">
@@ -274,6 +276,7 @@ if ($notifications && mysqli_num_rows($notifications) > 0):
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
+                <a href="campuses.php" class="btn btn-outline-dark" style="margin-top: 20px;">Learn More</a>
             </div>
             <?php endwhile; ?>
         </div>
