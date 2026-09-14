@@ -233,12 +233,26 @@ function validateForm(formId) {
     if (!form) return false;
 
     let isValid = true;
-    const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+    let firstInvalid = null;
 
+    // Clear any error text left over from a previous failed attempt
+    form.querySelectorAll('.field-error').forEach(el => el.remove());
+
+    function markInvalid(input, msg) {
+        input.style.borderColor = '#dc3545';
+        const err = document.createElement('div');
+        err.className = 'field-error';
+        err.style.cssText = 'color:#dc3545;font-size:13px;margin-top:6px;';
+        err.textContent = msg;
+        input.insertAdjacentElement('afterend', err);
+        if (!firstInvalid) firstInvalid = input;
+        isValid = false;
+    }
+
+    const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     inputs.forEach(input => {
         if (!input.value.trim()) {
-            input.style.borderColor = '#ff0000';
-            isValid = false;
+            markInvalid(input, 'This field is required.');
         } else {
             input.style.borderColor = '#e0e0e0';
         }
@@ -249,8 +263,7 @@ function validateForm(formId) {
     emailInputs.forEach(input => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (input.value && !emailRegex.test(input.value)) {
-            input.style.borderColor = '#ff0000';
-            isValid = false;
+            markInvalid(input, 'Enter a valid email address.');
         }
     });
 
@@ -259,10 +272,14 @@ function validateForm(formId) {
     phoneInputs.forEach(input => {
         const phoneRegex = /^[0-9]{11}$/;
         if (input.value && !phoneRegex.test(input.value.replace(/[-\s]/g, ''))) {
-            input.style.borderColor = '#ff0000';
-            isValid = false;
+            markInvalid(input, 'Enter an 11-digit phone number (e.g. 03001234567).');
         }
     });
+
+    if (!isValid && firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.focus();
+    }
 
     return isValid;
 }

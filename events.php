@@ -131,10 +131,19 @@ $meta_description = 'Stay updated with the latest events, news, and announcement
             <h2>Stay Connected!</h2>
             <p>Follow us on social media to never miss an update</p>
             <div class="social-links" style="justify-content: center;">
-                <a href="https://www.facebook.com/forteducationsystem/" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
-                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-youtube"></i></a>
-                <a href="#" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+                <?php $social = getSocialMedia(); ?>
+                <?php if (!empty($social['facebook'])): ?>
+                    <a href="<?php echo htmlspecialchars($social['facebook']); ?>" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                <?php endif; ?>
+                <?php if (!empty($social['instagram'])): ?>
+                    <a href="<?php echo htmlspecialchars($social['instagram']); ?>" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                <?php endif; ?>
+                <?php if (!empty($social['youtube'])): ?>
+                    <a href="<?php echo htmlspecialchars($social['youtube']); ?>" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-youtube"></i></a>
+                <?php endif; ?>
+                <?php if (!empty($social['twitter'])): ?>
+                    <a href="<?php echo htmlspecialchars($social['twitter']); ?>" target="_blank" style="width: 50px; height: 50px; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

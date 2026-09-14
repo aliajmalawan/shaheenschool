@@ -18,6 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $previous_education = mysqli_real_escape_string($conn, $_POST['previous_education']);
     $message = mysqli_real_escape_string($conn, $_POST['message']);
 
+    // Look up the human-readable course name for the emails below - the
+    // form only submits the numeric course_id, and showing that raw number
+    // to the applicant ("your application for 5") looks broken.
+    $course_name = $course_id;
+    $course_name_result = mysqli_query($conn, "SELECT name FROM courses WHERE id = '$course_id'");
+    if ($course_name_result && $course_name_row = mysqli_fetch_assoc($course_name_result)) {
+        $course_name = $course_name_row['name'];
+    }
+
     // Handle file upload
     $document_path = '';
     if (isset($_FILES['documents']) && $_FILES['documents']['error'] == 0) {
@@ -85,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </tr>
                     <tr>
                         <td>Program/Course:</td>
-                        <td>" . htmlspecialchars($course_id) . "</td>
+                        <td>" . htmlspecialchars($course_name) . "</td>
                     </tr>
                     <tr>
                         <td>Previous Education:</td>
@@ -150,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <p style='margin: 0; font-size: 16px;'><strong>✓ Your application has been received successfully!</strong></p>
                     </div>
 
-                    <p>We have received your admission application for <strong>" . htmlspecialchars($course_id) . "</strong>.</p>
+                    <p>We have received your admission application for <strong>" . htmlspecialchars($course_name) . "</strong>.</p>
 
                     <h3 style='color: #0B4DA2;'>Next Steps:</h3>
                     <ol style='font-size: 15px; line-height: 1.8;'>
@@ -404,7 +413,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Our admission team is here to assist you</p>
             <div class="btn-group" style="justify-content: center;">
                 <a href="contact.php" class="btn btn-primary">Contact Us</a>
-                <a href="tel:+923061345242" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
+                <?php $admission_phone = trim(explode(',', getSitePhone())[0]); ?>
+                <a href="tel:<?php echo htmlspecialchars(str_replace([' ', '-'], '', $admission_phone)); ?>" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
             </div>
         </div>
     </div>
